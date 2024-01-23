@@ -11,7 +11,7 @@ Student Echo is the app that become the go-to rating service for University of M
 - [Feature list](link)
 
 ## User Stories
-- [User story list](link)
+- [User Story list](link) for Iteration 1
 
 
 ## Architecture
@@ -19,10 +19,11 @@ Student Echo is the app that become the go-to rating service for University of M
 - 
 
 ## Group Members
-- 
--
--
--
+- Kelly Villamayor
+- Ning Liu
+- Rishamdeep Singh
+- William Odumah
+
 
 
 
