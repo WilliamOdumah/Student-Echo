@@ -4,7 +4,7 @@ Student Echo is the app that become the go-to rating service for University of M
 
 ## Vision Statement
 
-- [Vision Statement](link) for Iteration 0
+- [Vision Statement](https://code.cs.umanitoba.ca/comp3350-winter2024/KeyValuePairs-a02-8/-/blob/main/Vision_Statement.md?ref_type=heads) for Iteration 0
 
 
 ## Features
@@ -19,6 +19,7 @@ Student Echo is the app that become the go-to rating service for University of M
 - 
 
 ## Group Members
+- Brett Aseltine
 - Kelly Villamayor
 - Ning Liu
 - Rishamdeep Singh
