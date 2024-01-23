@@ -1,4 +1,4 @@
-Student Echo: Revolutionizing Course Selection at the University of Manitoba
+## Student Echo: Revolutionizing Course Selection at the University of Manitoba
 
 Student Echo aspires to become the go-to rating service for University of Manitoba students. It is not just an app; it is a movement to transform how students make one of their most crucial decisions: selecting courses and instructors. Student Echo empowers students to not only access, but also contribute, insightful reviews.
 
