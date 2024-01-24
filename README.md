@@ -18,6 +18,7 @@ Student Echo is the go-to rating service for University of Manitoba students!
 - Ning Liu
 - Rishamdeep Singh
 - William Odumah
+- Brett Aseltine
 
 
 
