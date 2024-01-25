@@ -8,7 +8,7 @@ Student Echo is a dedicated service that enables verified students to provide an
 
 Student Echo is a place where registered students can share their opinions on a course or instructor in the form of a rating and review. These entries can be edited, and even deleted, by the original writer. They also have the power to transform and develop the community in Student Echo by interacting with other reviews (through likes, dislikes, and reporting) and adding any course or instructor that is missing in Student Echo’s collection. 
 
-**Student Echo’s Target Audience **
+**Student Echo’s Target Audience**
 
 Student Echo is created for students, by students, aiming to empower every user to make the most informed decisions possible. However, it extends itself to a broader audience beyond current students of the University of Manitoba --- encompassing instructors, administrative staff, future students, and more. Ratings and reviews in Student Echo are publicly available to anyone, displayed through an intuitive design that allows for easy and efficient content discovery and navigation. In future iterations, we aim to expand Student Echo to offer its services across multiple universities
 
