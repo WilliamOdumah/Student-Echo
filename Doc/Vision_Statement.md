@@ -1,6 +1,6 @@
 **Student Echo: A Revolutionary Rating Service for the University of Manitoba**
 
-**Summary Sentence**
+**Summary**
 
 Student Echo is a dedicated service that enables verified students to provide and access insightful evaluations of courses and instructors at the University of Manitoba.
 
