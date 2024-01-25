@@ -1,4 +1,4 @@
-**Student Echo: A Revolutionary Rating Service for the University of Manitoba**
+#**Student Echo: A Revolutionary Rating Service for the University of Manitoba**
 
 **Summary**
 
