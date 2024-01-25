@@ -1,20 +1,22 @@
-## Student Echo: A Revolutionary Rating Service for the University of Manitoba
+**Student Echo: A Revolutionary Rating Service for the University of Manitoba**
 
-**CLEAR SUMMARY SENTENCE**\
-Student Echo is a dedicated platform to enable verified students to provide insightful ratings and reviews for courses and instructors at the University of Manitoba. By doing so, it establishes a robust repository of accurate and valuable data, empowering individuals to make informed decisions based on authentic student experiences.
+**Summary Sentence**
 
-**TARGET AUDIENCE (with roles and actions)**\
-The platform is primarily designed for student use. Students can select a course or instructor and share thier feedback in the form of a rating and review. Should a course or instructor not yet exist in the system, students will be able to contribute such information. Students may also modify and delete their own ratings or reviews.
+Student Echo is a dedicated service that enables verified students to provide and access insightful evaluations of courses and instructors at the University of Manitoba.
 
-The platform extends itself to a broader audience as well. Such individuals include instructors, administrative personnel, future students, and more. Ratings and reviews for a course or instructor are public information, accessible for viewing to any individual using the platform. Users can sort and filter this data based on desired critera, such as overall rating.
+**What is Student Echo?**
 
-**VALUE OF PROJECT**\
-Student Echo provides tremendous value to numerous individuals in the university community. For freshmen, it's a guiding light to navigate through new academic waters, while seniors will find it a strategic tool for optimizing their final year. Instructors can use it as a tool to assess student satisfaction in thier courses. Administrative staff can review instructor and course feedback to make informed and practical decisions.
+Student Echo is a place where registered students can share their opinions on a course or instructor in the form of a rating and review. These entries can be edited, and even deleted, by the original writer. They also have the power to transform and develop the community in Student Echo by interacting with other reviews (through likes, dislikes, and reporting) and adding any course or instructor that is missing in Student Echo’s collection. 
 
-Student Echo is superior to current similar services for numerous reasons. Requiring student identity verification to post information enhances data integrity. Unlike many other services that permit anyone to post reviews, this measure ensures a more reliable and trustworthy data environment. Student Echo is a free service that ensures full transparacy by enabling all individuals to access its data. Student Echo is specifically designed for the University of Manitoba, ensuring a managable information load to its users.
+**Student Echo’s Target Audience **
 
-**SUCCESS CRITERIA (measurable & objective)**\
-Both user feedback and user adoption will be used as success critera. User feedback will be obtained in the form of a survey, with the goal of achieveing 4/5 or better for overall satisfaction. User adoption will be monitored based on user accounts created, with a goal of 500 accounts created within the first three months of launching Student Echo.
+Student Echo is created for students, by students, aiming to empower every user to make the most informed decisions possible. However, it extends itself to a broader audience beyond current students of the University of Manitoba --- encompassing instructors, administrative staff, future students, and more. Ratings and reviews in Student Echo are publicly available to anyone, displayed through an intuitive design that allows for easy and efficient content discovery and navigation. In future iterations, we aim to expand Student Echo to offer its services across multiple universities
 
-**FUTURE OUTLOOK**\
-The preceding presentation lays the groundwork for significant growth potential. Looking ahead, we envision expanding Student Echo to offer services to multiple universities.
+**Student Echo’s Value**
+
+For freshmen, Student Echo is a guiding light to navigate through new academic waters, while seniors will find it a strategic tool for optimizing their final year. Instructors can use it as a tool to assess student satisfaction in their courses. Meanwhile, administrative staff (i.e. program planners, department heads, etc.) can review instructor and course feedback to help guide their decisions in forming curriculums. Across all use cases, Student Echo provides tremendous value to numerous individuals in the university community. 
+Student Echo is superior to current academic-rating services as it requires students to verify their identity while also protecting their anonymity. Unlike many other services that permit anyone to write reviews, this measure ensures that the content provided is reliable. Student Echo is a free service that ensures full transparency by enabling all individuals to access its ratings and reviews. 
+
+**Student Echo’s Success Criteria**
+
+The success of Student Echo will be determined through data and feedback collected from its users. More specifically, we aim to garner approximately 500 accounts within the first three months of launching Student Echo. As an additional criteria, 25% of these accounts should be active during the next three registration periods after its initial release. On the other hand, user feedback will be obtained in the form of a survey, with the goal of achieving a score of 4/5 or better in terms of overall satisfaction. 
