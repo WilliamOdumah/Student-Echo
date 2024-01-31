@@ -1,0 +1,16 @@
+<resources>
+
+    <string name="app_name">Student Echo</string>
+    <string name="fatalError">Fatal error</string>
+    <string name="warning">Warning</string>
+    <string name="title_activity_instructors">StudentEcho: Instructors</string>
+    <string name="title_activity_courses">StudentEcho: Courses</string>
+    <string name="find_reviews_by">Find Reviews By</string>
+    <string name="instructor">Instructor</string>
+    <string name="instructors">Instructors</string>
+    <string name="add_instructor">Add Instructor</string>
+    <string name="course">Course</string>
+    <string name="courses">Courses</string>
+    <string name="add_course">Add Course</string>
+
+</resources>
