@@ -12,5 +12,6 @@
     <string name="course">Course</string>
     <string name="courses">Courses</string>
     <string name="add_course">Add Course</string>
+    <string name="find_course">Find Course</string>
 
 </resources>

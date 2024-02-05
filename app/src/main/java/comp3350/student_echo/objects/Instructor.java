@@ -6,7 +6,7 @@ public class Instructor {
 	String title;
 	String firstName;
 	String lastName;
-	int averageRating;
+	float averageRating;
 	ArrayList<InstructorReview> reviewList;
 
 	public Instructor(String title, String first, String last) {
@@ -20,6 +20,14 @@ public class Instructor {
 	public String getTitle() {return title;}
 	public String getFirstName(){return firstName;}
 	public String getLastName() {return lastName;}
+
+	public float getAverageRating() {
+		return averageRating;
+	}
+
+	public ArrayList<InstructorReview> getReviewList() {
+		return reviewList;
+	}
 
 	public String toString() {
 		return String.format("Student: %s %s %s", title, firstName, lastName);

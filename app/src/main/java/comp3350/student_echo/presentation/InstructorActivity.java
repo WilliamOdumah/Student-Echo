@@ -1,27 +1,39 @@
 package comp3350.student_echo.presentation;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessInstructors;
+import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.Instructor;
 
-public class InstructorActivity extends Activity {
+public class InstructorActivity extends AppCompatActivity {
 
     private AccessInstructors accessInstructors;
     private List<Instructor> instructorList;
-    private ArrayAdapter<Instructor> studentArrayAdapter;
+    private ArrayAdapter<Instructor> instructorArrayAdapter;
 
+    private ListView filterListView;
+
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +44,7 @@ public class InstructorActivity extends Activity {
         try
         {
             instructorList = accessInstructors.getInstructors();
-            studentArrayAdapter = new ArrayAdapter<Instructor>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, instructorList)
+            instructorArrayAdapter = new ArrayAdapter<Instructor>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, instructorList)
             {
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
@@ -48,13 +60,65 @@ public class InstructorActivity extends Activity {
                 }
             };
 
-            final ListView listView = (ListView)findViewById(R.id.listStudents);
-            listView.setAdapter(studentArrayAdapter);
+            final ListView listView = (ListView)findViewById(R.id.listInstructor);
+            listView.setAdapter(instructorArrayAdapter);
         }
         catch (final Exception e)
         {
             Messages.fatalError(this, e.getMessage());
         }
+
+        EditText findInstructor = (EditText) findViewById(R.id.enter_instructor);
+        filterListView = (ListView) findViewById(R.id.listInstructor);
+
+        findInstructor.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String searchText = charSequence.toString().toLowerCase();
+                filterInstructor(searchText,filterListView);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+    }
+
+    private void filterInstructor(String searchText , ListView listView){
+        ArrayList<Instructor> filteredInstructor = new ArrayList<>();
+
+        for (Instructor instructor: instructorList){
+            if (instructor.getFirstName().toLowerCase().contains(searchText) || instructor.getLastName().toLowerCase().contains(searchText)){
+                filteredInstructor.add(instructor);
+            }
+        }
+        ArrayAdapter<Instructor> filtered_adapter = new ArrayAdapter<Instructor>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, filteredInstructor) {
+            @NonNull
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+
+                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+                // Use filteredInstructor list to access data directly
+                text1.setText(filteredInstructor.get(position).getFirstName() + " " + filteredInstructor.get(position).getLastName());
+                text2.setText(filteredInstructor.get(position).getTitle());
+
+                return view;
+            }
+        };
+
+        filterListView.setAdapter(filtered_adapter);
+
     }
 
     @Override
@@ -85,10 +149,10 @@ public class InstructorActivity extends Activity {
                 student = accessInstructors.insertStudent(student);
                 if (result == null) {
                     instructorList = accessInstructors.getInstructors();
-                    studentArrayAdapter.notifyDataSetChanged();
+                    instructorArrayAdapter.notifyDataSetChanged();
                     int pos = instructorList.indexOf(student);
                     if (pos >= 0) {
-                        ListView listView = (ListView) findViewById(R.id.listStudents);
+                        ListView listView = (ListView) findViewById(R.id.listInstructor);
                         listView.setSelection(pos);
                     }
                 }
@@ -117,4 +181,6 @@ public class InstructorActivity extends Activity {
 
         return null;
     }
+
+
 }

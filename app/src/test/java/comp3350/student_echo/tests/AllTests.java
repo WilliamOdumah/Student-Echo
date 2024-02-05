@@ -4,11 +4,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import comp3350.student_echo.tests.objects.CourseTest;
-import comp3350.student_echo.tests.objects.StudentTest;
+import comp3350.student_echo.tests.objects.InstructorTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        StudentTest.class,
+        InstructorTest.class,
         CourseTest.class,
 })
 public class AllTests
