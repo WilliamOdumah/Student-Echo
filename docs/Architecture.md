@@ -1,6 +1,6 @@
 # StudentEcho's Architecture
 
-A breakdown of our classes and its locations.
+An overview of our classes and its locations.
 
 ### Iteration 1 Diagram
 
