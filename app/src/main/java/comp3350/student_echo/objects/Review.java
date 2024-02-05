@@ -5,14 +5,14 @@ import java.util.Date;
 public abstract class Review {
     Date datePosted;
     String comment;
-    int overallRating;
-    int difficultyRating;
+    float overallRating;
+    float difficultyRating;
     int totalLikes;
     int totalDislikes;
     int numberOfFlagReports;
 
     public Review(){}
-    public Review(String comment, int overallRating, int difficultyRating) {
+    public Review(String comment, float overallRating, float difficultyRating) {
         datePosted = new Date();
         this.comment = comment;
         this.overallRating = overallRating;

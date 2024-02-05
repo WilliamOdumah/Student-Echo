@@ -6,7 +6,7 @@ public class Course {
 	final String courseID;
 	final String department;
 	final String courseName;
-	int averageRating;
+	float averageRating;
 	ArrayList<CourseReview> reviewList;
 
 	public Course(String department, String courseID, String courseName) {
@@ -25,6 +25,18 @@ public class Course {
 	public String getCourseName()
 	{
 		return (courseName);
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public float getAverageRating() {
+		return averageRating;
+	}
+
+	public ArrayList<CourseReview> getReviewList() {
+		return reviewList;
 	}
 
 	public String toString()

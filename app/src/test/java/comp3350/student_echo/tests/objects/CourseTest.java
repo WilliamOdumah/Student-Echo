@@ -22,4 +22,5 @@ public class CourseTest
 
 		System.out.println("Finished testCourse");
 	}
+
 }

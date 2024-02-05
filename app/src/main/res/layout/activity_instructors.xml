@@ -1,35 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="comp3350.student_echo.presentation.InstructorActivity">
 
-    <TextView
-        android:id="@+id/instructorsText"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/instructors"
-        android:textSize="30sp"
-        android:textAlignment="center"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/instructorsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="@string/instructors"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/enter_instructor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/find_instructor"
+            android:hint="Search instructor here...">
+
+        </EditText>
+
+        <ImageButton
+            android:id="@+id/find_instructor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="?android:attr/actionModeWebSearchDrawable" />
+
+    </RelativeLayout>
+
+
 
     <ListView
+        android:id="@+id/listInstructor"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/listStudents"
-        android:layout_weight="1"
         android:layout_gravity="top"
+        android:layout_weight="1"
         android:choiceMode="singleChoice" />
 
+
     <View
+        android:id="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#000000"
-        android:id="@+id/separator"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:background="#000000" />
 
     <RelativeLayout
         android:layout_width="match_parent"

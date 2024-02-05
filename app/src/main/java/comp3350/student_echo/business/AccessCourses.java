@@ -50,6 +50,24 @@ public class AccessCourses
 		return course;
 	}
 
+	public Course getRandom(String courseID)
+	{
+		courses = coursePersistence.getCourseRandom(new Course("unknown", courseID, "unknown"));
+		currentCourse = 0;
+		if (currentCourse < courses.size())
+		{
+			course = courses.get(currentCourse);
+			currentCourse++;
+		}
+		else
+		{
+			courses = null;
+			course = null;
+			currentCourse = 0;
+		}
+		return course;
+	}
+
 	public Course insertCourse(Course currentCourse)
 	{
 		return coursePersistence.insertCourse(currentCourse);
@@ -64,4 +82,6 @@ public class AccessCourses
 	{
 		coursePersistence.deleteCourse(currentCourse);
 	}
+
+
 }
