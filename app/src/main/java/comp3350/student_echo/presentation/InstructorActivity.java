@@ -1,10 +1,9 @@
 package comp3350.student_echo.presentation;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -21,7 +20,6 @@ import java.util.List;
 
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessInstructors;
-import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.Instructor;
 
 public class InstructorActivity extends AppCompatActivity {
