@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34
 
     defaultConfig {
         applicationId "comp3350.srsys"
-        minSdkVersion 19
+        minSdkVersion 30
         targetSdkVersion 34
+        compileSdkVersion 34
         versionCode 1
         versionName "1.0"
     }
@@ -21,6 +21,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.12'
     implementation 'androidx.appcompat:appcompat:1.6.1'
 }

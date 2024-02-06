@@ -1,8 +1,9 @@
 package comp3350.student_echo.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Course {
+public class Course implements Serializable {
 	final String courseID;
 	final String department;
 	final String courseName;
@@ -13,7 +14,7 @@ public class Course {
 		this.department = department;
 		this.courseID = courseID;
 		this.courseName = courseName;
-		averageRating = -1;
+		averageRating = 0;
 		reviewList = new ArrayList<>();
 	}
 
@@ -42,5 +43,9 @@ public class Course {
 	public String toString()
 	{
 		return String.format("Course: %s %s", courseID, courseName);
+	}
+
+	public boolean equals(Course c) {
+		return this.courseID.equals(c.courseID);
 	}
 }

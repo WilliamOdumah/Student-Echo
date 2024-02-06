@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
@@ -6,34 +7,33 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
-            android:name="comp3350.student_echo.presentation.HomeActivity"
-            android:label="@string/app_name"
-            android:exported="true">
+            android:name=".presentation.ViewCourseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.HomeActivity"
+            android:exported="true"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="comp3350.student_echo.presentation.InstructorActivity"
-            android:label="@string/title_activity_instructors" >
+            android:name=".presentation.InstructorActivity"
+            android:label="@string/title_activity_instructors">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="comp3350.student_echo.presentation.HomeActivity" />
         </activity>
-
-
         <activity
-            android:name="comp3350.student_echo.presentation.CoursesActivity"
-            android:label="@string/title_activity_courses" >
+            android:name=".presentation.CoursesActivity"
+            android:label="@string/title_activity_courses">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="comp3350.student_echo.presentation.HomeActivity" />
         </activity>
-
-
     </application>
 
 </manifest>
