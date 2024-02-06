@@ -14,7 +14,7 @@ public class Services
     private static ReviewPersistence reviewPersistence = null;
 
 
-	public static synchronized InstructorPersistence getStudentPersistence()
+	public static synchronized InstructorPersistence getInstructorPersistence()
     {
 		if (studentPersistence == null) {
 		    studentPersistence = new InstructorPersistenceStub();

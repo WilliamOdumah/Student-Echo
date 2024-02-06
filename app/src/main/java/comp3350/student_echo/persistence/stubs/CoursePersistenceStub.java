@@ -12,7 +12,6 @@ public class CoursePersistenceStub implements CoursePersistence {
 
     public CoursePersistenceStub() {
         this.courses = new ArrayList<>();
-
         courses.add(new Course("CS", "COMP1010", "Introduction to Computer Science 1"));
         courses.add(new Course("CS", "COMP1020", "Introduction Computer Science 2"));
         courses.add(new Course("CS", "COMP2080", "Analysis of Algorithms"));
