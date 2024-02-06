@@ -22,4 +22,7 @@ public abstract class Review {
         numberOfFlagReports = 0;
     }
 
+    public String getComment() {return comment;}
+    public float getOverallRating() {return overallRating;}
+
 }

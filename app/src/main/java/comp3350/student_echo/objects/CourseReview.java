@@ -7,4 +7,6 @@ public class CourseReview extends Review {
         super(comment, overallRating, difficultyRating);
         this.course = course;
     }
+
+    public Course getCourse() {return course;}
 }
