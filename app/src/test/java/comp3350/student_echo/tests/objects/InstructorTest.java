@@ -17,7 +17,7 @@ public class InstructorTest {
         instructor = new Instructor("LOL", "12345", "");
         assertNotNull(instructor);
         assertTrue("12345".equals(instructor.getFirstName()));
-        assertTrue("Software Development".equals(instructor.getLastName()));
+        assertTrue("".equals(instructor.getLastName()));
 
         System.out.println("Finished testInstructor");
     }

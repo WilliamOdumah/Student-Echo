@@ -8,9 +8,9 @@ public interface InstructorPersistence {
     List<Instructor> getInstructorSequential();
 
 
-    Instructor insertInstructor(final Instructor currentStudent);
+    Instructor insertInstructor(final Instructor currentInstructor);
 
-    Instructor updateInstructor(final Instructor currentStudent);
+    Instructor updateInstructor(final Instructor currentInstructor);
 
-    void deleteInstructor(final Instructor currentStudent);
+    void deleteInstructor(final Instructor currentInstructor);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import comp3350.student_echo.application.Services;
 import comp3350.student_echo.objects.Instructor;
+import comp3350.student_echo.persistence.CoursePersistence;
 import comp3350.student_echo.persistence.InstructorPersistence;
 
 public class AccessInstructors
@@ -16,11 +17,19 @@ public class AccessInstructors
 
 	public AccessInstructors()
 	{
-		instructorPersistence = Services.getStudentPersistence();
+		instructorPersistence = Services.getInstructorPersistence();
 		instructors = null;
 		instructor = null;
 		currentInstructor = 0;
 	}
+
+    public AccessInstructors(InstructorPersistence instructorPersistence){
+
+        this.instructorPersistence = instructorPersistence;
+        instructors = null;
+        instructor = null;
+        currentInstructor = 0;
+    }
 
     public List<Instructor> getInstructors()
     {
@@ -49,18 +58,18 @@ public class AccessInstructors
         return instructor;
     }
 
-	public Instructor insertStudent(Instructor currentStudent)
+	public Instructor insertInstructor(Instructor currentInstructor)
 	{
-		return instructorPersistence.insertInstructor(currentStudent);
+		return instructorPersistence.insertInstructor(currentInstructor);
 	}
 
-	public Instructor updateStudent(Instructor currentStudent)
+	public Instructor updateInstructor(Instructor currentInstructor)
 	{
-		return instructorPersistence.updateInstructor(currentStudent);
+		return instructorPersistence.updateInstructor(currentInstructor);
 	}
 
-	public void deleteStudent(Instructor currentStudent)
+	public void deleteInstructor(Instructor currentInstructor)
 	{
-		instructorPersistence.deleteInstructor(currentStudent);
+		instructorPersistence.deleteInstructor(currentInstructor);
 	}
 }
