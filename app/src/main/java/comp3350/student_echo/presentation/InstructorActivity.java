@@ -139,18 +139,18 @@ public class InstructorActivity extends AppCompatActivity {
     }
 
     public void buttonInstructorCreateOnClick(View v) {
-        Instructor student = createInstructor();
+        Instructor instructor = createInstructor();
         String result;
 
-        result = validateStudentData(student, true);
+        result = validateInstructorData(instructor, true);
         if (result == null) {
             try
             {
-                student = accessInstructors.insertStudent(student);
+                instructor = accessInstructors.insertInstructor(instructor);
                 if (result == null) {
                     instructorList = accessInstructors.getInstructors();
                     instructorArrayAdapter.notifyDataSetChanged();
-                    int pos = instructorList.indexOf(student);
+                    int pos = instructorList.indexOf(instructor);
                     if (pos >= 0) {
                         ListView listView = (ListView) findViewById(R.id.listInstructor);
                         listView.setSelection(pos);
@@ -170,7 +170,7 @@ public class InstructorActivity extends AppCompatActivity {
         return new Instructor("101", "PROF TEST", "ADDDRRR");
     }
 
-    private String validateStudentData(Instructor instructor, boolean isNewInstructor) {
+    private String validateInstructorData(Instructor instructor, boolean isNewInstructor) {
         if (instructor.getFirstName().length() == 0) {
             return "First name required";
         }

@@ -11,7 +11,7 @@ public class Services
 	private static CoursePersistence coursePersistence = null;
 
 
-	public static synchronized InstructorPersistence getStudentPersistence()
+	public static synchronized InstructorPersistence getInstructorPersistence()
     {
 		if (studentPersistence == null)
 		{

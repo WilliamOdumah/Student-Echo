@@ -22,27 +22,29 @@ public class AccessCourses
 		currentCourse = 0;
 	}
 
-    public List<Course> getCourses()
+	public AccessCourses(CoursePersistence coursePersistence) {
+		this.coursePersistence = coursePersistence;
+		courses = null;
+		course = null;
+		currentCourse = 0;
+	}
+
+	public List<Course> getCourses()
     {
         courses = coursePersistence.getCourseSequential();
         return Collections.unmodifiableList(courses);
     }
 
-	public Course getSequential()
-	{
+	public Course getSequential() {
 		String result = null;
-		if (courses == null)
-		{
-            courses = coursePersistence.getCourseSequential();
+		if (courses == null) {
+			courses = coursePersistence.getCourseSequential();
 			currentCourse = 0;
 		}
-		if (currentCourse < courses.size())
-		{
+		if (currentCourse < courses.size()) {
 			course = (Course) courses.get(currentCourse);
 			currentCourse++;
-		}
-		else
-		{
+		} else {
 			courses = null;
 			course = null;
 			currentCourse = 0;
