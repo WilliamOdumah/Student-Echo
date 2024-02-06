@@ -13,5 +13,6 @@
     <string name="courses">Courses</string>
     <string name="add_course">Add Course</string>
     <string name="find_course">Find Course</string>
+    <string name="title_activity_login">StudenEcho: Login</string>
 
 </resources>
