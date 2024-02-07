@@ -125,48 +125,9 @@ public class CoursesActivity extends AppCompatActivity {
 
     }
 
-    public void buttonCourseCreateOnClick(View v) {
-        Course course = createCourse();
-        String result;
-
-        result = validateCourseData(course, true);
-        if (result == null) {
-            try {
-                course = accessCourses.insertCourse(course);
-
-                courseList = accessCourses.getCourses();
-                courseArrayAdapter.notifyDataSetChanged();
-                int pos = courseList.indexOf(course);
-                if (pos >= 0) {
-                    ListView listView = (ListView) findViewById(R.id.listCourses);
-                    listView.setSelection(pos);
-                }
-            } catch (final Exception e) {
-                Messages.fatalError(this, e.getMessage());
-            }
-        } else {
-            Messages.warning(this, result);
-        }
-    }
-
     public void buttonBackHomeOnclick(View v) {
         onBackPressed();
     }
 
-    private Course createCourse() {
-        return new Course("ARTS", "ENGL9999", "TestNameee");
-    }
-
-    private String validateCourseData(Course course, boolean isNewCourse) {
-        if (course.getCourseID().length() == 0) {
-            return "Course ID required";
-        }
-
-        if (course.getCourseName().length() == 0) {
-            return "Course name required";
-        }
-
-        return null;
-    }
 
 }
