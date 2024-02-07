@@ -1,8 +1,9 @@
 package comp3350.student_echo.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Instructor {
+public class Instructor implements Serializable {
 	String title;
 	String firstName;
 	String lastName;
@@ -13,7 +14,7 @@ public class Instructor {
 		this.title = title;
 		firstName = first;
 		lastName = last;
-		averageRating = -1;
+		averageRating = 0;
 		reviewList = new ArrayList<>();
 	}
 
