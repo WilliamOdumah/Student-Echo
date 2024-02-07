@@ -144,49 +144,4 @@ public class InstructorActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void buttonInstructorCreateOnClick(View v) {
-        Instructor instructor = createInstructor();
-        String result;
-
-        result = validateInstructorData(instructor, true);
-        if (result == null) {
-            try
-            {
-                instructor = accessInstructors.insertInstructor(instructor);
-                if (result == null) {
-                    instructorList = accessInstructors.getInstructors();
-                    instructorArrayAdapter.notifyDataSetChanged();
-                    int pos = instructorList.indexOf(instructor);
-                    if (pos >= 0) {
-                        ListView listView = (ListView) findViewById(R.id.listInstructor);
-                        listView.setSelection(pos);
-                    }
-                }
-            }
-            catch(final Exception e)
-            {
-                Messages.fatalError(this, e.getMessage());
-            }
-        } else {
-        	Messages.warning(this, result);
-        }
-    }
-
-    private Instructor createInstructor() {
-        return new Instructor("101", "PROF TEST", "ADDDRRR");
-    }
-
-    private String validateInstructorData(Instructor instructor, boolean isNewInstructor) {
-        if (instructor.getFirstName().length() == 0) {
-            return "First name required";
-        }
-
-        if (instructor.getLastName().length() == 0) {
-            return "Last name required";
-        }
-
-        return null;
-    }
-
-
 }

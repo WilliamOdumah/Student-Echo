@@ -73,18 +73,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="#000000" />
-
-        <Button
-            android:id="@+id/buttonCourseCreate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/separator"
-            android:layout_centerHorizontal="true"
-            android:enabled="true"
-            android:onClick="buttonCourseCreateOnClick"
-            android:text="@string/add_course" />
-
-
     </RelativeLayout>
 
 
