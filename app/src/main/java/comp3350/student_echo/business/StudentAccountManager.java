@@ -4,9 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import comp3350.student_echo.objects.StudentAccount;
-import comp3350.student_echo.application.Services;
-import comp3350.student_echo.persistence.AccountPersistence;
-import comp3350.student_echo.persistence.stubs.AccountPersistenceStub;
 
 public class StudentAccountManager {
 
