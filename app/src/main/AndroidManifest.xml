@@ -7,6 +7,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".presentation.Activity_Login"
             android:exported="true"
@@ -20,8 +21,9 @@
         </activity>
         <activity
             android:name=".presentation.HomeActivity"
-            android:exported="true"
-            android:label="@string/app_name">
+
+            android:label="@string/app_name"
+            android:parentActivityName=".presentation.Activity_Login">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="comp3350.student_echo.presentation.Activity_Login" />
@@ -29,14 +31,16 @@
 
         <activity
             android:name=".presentation.InstructorActivity"
-            android:label="@string/title_activity_instructors">
+            android:label="@string/title_activity_instructors"
+            android:parentActivityName=".presentation.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="comp3350.student_echo.presentation.HomeActivity" />
         </activity>
         <activity
             android:name=".presentation.CoursesActivity"
-            android:label="@string/title_activity_courses">
+            android:label="@string/title_activity_courses"
+            android:parentActivityName=".presentation.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="comp3350.student_echo.presentation.HomeActivity" />

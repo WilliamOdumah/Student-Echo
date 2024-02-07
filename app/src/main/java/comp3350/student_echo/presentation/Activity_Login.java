@@ -1,5 +1,7 @@
 package comp3350.student_echo.presentation;
 
+import static android.app.PendingIntent.getActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,14 +14,20 @@ import comp3350.student_echo.objects.StudentAccount;
 
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class Activity_Login extends AppCompatActivity {
+
+    private StudentAccount LoggedInAccount;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
 
         setContentView(R.layout.activity_login);
@@ -40,9 +48,15 @@ public class Activity_Login extends AppCompatActivity {
 
         AuthenticateLogin newAttempt=new AuthenticateLogin();
         StudentAccount dummyAccount= new StudentAccount(username,password,"dummy","dummy");
+        StudentAccount returned=newAttempt.findAccount(dummyAccount);
 
-        if(newAttempt.findAccount(dummyAccount)!=null) {
+        if(returned!=null) {
+            loginIntent.putExtra("LoggedAccount",returned);
             Activity_Login.this.startActivity(loginIntent);
+        }
+        else {
+            Toast.makeText(this, "Check your username and password!",Toast.LENGTH_LONG).show();
+
         }
 
     }

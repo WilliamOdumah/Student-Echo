@@ -1,6 +1,7 @@
 package comp3350.student_echo.presentation;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import java.util.List;
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessCourses;
 import comp3350.student_echo.objects.Course;
+import comp3350.student_echo.objects.StudentAccount;
 
 public class CoursesActivity extends AppCompatActivity {
 
@@ -33,12 +35,19 @@ public class CoursesActivity extends AppCompatActivity {
     private ArrayAdapter<Course> courseArrayAdapter;
     private ListView filterListView;
 
+    private StudentAccount loggedInAccount;
+
+
+
+
     @SuppressLint({"CutPasteId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
 
+        Intent intent = getIntent();
+        loggedInAccount= (StudentAccount)intent.getExtras().getSerializable("LoggedAccount");
         accessCourses = new AccessCourses();
 
         try {
@@ -134,10 +143,10 @@ public class CoursesActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        if(item.getItemId()==android.R.id.home){
+            super.onBackPressed();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
