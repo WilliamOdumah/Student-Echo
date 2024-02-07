@@ -1,22 +1,21 @@
 package comp3350.student_echo.presentation;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AuthenticateLogin;
 import comp3350.student_echo.objects.StudentAccount;
 
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
-
 
 public class Activity_Login extends AppCompatActivity {
 
-    private StudentAccount LoggedInAccount;
+    private StudentAccount loggedInAccount;
 
 
 
@@ -45,10 +44,10 @@ public class Activity_Login extends AppCompatActivity {
 
         AuthenticateLogin newAttempt=new AuthenticateLogin();
         StudentAccount dummyAccount= new StudentAccount(username,password,"dummy");
-        StudentAccount returned=newAttempt.findAccount(dummyAccount);
+        loggedInAccount=newAttempt.findAccount(dummyAccount);
 
-        if(returned!=null) {
-            loginIntent.putExtra("LoggedAccount",returned);
+        if(loggedInAccount!=null) {
+            loginIntent.putExtra("LoggedAccount",loggedInAccount);
             Activity_Login.this.startActivity(loginIntent);
         }
         else {
