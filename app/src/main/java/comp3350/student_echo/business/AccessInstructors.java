@@ -49,17 +49,17 @@ public class AccessInstructors
         return instructor;
     }
 
-	public Instructor insertStudent(Instructor currentStudent)
+	public Instructor insertInstructor(Instructor currentStudent)
 	{
 		return instructorPersistence.insertInstructor(currentStudent);
 	}
 
-	public Instructor updateStudent(Instructor currentStudent)
+	public Instructor updateInstructor(Instructor currentStudent)
 	{
 		return instructorPersistence.updateInstructor(currentStudent);
 	}
 
-	public void deleteStudent(Instructor currentStudent)
+	public void deleteInstructor(Instructor currentStudent)
 	{
 		instructorPersistence.deleteInstructor(currentStudent);
 	}

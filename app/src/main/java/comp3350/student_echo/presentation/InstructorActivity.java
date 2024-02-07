@@ -144,7 +144,7 @@ public class InstructorActivity extends AppCompatActivity {
         if (result == null) {
             try
             {
-                student = accessInstructors.insertStudent(student);
+                student = accessInstructors.insertInstructor(student);
                 if (result == null) {
                     instructorList = accessInstructors.getInstructors();
                     instructorArrayAdapter.notifyDataSetChanged();

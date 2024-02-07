@@ -13,4 +13,9 @@ public class StudentAccount {
         this.studentNumber = studentNumber;
     }
 
+    public boolean loginAuthentication(StudentAccount toCompare){
+
+        return toCompare.username.equals(this.username)&&toCompare.password.equals(this.password);
+
+    }
 }
