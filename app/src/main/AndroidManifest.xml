@@ -8,6 +8,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".presentation.ViewInstructorActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ViewCourseActivity"
             android:exported="false" />
         <activity
