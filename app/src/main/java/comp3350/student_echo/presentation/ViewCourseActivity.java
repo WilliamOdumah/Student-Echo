@@ -14,8 +14,10 @@ import java.util.List;
 
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessReviews;
+import comp3350.student_echo.business.AverageCalculator;
 import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.CourseReview;
+import comp3350.student_echo.objects.Review;
 
 public class ViewCourseActivity extends AppCompatActivity {
 
@@ -47,10 +49,15 @@ public class ViewCourseActivity extends AppCompatActivity {
             String courseDept = "Department: " + course.getDepartment();
             depTV.setText(courseDept);
 
-            // display average rating
-            TextView averageRatingTV = findViewById(R.id.courseRating);
-            String avRating = "Average Rating: " + course.getAverageRating() + " / 5.0";
-            averageRatingTV.setText(avRating);
+            // display overall rating
+            TextView overallRatingTV = findViewById(R.id.courseOverallRating);
+            String overallRating = "Average Overall Rating: " + AverageCalculator.calcAverageOverallRating(courseReviews) + " / 5.0";
+            overallRatingTV.setText(overallRating);
+
+            // display difficulty rating
+            TextView difficultyRatingTV = findViewById(R.id.courseDifficultyRating);
+            String difficultyRating = "Average Difficulty Rating: " + AverageCalculator.calcAverageDifficultyRating(courseReviews) + " / 5.0";
+            difficultyRatingTV.setText(difficultyRating);
 
             // display reviews in list
             // obtain listView
