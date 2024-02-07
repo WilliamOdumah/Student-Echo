@@ -10,7 +10,7 @@ import comp3350.student_echo.persistence.InstructorPersistence;
 
 public class AccessInstructors
 {
-	private InstructorPersistence instructorPersistence;
+	private final InstructorPersistence instructorPersistence;
 	private List<Instructor> instructors;
 	private Instructor instructor;
 	private int currentInstructor;
