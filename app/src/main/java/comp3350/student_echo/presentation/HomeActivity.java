@@ -58,4 +58,9 @@ public class HomeActivity extends AppCompatActivity {
         instructorIntent.putExtra("LoggedAccount",loggedInAccount);
         HomeActivity.this.startActivity(instructorIntent);
     }
+
+    public void buttonLogOutOnClick(View v){
+        Intent logoutIntent= new Intent(HomeActivity.this, Activity_Login.class);
+        HomeActivity.this.startActivity(logoutIntent);
+    }
 }
