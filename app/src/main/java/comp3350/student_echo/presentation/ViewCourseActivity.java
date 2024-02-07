@@ -1,14 +1,15 @@
 package comp3350.student_echo.presentation;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
@@ -17,7 +18,6 @@ import comp3350.student_echo.business.AccessReviews;
 import comp3350.student_echo.business.AverageCalculator;
 import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.CourseReview;
-import comp3350.student_echo.objects.Review;
 
 public class ViewCourseActivity extends AppCompatActivity {
 
@@ -89,4 +89,14 @@ public class ViewCourseActivity extends AppCompatActivity {
             Messages.fatalError(this, e.getMessage());
         }
     }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home){
+            super.onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

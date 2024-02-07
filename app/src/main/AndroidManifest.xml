@@ -8,7 +8,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="presentation.SignUpActivity"
+            android:name=".presentation.SignUpActivity"
             android:label="@string/title_activity_signup">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
