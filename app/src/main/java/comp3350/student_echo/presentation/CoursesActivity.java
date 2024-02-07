@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,6 +24,7 @@ import java.util.List;
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessCourses;
 import comp3350.student_echo.objects.Course;
+import comp3350.student_echo.objects.StudentAccount;
 
 public class CoursesActivity extends AppCompatActivity {
 
@@ -29,12 +32,19 @@ public class CoursesActivity extends AppCompatActivity {
     private List<Course> courseList;
     private ArrayAdapter<Course> courseArrayAdapter;
 
+    private StudentAccount loggedInAccount;
+
+
+
+
     @SuppressLint({"CutPasteId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
 
+        Intent intent = getIntent();
+        loggedInAccount= (StudentAccount)intent.getExtras().getSerializable("LoggedAccount");
         accessCourses = new AccessCourses();
 
         try {
@@ -125,9 +135,31 @@ public class CoursesActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getMenuInflater().inflate(R.menu.menu_courses, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home){
+            super.onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void buttonBackHomeOnclick(View v) {
         onBackPressed();
     }
 
+
+    public void buttonLogOutOnClick(View v){
+        Intent logoutIntent= new Intent(CoursesActivity.this, Activity_Login.class);
+        CoursesActivity.this.startActivity(logoutIntent);
+    }
 
 }
