@@ -13,13 +13,13 @@ public class AccessAccounts {
     private AccountPersistence accountPersistence;
     private List<StudentAccount> accounts;
 
-    private int currentAccount;
+
 
     public AccessAccounts()
     {
         accountPersistence = Services.getAccountPersistence();
         accounts=accountPersistence.getAccountSequential();;
-        currentAccount = 0;
+
     }
 
     public  StudentAccount findLoginMatch(StudentAccount toFind){
@@ -35,6 +35,25 @@ public class AccessAccounts {
         return null;
     }
 
+    public void addAccount(StudentAccount toAdd){
+
+
+            accountPersistence.addAccount(toAdd);
+
+    }
+
+    public StudentAccount getAccount(String username){
+
+        StudentAccount currentAccount;
+
+        for (int i=0; i<accounts.size();i++){
+            currentAccount=accounts.get(i);
+            if(currentAccount.getUsername().equals(username))
+                return currentAccount;
+        }
+
+        return null;
+    }
 
 
 

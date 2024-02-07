@@ -10,7 +10,7 @@ public interface AccountPersistence {
     List<StudentAccount> getAccountSequential();
 
 
-    StudentAccount insertAccount(final StudentAccount currentStudent);
+    void addAccount(final StudentAccount currentStudent);
 
     StudentAccount updateAccount(final StudentAccount currentStudent);
 

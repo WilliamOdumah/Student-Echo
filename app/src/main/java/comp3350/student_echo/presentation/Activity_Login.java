@@ -47,7 +47,7 @@ public class Activity_Login extends AppCompatActivity {
         String password=Password.getText().toString().trim();
 
         AuthenticateLogin newAttempt=new AuthenticateLogin();
-        StudentAccount dummyAccount= new StudentAccount(username,password,"dummy","dummy");
+        StudentAccount dummyAccount= new StudentAccount(username,password,"dummy");
         StudentAccount returned=newAttempt.findAccount(dummyAccount);
 
         if(returned!=null) {
@@ -59,5 +59,10 @@ public class Activity_Login extends AppCompatActivity {
 
         }
 
+    }
+
+    public void buttonSignupOnClick(View v){
+        Intent signUpIntent= new Intent(Activity_Login.this, SignUpActivity.class);
+        Activity_Login.this.startActivity(signUpIntent);
     }
 }
