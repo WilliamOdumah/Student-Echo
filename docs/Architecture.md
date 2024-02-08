@@ -1,4 +1,4 @@
-# StudentEcho's Architecture
+# Student Echo's Architecture
 
 An overview of our classes and its locations.
 
@@ -8,7 +8,7 @@ An overview of our classes and its locations.
 
 #### Presentation
 
-StartUpActivity
+LoginActivity
 * First page of application 
 
 NOTE: We are currently forcing the users to log in before proceeding. In the next iteration, we will allow users to continue as a guest.
