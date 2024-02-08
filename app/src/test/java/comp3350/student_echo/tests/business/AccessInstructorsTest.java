@@ -1,13 +1,13 @@
 package comp3350.student_echo.tests.business;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
+import java.util.List;
 
 import comp3350.student_echo.business.AccessInstructors;
 import comp3350.student_echo.objects.Instructor;
-
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
 
 public class AccessInstructorsTest {
 
