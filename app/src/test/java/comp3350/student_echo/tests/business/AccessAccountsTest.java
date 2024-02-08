@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
+import java.util.List;
+
 import comp3350.student_echo.business.AccessAccounts;
 import comp3350.student_echo.objects.StudentAccount;
 
@@ -14,7 +16,24 @@ public class AccessAccountsTest {
     private final AccessAccounts accessAccounts;
 
     public AccessAccountsTest() {
+
         accessAccounts = new AccessAccounts();
+
+        getAccountsTest(); // testing on unmodified stub
+        getAccountTest();
+        addAccountsTest();
+        getAccountsTest(); // testing on modified stub
+    }
+
+    @Test
+    // testing if getAccounts works for unmodified stub
+    public void getAccountsTest() {
+        List<StudentAccount> accounts = accessAccounts.getAccounts();
+
+        for(StudentAccount cur: accounts) {
+            String username = cur.getUsername();
+            assertNotNull("testing if " +  username + "'s account exists", accessAccounts.getAccount(username));
+        }
     }
 
     @Test
