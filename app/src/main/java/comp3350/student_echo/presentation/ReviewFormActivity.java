@@ -86,7 +86,6 @@ public class ReviewFormActivity extends AppCompatActivity {
                     else {
                         System.out.println("FOR INSTRUCTOR = "+currentInstructor.getFirstName());
                         System.out.println("INSTRUCTOR REVIEW HAS BEEN ADDED. WE HAVE"+accessReviews.getReviewFor(currentInstructor).get(0).getComment());
-
                     }
                 }
 
