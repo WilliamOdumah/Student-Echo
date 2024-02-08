@@ -1,7 +1,10 @@
 package comp3350.student_echo.tests.business;
 
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import comp3350.student_echo.business.AccessAccounts;
 import comp3350.student_echo.objects.StudentAccount;
@@ -12,34 +15,31 @@ public class AccessAccountsTest {
 
     public AccessAccountsTest() {
         accessAccounts = new AccessAccounts();
-
-        findLogInMatchTest();
-        getAccountTest();
     }
 
     @Test
-    public void findLogInMatchTest() {
+    // test addAccount
+    public void addAccountsTest() {
+        // note that we don't test if an account is valid in AccessAccounts
+        // as StudentAccountManager is doing all of this for us
+        // this allows for a highly cohesive architecture! (yay)
 
-        StudentAccount test1Account = new StudentAccount("kelly", "villamayor", "villamak@myumanitoba.ca");
-        StudentAccount test2Account = new StudentAccount("a", "a", "a@myumanitoba.ca");
-        StudentAccount test3Account = new StudentAccount("b", "b", "b@myumanitoba.ca");
+        StudentAccount newAccount = new StudentAccount("c", "c", "c@myumanitoba.ca");
 
-        accessAccounts.addAccount(test2Account);
-
-        assertNotNull("finding a log-in match for a pre-test existing account", accessAccounts.findLoginMatch(test1Account));
-        assertNotNull("finding a log-in match for a newly-added account", accessAccounts.findLoginMatch(test2Account));
-        assertNull("returning null when trying to find a non-existing account", accessAccounts.findLoginMatch(test3Account));
+        accessAccounts.addAccount(newAccount);
+        assertNotNull("testing with newly-added account", accessAccounts.getAccount("c"));
     }
 
     @Test
+    // test getAccount
     public void getAccountTest() {
+        StudentAccount newAccount = new StudentAccount("a", "a", "a@myumanitoba.ca");
 
-        StudentAccount test1Account = new StudentAccount("kelly", "villamayor", "villamak@myumanitoba.ca");
-        StudentAccount test2Account = new StudentAccount("a", "a", "a@myumanitoba.ca"); // already added by previous test
-        StudentAccount test3Account = new StudentAccount("b", "b", "b@myumanitoba.ca");
+        assertNotNull("testing with pre-existing account", accessAccounts.getAccount("kelly"));
 
-        assertNotNull("getting a pre-test existing account", accessAccounts.findLoginMatch(test1Account));
-        assertNotNull("getting a newly-added account", accessAccounts.findLoginMatch(test2Account));
-        assertNull("returning a null when trying to get a non-existing account", accessAccounts.findLoginMatch(test3Account));
+        accessAccounts.addAccount(newAccount);
+        assertNotNull("testing with newly-added account", accessAccounts.getAccount("a"));
+
+        assertNull("testing with non-existent account", accessAccounts.getAccount("b"));
     }
 }

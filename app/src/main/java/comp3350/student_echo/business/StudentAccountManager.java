@@ -6,9 +6,9 @@ import java.util.regex.Pattern;
 import comp3350.student_echo.objects.StudentAccount;
 
 public class StudentAccountManager {
+    private final AccessAccounts accountsData;
 
 
-    private AccessAccounts accountsData;
     public StudentAccountManager() {
         accountsData=new AccessAccounts();
     }
