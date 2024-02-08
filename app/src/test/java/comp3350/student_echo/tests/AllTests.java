@@ -27,6 +27,7 @@ import comp3350.student_echo.tests.objects.StudentAccountTest;
         AuthenticateLoginTest.class,
         AverageCalculatorTest.class,
         StudentAccountManagerTest.class,
+        AccessReviewsTest.class,
 
         // objects
         CourseReviewTest.class,

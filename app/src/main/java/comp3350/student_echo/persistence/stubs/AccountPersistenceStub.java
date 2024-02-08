@@ -11,7 +11,6 @@ public class AccountPersistenceStub implements AccountPersistence {
 
     private List<StudentAccount> accounts;
 
-
     public AccountPersistenceStub(){
         accounts = new ArrayList<>();
         accounts.add(new StudentAccount("william","odumah","william@myumanitoba.ca"));
