@@ -1,39 +1,39 @@
 # Iteration 1 Summary
 
+NOTE: We are currently forcing the users to log in before proceeding. In the next iteration, we will allow users to continue as a guest.
+
 ## **Progress**
 
 ### Completed 
+
 * Account Management 
   * Registration
   * Secure Log-in
   * Secure Log-out
   
-* Course and Instructor Discover
+* Course and Instructor Discovery
   * Find an instructor 
   * Find a course
   * View a course
+  * View an instructor
+
 * Review Management
   * Write a Course Review
+  * Write an Instructor Review
   * Edit a Course Review
-  * Delete a Course Review
-
-### In Development
-
-* Course and Instructor Discovery
-  * View an instructor
-* Review Management
-  * Write a Instructor Review
   * Edit an Instructor Review
+  * Delete a Course Review
   * Delete an Instructor Review
+
+NOTE: While we finished these user stories, we plan on polishing more aspects of our application as a part of Iteration 2.
 
 ### Not Started
 
 * Account Management
   * Personalize Profiles
   * Delete Account
-    * Our stubs get re-initialized whenever we log-out, so we have to push this back for when we can make permanent changes to our database
-
-Note: These user story will be pushed back to Iteration 2.
+    
+NOTE: Due to barriers such as time constraints and complications involving the stubs, we decided to push back these user stories onto Iteration 2. 
 
 ## **Architecture Document** 
 
@@ -43,8 +43,26 @@ This is our project's [architecture design](https://code.cs.umanitoba.ca/comp335
 
 ## **Iteration 1 Retrospective** 
 
+* Communication 
+
+* Coordination 
+
+* Coding Standards
+
+* Contribution Standards
 
 ## **Iteration 2 Objectives** 
+
+* Add proper error catching
+* Handle errors and display appropriate user-feedback
+* Build an error hierarchy
+* Finish the account management feature 
+  * Add a user page which allows user to personalize their account
+  * Allow users to delete accounts only if they are logged in
+* Allow users to continue as guests in our system 
+* Polish up our user-interface appearance and functionality 
+* Complete a majority of Iteration 2's features 
+* Add a proper database and adjusts tests accordingly
 
 
 

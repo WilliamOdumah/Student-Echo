@@ -35,15 +35,11 @@ ViewInstructorActivity
 
 #### Logic
 
-AuthenticatorLogin
+AuthenticateLogin
 * Speaks to the AccessAccounts class to check if user's log-in input is valid 
 
 AccessAccounts
-* Handles get/set/add/delete requests directed to the AccountsPersistenceStub
-
-SearchProcessor
-* Handles search queries to see which course/reviews meet the specified requirements
-* Separated for future iterations where we plan to add filter options 
+* Handles get/set/add/delete requests directed to the AccountsPersistenceStub 
 
 AccessInstructors
 * Handles get/set/add/delete requests directed to the InstructorPersistenceStub
@@ -53,6 +49,10 @@ AccessCourses
 
 AccessReviews
 * Handles get/set/add/delete requests directed to the ReviewPersistenceStub
+
+AverageCalculator
+* Determines and returns the average rating of a specified object 
+* Used by ViewCourseActivity and ViewInstructorActivity
 
 #### Data
 
