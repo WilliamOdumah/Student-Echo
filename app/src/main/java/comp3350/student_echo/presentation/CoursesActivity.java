@@ -136,38 +136,6 @@ public class CoursesActivity extends AppCompatActivity {
 
     }
 
-
-//    private void filterCourses(String searchText , ListView listView){
-//        ArrayList<Course> filteredCourses = new ArrayList<>();
-//
-//        for (Course course: courseList){
-//            if (course.getCourseID().toLowerCase().contains(searchText) || course.getCourseName().toLowerCase().contains(searchText)){
-//                filteredCourses.add(course);
-//
-//            }
-//        }
-//
-//        ArrayAdapter<Course> filtered_adapter = new ArrayAdapter<Course>(this, android.R.layout.simple_list_item_activated_2,android.R.id.text1,filteredCourses){
-//            @NonNull
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent) {
-//                View view = super.getView(position, convertView, parent);
-//
-//                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-//                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-//
-//                Course course = getItem(position);
-//                text1.setText(course.getCourseID());
-//                text2.setText(course.getCourseName());
-//
-//                return view;
-//            }
-//        };
-//
-//        listView.setAdapter(filtered_adapter);
-//
-//    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
