@@ -25,7 +25,6 @@ public class AccessAccounts {
         return Collections.unmodifiableList(accountPersistence.getAccountSequential());
     }
 
-
     public StudentAccount getAccount(String username) {
         List<StudentAccount> accounts = accountPersistence.getAccountSequential();
         StudentAccount currentAccount;

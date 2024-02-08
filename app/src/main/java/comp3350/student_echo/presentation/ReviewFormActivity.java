@@ -7,16 +7,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessReviews;
-import comp3350.student_echo.objects.Instructor;
-import comp3350.student_echo.objects.InstructorReview;
-import comp3350.student_echo.persistence.stubs.ReviewPersistenceStub;
 import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.CourseReview;
-import comp3350.student_echo.objects.Review;
+import comp3350.student_echo.objects.Instructor;
+import comp3350.student_echo.objects.InstructorReview;
 import comp3350.student_echo.objects.StudentAccount;
 
 public class ReviewFormActivity extends AppCompatActivity {
@@ -25,12 +24,10 @@ public class ReviewFormActivity extends AppCompatActivity {
     private RatingBar difficultyRatingBar;
     private EditText commentEditText;
 
-    private boolean isCourse=false;
-//    ReviewPersistenceStub database = ReviewPersistenceStub.getInstance(); //get the database
-    Course currentCourse = null;
-    Instructor currentInstructor = null;
-    AccessReviews accessReviews;
-
+    private boolean isCourse = false;
+    private Course currentCourse = null;
+    private Instructor currentInstructor = null;
+    private AccessReviews accessReviews;
 
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -41,7 +38,6 @@ public class ReviewFormActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +57,7 @@ public class ReviewFormActivity extends AppCompatActivity {
         } else if (current instanceof Instructor) {
             currentInstructor = (Instructor) getIntent().getSerializableExtra("REVIEW_TYPE");
         }
-//        Course currentCourse = (Course) getIntent().getSerializableExtra("REVIEW_TYPE");
+
         if (currentUser == null) {
             Toast.makeText(this, "User is not logged in.", Toast.LENGTH_LONG).show();
             finish();
@@ -86,13 +82,11 @@ public class ReviewFormActivity extends AppCompatActivity {
                 if (isCourse){
                     System.out.println("IS A COURSE");
                     CourseReview review = new CourseReview(currentCourse, comment, overallRating, difficultyRating, currentUser);
-//                    database.addCourseReview(review);
                     accessReviews.addCourseReview(review);
                 }
                 else {
                     System.out.println("IS AN INSTRUCTOR");
                     InstructorReview review = new InstructorReview(currentInstructor, comment, overallRating, difficultyRating, currentUser);
-//                    database.addInstructorReview(review);
                     accessReviews.addInstructorReview(review);
                     if (accessReviews.getReviewFor(currentInstructor).isEmpty()){
                         System.out.println("ITS STILL EMPTY");
@@ -107,9 +101,6 @@ public class ReviewFormActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
     }
 }
 

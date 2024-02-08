@@ -1,8 +1,10 @@
 package comp3350.student_echo.tests.objects;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import comp3350.student_echo.objects.StudentAccount;
 
@@ -17,7 +19,6 @@ public class StudentAccountTest {
 
     @Test
     public void testStudentAccountCreation() {
-        //TODO
         assertEquals("Check username", a1.getUsername(), "username");
         assertNotEquals("Check username", a1.getUsername(), "notusername");
     }

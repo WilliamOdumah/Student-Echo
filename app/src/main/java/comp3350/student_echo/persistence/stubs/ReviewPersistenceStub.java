@@ -99,8 +99,6 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         }
     }
 
-
-
     public void editReview(CourseReview updatedReview) {
         for (int i = 0; i < courseReviews.size(); i++) {
             CourseReview review = courseReviews.get(i);

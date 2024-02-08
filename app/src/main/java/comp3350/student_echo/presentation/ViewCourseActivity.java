@@ -1,15 +1,12 @@
 package comp3350.student_echo.presentation;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,10 +15,10 @@ import java.util.List;
 
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessReviews;
+import comp3350.student_echo.business.AverageCalculator;
 import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.CourseReview;
 import comp3350.student_echo.objects.StudentAccount;
-import comp3350.student_echo.business.AverageCalculator;
 
 public class ViewCourseActivity extends AppCompatActivity {
 
@@ -32,14 +29,13 @@ public class ViewCourseActivity extends AppCompatActivity {
 
     public static final int EDIT_REVIEW_REQUEST_CODE = 2; // Request code for editing a review
 
-//    // Variables for user account information
+   // Variables for user account information
     StudentAccount currentUser = null; // the current logged in user
     StudentAccount userToBe = new StudentAccount("williamo", "password", "odumahw@myumanitoba.ca"); // stub user we will use for implementation
 
     StudentAccount loggedInAccount = null;
     private static final String ACCOUNT_KEY= "LoggedAccount";
     Course course;
-    private boolean isLoggedIn = false; // Flag to track if the user is logged in
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

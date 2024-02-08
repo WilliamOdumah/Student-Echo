@@ -8,5 +8,5 @@ public class CourseReview extends Review {
         this.course = course;
     }
 
-    public Course getCourse() {return course;}
+    public Course getCourse() { return course; }
 }
