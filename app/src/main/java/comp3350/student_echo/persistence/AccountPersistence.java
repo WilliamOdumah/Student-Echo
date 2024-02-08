@@ -10,9 +10,4 @@ public interface AccountPersistence {
 
 
     void addAccount(final StudentAccount currentStudent);
-
-    StudentAccount updateAccount(final StudentAccount currentStudent);
-
-    void deleteAccount(final StudentAccount currentStudent);
-
 }

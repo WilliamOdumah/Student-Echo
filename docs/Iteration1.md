@@ -7,8 +7,7 @@
   * Registration
   * Secure Log-in
   * Secure Log-out
-  * Delete Account 
-    * NOTE: We implemented the function but not the GUI component for this 
+  
 * Course and Instructor Discover
   * Find an instructor 
   * Find a course
@@ -31,8 +30,10 @@
 
 * Account Management
   * Personalize Profiles
+  * Delete Account
+    * Our stubs get re-initialized whenever we log-out, so we have to push this back for when we can make permanent changes to our database
 
-Note: This user story will be pushed back to Iteration 2.
+Note: These user story will be pushed back to Iteration 2.
 
 ## **Architecture Document** 
 
