@@ -3,9 +3,10 @@ package comp3350.student_echo.presentation;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import java.util.List;
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessCourses;
 import comp3350.student_echo.objects.Course;
+import comp3350.student_echo.objects.StudentAccount;
 
 public class CoursesActivity extends AppCompatActivity {
 
@@ -29,12 +32,19 @@ public class CoursesActivity extends AppCompatActivity {
     private List<Course> courseList;
     private ArrayAdapter<Course> courseArrayAdapter;
 
+    private StudentAccount loggedInAccount;
+
+
+
+
     @SuppressLint({"CutPasteId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
 
+        Intent intent = getIntent();
+        loggedInAccount= (StudentAccount)intent.getExtras().getSerializable("LoggedAccount");
         accessCourses = new AccessCourses();
 
         try {
@@ -71,6 +81,7 @@ public class CoursesActivity extends AppCompatActivity {
                     Course selectedCourse = (Course) parent.getItemAtPosition(position);
                     Intent viewCourseIntent = new Intent(CoursesActivity.this, ViewCourseActivity.class);
                     viewCourseIntent.putExtra("Course", selectedCourse);
+                    viewCourseIntent.putExtra("LoggedAccount",loggedInAccount);
                     CoursesActivity.this.startActivity(viewCourseIntent);
                 }
             });
@@ -125,48 +136,26 @@ public class CoursesActivity extends AppCompatActivity {
 
     }
 
-    public void buttonCourseCreateOnClick(View v) {
-        Course course = createCourse();
-        String result;
-
-        result = validateCourseData(course, true);
-        if (result == null) {
-            try {
-                course = accessCourses.insertCourse(course);
-
-                courseList = accessCourses.getCourses();
-                courseArrayAdapter.notifyDataSetChanged();
-                int pos = courseList.indexOf(course);
-                if (pos >= 0) {
-                    ListView listView = (ListView) findViewById(R.id.listCourses);
-                    listView.setSelection(pos);
-                }
-            } catch (final Exception e) {
-                Messages.fatalError(this, e.getMessage());
-            }
-        } else {
-            Messages.warning(this, result);
-        }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getMenuInflater().inflate(R.menu.menu_courses, menu);
+        return true;
     }
 
-    public void buttonBackHomeOnclick(View v) {
-        onBackPressed();
-    }
-
-    private Course createCourse() {
-        return new Course("ARTS", "ENGL9999", "TestNameee");
-    }
-
-    private String validateCourseData(Course course, boolean isNewCourse) {
-        if (course.getCourseID().length() == 0) {
-            return "Course ID required";
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home){
+            super.onBackPressed();
+            return true;
         }
 
-        if (course.getCourseName().length() == 0) {
-            return "Course name required";
-        }
+        return super.onOptionsItemSelected(item);
+    }
 
-        return null;
+    public void buttonLogOutOnClick(View v){
+        Intent logoutIntent= new Intent(CoursesActivity.this, Activity_Login.class);
+        CoursesActivity.this.startActivity(logoutIntent);
     }
 
 }

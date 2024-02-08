@@ -23,28 +23,44 @@
             android:text="@string/instructors"
             android:textAlignment="center"
             android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/logOut"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="-1dp"
+            android:onClick="buttonLogOutOnClick"
+            android:text="Log-Out" />
+
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageButton
+            android:id="@+id/find_instructor"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="Noting"
+            android:src="?android:attr/actionModeWebSearchDrawable" />
+
         <EditText
             android:id="@+id/enter_instructor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="331dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="0dp"
             android:layout_toEndOf="@+id/find_instructor"
             android:hint="Search instructor here...">
 
         </EditText>
-
-        <ImageButton
-            android:id="@+id/find_instructor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="?android:attr/actionModeWebSearchDrawable" />
 
     </RelativeLayout>
 
@@ -72,14 +88,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">
 
-        <Button
-            android:id="@+id/buttonStudentCreate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:enabled="true"
-            android:onClick="buttonInstructorCreateOnClick"
-            android:text="@string/add_instructor" />
 
     </RelativeLayout>
 

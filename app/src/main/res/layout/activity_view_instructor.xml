@@ -19,10 +19,17 @@
 
     <!-- Instructor average rating text view -->
     <TextView
-        android:id="@+id/instructorRating"
+        android:id="@+id/instructorOverallRating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Average rating"
+        android:text="Overall rating"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/instructorDifficultyRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Difficult rating"
         android:textSize="30sp" />
 
     <!-- RecyclerView for displaying reviews list -->

@@ -24,10 +24,17 @@
         android:textSize="30sp" />
 
     <TextView
-        android:id="@+id/courseRating"
+        android:id="@+id/courseOverallRating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Average rating"
+        android:text="Overall rating"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/courseDifficultyRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Difficulty rating"
         android:textSize="30sp" />
 
     <!-- Reviews List -->

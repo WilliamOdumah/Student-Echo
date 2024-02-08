@@ -3,8 +3,6 @@ package comp3350.student_echo.presentation;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -17,12 +15,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessInstructors;
 import comp3350.student_echo.objects.Instructor;
+import comp3350.student_echo.objects.StudentAccount;
 
 public class InstructorActivity extends AppCompatActivity {
 
@@ -34,10 +36,17 @@ public class InstructorActivity extends AppCompatActivity {
 
 
     @SuppressLint("MissingInflatedId")
+
+    private StudentAccount loggedInAccount;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructors);
+
+        Intent intent = getIntent();
+        loggedInAccount= (StudentAccount)intent.getExtras().getSerializable("LoggedAccount");
 
         accessInstructors = new AccessInstructors();
 
@@ -75,6 +84,7 @@ public class InstructorActivity extends AppCompatActivity {
                     Instructor selectedInstructor = (Instructor) parent.getItemAtPosition(position);
                     Intent viewInstructorIntent = new Intent(InstructorActivity.this, ViewInstructorActivity.class);
                     viewInstructorIntent.putExtra("Instructor", selectedInstructor);
+                    viewInstructorIntent.putExtra("LoggedAccount",loggedInAccount);
                     InstructorActivity.this.startActivity(viewInstructorIntent);
                 }
             });
@@ -136,57 +146,17 @@ public class InstructorActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        if(item.getItemId()==android.R.id.home){
+            super.onBackPressed();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void buttonInstructorCreateOnClick(View v) {
-        Instructor instructor = createInstructor();
-        String result;
-
-        result = validateInstructorData(instructor, true);
-        if (result == null) {
-            try
-            {
-                instructor = accessInstructors.insertInstructor(instructor);
-                if (result == null) {
-                    instructorList = accessInstructors.getInstructors();
-                    instructorArrayAdapter.notifyDataSetChanged();
-                    int pos = instructorList.indexOf(instructor);
-                    if (pos >= 0) {
-                        ListView listView = (ListView) findViewById(R.id.listInstructor);
-                        listView.setSelection(pos);
-                    }
-                }
-            }
-            catch(final Exception e)
-            {
-                Messages.fatalError(this, e.getMessage());
-            }
-        } else {
-        	Messages.warning(this, result);
-        }
+    public void buttonLogOutOnClick(View v){
+        Intent logoutIntent= new Intent(InstructorActivity.this, Activity_Login.class);
+        InstructorActivity.this.startActivity(logoutIntent);
     }
-
-    private Instructor createInstructor() {
-        return new Instructor("101", "PROF TEST", "ADDDRRR");
-    }
-
-    private String validateInstructorData(Instructor instructor, boolean isNewInstructor) {
-        if (instructor.getFirstName().length() == 0) {
-            return "First name required";
-        }
-
-        if (instructor.getLastName().length() == 0) {
-            return "Last name required";
-        }
-
-        return null;
-    }
-
 
 }

@@ -7,15 +7,13 @@ public class StudentAccount implements Serializable {
     private String password;
     private String email;
 
+
     public StudentAccount(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
-    }
 
-    public String getUsername(){
-        return this.username;
     }
-
+    public String getUsername(){return username;}
+    public String getPassword(){return password;}
 }
-

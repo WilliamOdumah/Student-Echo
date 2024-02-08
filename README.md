@@ -22,6 +22,18 @@ Student Echo is a dedicated service that enables verified students to provide an
 
 - [Iteration 3] 
 
+## Architecture
+
+Our [architecture](https://code.cs.umanitoba.ca/comp3350-winter2024/KeyValuePairs-a02-8/-/blob/main/docs/Architecture.md?ref_type=heads)
+
+## Summaries
+
+- [Iteration 1](https://code.cs.umanitoba.ca/comp3350-winter2024/KeyValuePairs-a02-8/-/blob/main/docs/Iteration1.md?ref_type=heads)
+
+- [Iteration 2]
+
+- [Iteration 3]
+
 ## Group Members
 - Kelly Villamayor
 - Ning Liu
