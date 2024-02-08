@@ -21,7 +21,7 @@ public class AccessAccounts {
         accountPersistence.addAccount(toAdd);
     }
 
-    public List<StudentAccount> getAccounts(){
+    public List<StudentAccount> getAccounts() {
         return Collections.unmodifiableList(accountPersistence.getAccountSequential());
     }
 

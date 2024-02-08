@@ -1,7 +1,5 @@
 package comp3350.student_echo.persistence;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import comp3350.student_echo.objects.Course;
@@ -16,7 +14,6 @@ public interface ReviewPersistence {
     List<InstructorReview> getAllInstructorReviews();
     void deleteCourseReview(String reviewId);
     void deleteInstructorReview(String reviewId);
-    void editReview(CourseReview updatedReview);
     CourseReview getCourseReviewById(String reviewId);
     InstructorReview getInstructorReviewById(String reviewId);
     boolean updateCourseReviewInDatabase(CourseReview updatedReview);

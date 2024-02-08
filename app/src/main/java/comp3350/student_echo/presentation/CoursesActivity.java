@@ -1,11 +1,9 @@
 package comp3350.student_echo.presentation;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,20 +29,15 @@ public class CoursesActivity extends AppCompatActivity {
     private AccessCourses accessCourses;
     private List<Course> courseList;
     private ArrayAdapter<Course> courseArrayAdapter;
-
     private StudentAccount loggedInAccount;
 
-
-
-
-    @SuppressLint({"CutPasteId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
 
         Intent intent = getIntent();
-        loggedInAccount= (StudentAccount)intent.getExtras().getSerializable("LoggedAccount");
+        loggedInAccount = (StudentAccount) intent.getExtras().getSerializable("LoggedAccount");
         accessCourses = new AccessCourses();
 
         try {
@@ -81,7 +74,7 @@ public class CoursesActivity extends AppCompatActivity {
                     Course selectedCourse = (Course) parent.getItemAtPosition(position);
                     Intent viewCourseIntent = new Intent(CoursesActivity.this, ViewCourseActivity.class);
                     viewCourseIntent.putExtra("Course", selectedCourse);
-                    viewCourseIntent.putExtra("LoggedAccount",loggedInAccount);
+                    viewCourseIntent.putExtra("LoggedAccount", loggedInAccount);
                     CoursesActivity.this.startActivity(viewCourseIntent);
                 }
             });
@@ -91,11 +84,14 @@ public class CoursesActivity extends AppCompatActivity {
             courseSearchBar.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                     String searchText = charSequence.toString().toLowerCase();
-                    filterCourses(searchText, listView);
+                    ArrayList<Course> filteredCourses = accessCourses.filterCourses(searchText, courseList);
+                    updateView(filteredCourses, listView);
                 }
+
                 @Override
                 public void afterTextChanged(Editable editable) {}
             });
@@ -105,16 +101,7 @@ public class CoursesActivity extends AppCompatActivity {
         }
     }
 
-    private void filterCourses(String searchText , ListView listView){
-        ArrayList<Course> filteredCourses = new ArrayList<>();
-
-        for (Course course: courseList){
-            if (course.getCourseID().toLowerCase().contains(searchText) || course.getCourseName().toLowerCase().contains(searchText)){
-                filteredCourses.add(course);
-
-            }
-        }
-
+    private void updateView(ArrayList<Course> filteredCourses, ListView listView ) {
         ArrayAdapter<Course> filtered_adapter = new ArrayAdapter<Course>(this, android.R.layout.simple_list_item_activated_2,android.R.id.text1,filteredCourses){
             @NonNull
             @Override
@@ -137,19 +124,11 @@ public class CoursesActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_courses, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==android.R.id.home){
             super.onBackPressed();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

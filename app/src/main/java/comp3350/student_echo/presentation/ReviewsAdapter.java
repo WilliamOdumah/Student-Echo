@@ -1,7 +1,5 @@
 package comp3350.student_echo.presentation;
 
-
-
 import static comp3350.student_echo.presentation.ViewCourseActivity.EDIT_REVIEW_REQUEST_CODE;
 
 import android.app.Activity;
@@ -26,17 +24,15 @@ import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.Instructor;
 import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.StudentAccount;
-import comp3350.student_echo.persistence.stubs.ReviewPersistenceStub;
 
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHolder> {
 
     private List<? extends Review> reviews;
     private Course course;
     private Instructor instructor;
-
-    AccessReviews accessReviews;
+    private AccessReviews accessReviews;
     private boolean isCourse = false;
-    private StudentAccount currentUser; // ID of the logged-in user
+    private StudentAccount currentUser;
     public ReviewsAdapter(List<? extends Review> reviews, StudentAccount currentUser, Object type) {
         accessReviews = new AccessReviews();
         this.reviews = reviews;
@@ -108,9 +104,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                         .setPositiveButton("Yes", (dialog, which) -> {
                             // Delete the review from the database
                             Review reviewToDelete = reviews.get(deletePosition);
-                            if (isCourse){
+                            if (isCourse) {
                                 accessReviews.deleteCourseReview(reviewToDelete.getId());
-//                                ReviewPersistenceStub.getInstance().deleteCourseReview(reviewToDelete.getId());
                             }
                             else {
                                 accessReviews.deleteInstructorReview(reviewToDelete.getId());

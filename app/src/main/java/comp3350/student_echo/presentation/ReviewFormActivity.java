@@ -23,7 +23,6 @@ public class ReviewFormActivity extends AppCompatActivity {
     private RatingBar overallRatingBar;
     private RatingBar difficultyRatingBar;
     private EditText commentEditText;
-
     private boolean isCourse = false;
     private Course currentCourse = null;
     private Instructor currentInstructor = null;
@@ -72,7 +71,6 @@ public class ReviewFormActivity extends AppCompatActivity {
         submitReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("SUBMIT CLICKED");
                 // Get values from form
                 int overallRating = (int) overallRatingBar.getRating();
                 int difficultyRating = (int) difficultyRatingBar.getRating();
@@ -80,21 +78,12 @@ public class ReviewFormActivity extends AppCompatActivity {
 
                 // Create Review object and save to database
                 if (isCourse){
-                    System.out.println("IS A COURSE");
                     CourseReview review = new CourseReview(currentCourse, comment, overallRating, difficultyRating, currentUser);
                     accessReviews.addCourseReview(review);
                 }
                 else {
-                    System.out.println("IS AN INSTRUCTOR");
                     InstructorReview review = new InstructorReview(currentInstructor, comment, overallRating, difficultyRating, currentUser);
                     accessReviews.addInstructorReview(review);
-                    if (accessReviews.getReviewFor(currentInstructor).isEmpty()){
-                        System.out.println("ITS STILL EMPTY");
-                    }
-                    else {
-                        System.out.println("FOR INSTRUCTOR = "+currentInstructor.getFirstName());
-                        System.out.println("INSTRUCTOR REVIEW HAS BEEN ADDED. WE HAVE"+accessReviews.getReviewFor(currentInstructor).get(0).getComment());
-                    }
                 }
 
                 // Return to the main activity
