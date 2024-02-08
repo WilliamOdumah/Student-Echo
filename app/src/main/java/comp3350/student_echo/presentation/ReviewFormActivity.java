@@ -1,6 +1,7 @@
 package comp3350.student_echo.presentation;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +30,19 @@ public class ReviewFormActivity extends AppCompatActivity {
     Course currentCourse = null;
     Instructor currentInstructor = null;
     AccessReviews accessReviews;
+
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home){
+            super.onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +107,9 @@ public class ReviewFormActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+
     }
 }
 

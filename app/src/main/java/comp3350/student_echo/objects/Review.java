@@ -31,6 +31,9 @@ public abstract class Review {
         return id;
     }
 
+    public int getDifficultyRating(){
+        return this.difficultyRating;
+    }
     public String getWrittenBy() {
         return this.writtenBy.getUsername();
     }
@@ -48,6 +51,10 @@ public abstract class Review {
 
     public void setOverallRating(int rating) {
         this.overallRating = rating;
+    }
+
+    public void setDifficultyRating(int rating) {
+        this.difficultyRating = rating;
     }
 }
 

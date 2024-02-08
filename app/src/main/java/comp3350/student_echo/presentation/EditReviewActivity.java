@@ -22,7 +22,8 @@ public class EditReviewActivity extends AppCompatActivity {
     // UI elements and a variable to hold the current review being edited
     private Review currentReview;
     private EditText commentEditText;
-    private RatingBar ratingBar;
+    private RatingBar overallRatingBar;
+    private RatingBar difficultyRatingBar;
     private Button saveButton;
     boolean isCourse = false;
 
@@ -41,7 +42,8 @@ public class EditReviewActivity extends AppCompatActivity {
 
         // Link the UI elements from the layout to the variables
         commentEditText = findViewById(R.id.commentEditText);
-        ratingBar = findViewById(R.id.difficultyRatingBar);
+        overallRatingBar = findViewById(R.id.overallRatingBar);
+        difficultyRatingBar = findViewById(R.id.difficultyRatingBar);
         saveButton = findViewById(R.id.saveButton);
 
         // Retrieve the review ID passed as an extra in the intent
@@ -59,7 +61,8 @@ public class EditReviewActivity extends AppCompatActivity {
 
         // Populate the UI elements with the data from the retrieved Review object
         commentEditText.setText(currentReview.getComment());
-        ratingBar.setRating(currentReview.getOverallRating());
+        overallRatingBar.setRating(currentReview.getOverallRating());
+        difficultyRatingBar.setRating(currentReview.getDifficultyRating());
 
         // Set an OnClickListener for the save button to update the review
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -67,14 +70,15 @@ public class EditReviewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Update the currentReview object with the new values from UI elements
                 currentReview.setComment(commentEditText.getText().toString());
-                currentReview.setOverallRating((int) ratingBar.getRating());
+                currentReview.setOverallRating((int) overallRatingBar.getRating());
+                currentReview.setDifficultyRating((int) difficultyRatingBar.getRating());
 
                 // Call the method to update the review in the database
                 if (isCourse){
                     updateCourseReviewInDatabase((CourseReview) currentReview);
                 }
                 else{
-                    updateCourseReviewInDatabase((CourseReview) currentReview);
+                    updateInstructorReviewInDatabase((InstructorReview) currentReview);
                 }
 
 

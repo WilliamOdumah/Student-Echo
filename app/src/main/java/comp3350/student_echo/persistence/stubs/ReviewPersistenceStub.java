@@ -35,16 +35,25 @@ public class ReviewPersistenceStub implements ReviewPersistence {
 
     private void populateInitialData() {
         // Create example courses and instructors
+
         Course course1 = new Course("Computer Science", "COMP1010" , "Introductory Computer Science");
-        Instructor instructor1 = new Instructor("Mr","John", "Doe");
+        Course course2 = new Course("CS", "COMP3010", "Distributed Computing");
+
+        Instructor instructor1 = new Instructor("Dr.", "Gary", "Chalmers");
+        Instructor instructor2 = new Instructor("Professor", "Mary", "Bailey");
 
         // Add some initial course reviews
         courseReviews.add(new CourseReview(course1, "Great introductory course!", 5, 2,fakeUser));
         courseReviews.add(new CourseReview(course1, "Tough but rewarding.", 4, 3,fakeUser));
+        courseReviews.add(new CourseReview(course2, "BLOCKCHAINS!", 5, 5,fakeUser));
+        courseReviews.add(new CourseReview(course2, "Blinky blink blink", 3, 5,fakeUser));
+
 
         // Add some initial instructor reviews
         instructorReviews.add(new InstructorReview(instructor1, "Very knowledgeable and helpful.", 5, 3,fakeUser));
         instructorReviews.add(new InstructorReview(instructor1, "Challenging exams, but fair.", 4, 4,fakeUser));
+        instructorReviews.add(new InstructorReview(instructor2, "She is a great prof", 5, 3,fakeUser));
+        instructorReviews.add(new InstructorReview(instructor2, "She gave me a 0 on my the assignment", 1, 5,fakeUser));
     }
 
 

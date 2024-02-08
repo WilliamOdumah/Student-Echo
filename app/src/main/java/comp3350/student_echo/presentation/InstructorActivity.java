@@ -32,8 +32,6 @@ public class InstructorActivity extends AppCompatActivity {
     private List<Instructor> instructorList;
     private ArrayAdapter<Instructor> instructorArrayAdapter;
 
-    private ListView filterListView;
-
 
     @SuppressLint("MissingInflatedId")
 
@@ -133,7 +131,7 @@ public class InstructorActivity extends AppCompatActivity {
             }
         };
 
-        filterListView.setAdapter(filtered_adapter);
+        listView.setAdapter(filtered_adapter);
 
     }
 

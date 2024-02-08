@@ -17,4 +17,8 @@ public class Instructor implements Serializable {
 	public String getTitle() {return title;}
 	public String getFirstName(){return firstName;}
 	public String getLastName() {return lastName;}
+
+	public boolean equals(Instructor i) {
+		return this.firstName.equals(i.firstName) && this.lastName.equals(i.lastName);
+	}
 }

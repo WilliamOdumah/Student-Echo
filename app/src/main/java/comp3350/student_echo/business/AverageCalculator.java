@@ -36,4 +36,5 @@ public class AverageCalculator {
         return String.format("%.1f", res);
     }
 
+
 }

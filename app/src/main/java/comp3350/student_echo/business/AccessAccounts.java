@@ -1,5 +1,6 @@
 package comp3350.student_echo.business;
 
+import java.util.Collections;
 import java.util.List;
 
 import comp3350.student_echo.application.Services;
@@ -19,6 +20,11 @@ public class AccessAccounts {
     public void addAccount(StudentAccount toAdd){
         accountPersistence.addAccount(toAdd);
     }
+
+    public List<StudentAccount> getAccounts(){
+        return Collections.unmodifiableList(accountPersistence.getAccountSequential());
+    }
+
 
     public StudentAccount getAccount(String username) {
         List<StudentAccount> accounts = accountPersistence.getAccountSequential();
