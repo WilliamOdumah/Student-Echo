@@ -1,6 +1,7 @@
 package comp3350.student_echo.presentation;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -44,7 +45,7 @@ public class CoursesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_courses);
 
         Intent intent = getIntent();
-        loggedInAccount= (StudentAccount)intent.getExtras().getSerializable("LoggedAccount");
+        loggedInAccount = (StudentAccount) intent.getExtras().getSerializable("LoggedAccount");
         accessCourses = new AccessCourses();
 
         try {
@@ -81,7 +82,7 @@ public class CoursesActivity extends AppCompatActivity {
                     Course selectedCourse = (Course) parent.getItemAtPosition(position);
                     Intent viewCourseIntent = new Intent(CoursesActivity.this, ViewCourseActivity.class);
                     viewCourseIntent.putExtra("Course", selectedCourse);
-                    viewCourseIntent.putExtra("LoggedAccount",loggedInAccount);
+                    viewCourseIntent.putExtra("LoggedAccount", loggedInAccount);
                     CoursesActivity.this.startActivity(viewCourseIntent);
                 }
             });
@@ -90,14 +91,22 @@ public class CoursesActivity extends AppCompatActivity {
             EditText courseSearchBar = (EditText) findViewById(R.id.enter_course);
             courseSearchBar.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                     String searchText = charSequence.toString().toLowerCase();
-                    filterCourses(searchText, listView);
+
+                    ArrayList<Course> filteredCourses = accessCourses.filterCourses(searchText, courseList);
+
+                    updateView(filteredCourses, listView);
+
                 }
+
                 @Override
-                public void afterTextChanged(Editable editable) {}
+                public void afterTextChanged(Editable editable) {
+                }
             });
 
         } catch (final Exception e) {
@@ -105,16 +114,7 @@ public class CoursesActivity extends AppCompatActivity {
         }
     }
 
-    private void filterCourses(String searchText , ListView listView){
-        ArrayList<Course> filteredCourses = new ArrayList<>();
-
-        for (Course course: courseList){
-            if (course.getCourseID().toLowerCase().contains(searchText) || course.getCourseName().toLowerCase().contains(searchText)){
-                filteredCourses.add(course);
-
-            }
-        }
-
+    private void updateView(ArrayList<Course> filteredCourses, ListView listView ) {
         ArrayAdapter<Course> filtered_adapter = new ArrayAdapter<Course>(this, android.R.layout.simple_list_item_activated_2,android.R.id.text1,filteredCourses){
             @NonNull
             @Override
