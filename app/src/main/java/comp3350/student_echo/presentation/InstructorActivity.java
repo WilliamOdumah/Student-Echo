@@ -23,6 +23,7 @@ import java.util.List;
 
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessInstructors;
+import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.Instructor;
 import comp3350.student_echo.objects.StudentAccount;
 
@@ -54,6 +55,7 @@ public class InstructorActivity extends AppCompatActivity {
 
             // obtain listView
             final ListView listView = (ListView) findViewById(R.id.listInstructor);
+
 
             // create adapter holding Instructor object to display name and title
             instructorArrayAdapter = new ArrayAdapter<Instructor>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, instructorList) {
@@ -95,7 +97,11 @@ public class InstructorActivity extends AppCompatActivity {
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                     String searchText = charSequence.toString().toLowerCase();
-                    filterInstructor(searchText, listView);
+
+                    ArrayList<Instructor> filteredInstructor = accessInstructors.filterInstructor(searchText, instructorList);
+
+                    updateView(filteredInstructor, listView);
+
                 }
                 @Override
                 public void afterTextChanged(Editable editable) {}
@@ -106,14 +112,8 @@ public class InstructorActivity extends AppCompatActivity {
         }
     }
 
-    private void filterInstructor(String searchText , ListView listView){
-        ArrayList<Instructor> filteredInstructor = new ArrayList<>();
+    private void updateView(ArrayList<Instructor> filteredInstructor, ListView listView){
 
-        for (Instructor instructor: instructorList){
-            if (instructor.getFirstName().toLowerCase().contains(searchText) || instructor.getLastName().toLowerCase().contains(searchText)){
-                filteredInstructor.add(instructor);
-            }
-        }
         ArrayAdapter<Instructor> filtered_adapter = new ArrayAdapter<Instructor>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, filteredInstructor) {
             @NonNull
             @Override
