@@ -13,7 +13,7 @@ public class AccountPersistenceStub implements AccountPersistence {
 
 
     public AccountPersistenceStub(){
-        accounts=new ArrayList<>();
+        accounts = new ArrayList<>();
         accounts.add(new StudentAccount("william","odumah","william@myumanitoba.ca"));
         accounts.add(new StudentAccount("kelly","villamayor","kelly@myumanitoba.ca"));
         accounts.add(new StudentAccount("rishamdeep","singh","risham@myumanitoba.ca"));
@@ -29,32 +29,5 @@ public class AccountPersistenceStub implements AccountPersistence {
 
     public List<StudentAccount> getAccountSequential() {
         return Collections.unmodifiableList(accounts);
-    }
-
-    public StudentAccount insertAccount(StudentAccount currentStudent) {
-        // don't bother checking for duplicates
-        accounts.add(currentStudent);
-        return currentStudent;
-    }
-
-    public StudentAccount updateAccount(StudentAccount currentInstructor) {
-        int index;
-
-        index = accounts.indexOf(currentInstructor);
-        if (index >= 0)
-        {
-            accounts.set(index, currentInstructor);
-        }
-        return currentInstructor;
-    }
-
-    public void deleteAccount(StudentAccount currentAccount) {
-        int index;
-
-        index = accounts.indexOf(currentAccount);
-        if (index >= 0)
-        {
-            accounts.remove(index);
-        }
     }
 }

@@ -1,25 +1,18 @@
 package comp3350.student_echo.tests.business;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.student_echo.application.Services;
 import comp3350.student_echo.business.AccessCourses;
-
 import comp3350.student_echo.objects.Course;
-
 import comp3350.student_echo.persistence.CoursePersistence;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 
 
@@ -44,8 +37,6 @@ public class AccessCoursesTest {
 
         System.out.println("Finished test AccessCourses\n");
     }
-
-
 
     @Test
     public void testGetCourses() {
@@ -82,12 +73,4 @@ public class AccessCoursesTest {
         assertEquals(11, accessCourses.getCourses().size());
         System.out.println("Finished test Update Course\n");
     }
-
-
-
-
-
-
-
-
 }
