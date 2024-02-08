@@ -11,22 +11,16 @@ public class AccessCourses
 {
 	private final CoursePersistence coursePersistence;
 	private List<Course> courses;
-	private Course course;
-	private int currentCourse;
 
 	public AccessCourses()
 	{
 		coursePersistence = Services.getCoursePersistence();
 		courses = null;
-		course = null;
-		currentCourse = 0;
 	}
 
 	public AccessCourses(CoursePersistence coursePersistence) {
 		this.coursePersistence = coursePersistence;
 		courses = null;
-		course = null;
-		currentCourse = 0;
 	}
 
 	public List<Course> getCourses()
