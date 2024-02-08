@@ -10,6 +10,8 @@ public class AverageCalculator {
 
     @SuppressLint("DefaultLocale")
     public static String calcAverageOverallRating(List<? extends Review> reviews) {
+        if(reviews.size() == 0) return "0.0";
+
         double total = 0;
         for(Review r : reviews) {
             total += r.getOverallRating();
@@ -22,6 +24,8 @@ public class AverageCalculator {
 
     @SuppressLint("DefaultLocale")
     public static String calcAverageDifficultyRating(List<? extends Review> reviews) {
+        if(reviews.size() == 0) return "0.0";
+
         double total = 0;
         for(Review r : reviews) {
             total += r.getDifficultyRating();
