@@ -27,34 +27,4 @@ public class InstructorPersistenceStub implements InstructorPersistence {
     public List<Instructor> getInstructorSequential() {
         return Collections.unmodifiableList(instructors);
     }
-
-    @Override
-    public Instructor insertInstructor(Instructor currentStudent) {
-        // don't bother checking for duplicates
-        instructors.add(currentStudent);
-        return currentStudent;
-    }
-
-    @Override
-    public Instructor updateInstructor(Instructor currentInstructor) {
-        int index;
-
-        index = instructors.indexOf(currentInstructor);
-        if (index >= 0)
-        {
-            instructors.set(index, currentInstructor);
-        }
-        return currentInstructor;
-    }
-
-    @Override
-    public void deleteInstructor(Instructor currentInstructor) {
-        int index;
-
-        index = instructors.indexOf(currentInstructor);
-        if (index >= 0)
-        {
-            instructors.remove(index);
-        }
-    }
 }
