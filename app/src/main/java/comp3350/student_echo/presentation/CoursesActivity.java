@@ -3,7 +3,6 @@ package comp3350.student_echo.presentation;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -16,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -81,6 +81,7 @@ public class CoursesActivity extends AppCompatActivity {
                     Course selectedCourse = (Course) parent.getItemAtPosition(position);
                     Intent viewCourseIntent = new Intent(CoursesActivity.this, ViewCourseActivity.class);
                     viewCourseIntent.putExtra("Course", selectedCourse);
+                    viewCourseIntent.putExtra("LoggedAccount",loggedInAccount);
                     CoursesActivity.this.startActivity(viewCourseIntent);
                 }
             });

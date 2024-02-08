@@ -1,13 +1,13 @@
 package comp3350.student_echo.presentation;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.StudentAccountManager;
@@ -47,4 +47,13 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(this, "Uh oh! Looks something went wrong with creating your account. Please try again!",Toast.LENGTH_LONG).show();
         }
     }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home){
+            super.onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

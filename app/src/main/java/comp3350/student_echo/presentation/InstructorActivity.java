@@ -3,8 +3,6 @@ package comp3350.student_echo.presentation;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -16,6 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +84,7 @@ public class InstructorActivity extends AppCompatActivity {
                     Instructor selectedInstructor = (Instructor) parent.getItemAtPosition(position);
                     Intent viewInstructorIntent = new Intent(InstructorActivity.this, ViewInstructorActivity.class);
                     viewInstructorIntent.putExtra("Instructor", selectedInstructor);
+                    viewInstructorIntent.putExtra("LoggedAccount",loggedInAccount);
                     InstructorActivity.this.startActivity(viewInstructorIntent);
                 }
             });
