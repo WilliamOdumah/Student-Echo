@@ -1,7 +1,6 @@
 package comp3350.student_echo.tests.objects;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +8,7 @@ import org.junit.Test;
 import comp3350.student_echo.objects.StudentAccount;
 
 public class StudentAccountTest {
-    StudentAccount a1;
+    private StudentAccount a1;
 
     @Before
     public void before() {
@@ -22,7 +21,7 @@ public class StudentAccountTest {
         assertNotEquals("Check username", a1.getUsername(), "notusername");
 
         assertEquals("Check password", a1.getPassword(), "password");
-        assertEquals("Check password", a1.getPassword(), "notpassword");
+        assertNotEquals("Check password", a1.getPassword(), "notpassword");
 
         assertEquals("Check email", a1.getEmail(), "email@email.com");
         assertNotEquals("Check email", a1.getEmail(), "notemail@email.com");

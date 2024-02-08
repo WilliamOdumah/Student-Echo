@@ -1,7 +1,6 @@
 package comp3350.student_echo.tests.business;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -53,7 +52,17 @@ public class AccessReviewsTest {
     }
 
     @Test
-    public void testAdd(){
+    public void testAddInstructorReview() {
+        reviews = new AccessReviews();
+        Instructor inst = new Instructor("Abc", "2", "3");
+        InstructorReview newReview = new InstructorReview(inst,"xyz",1,2,null);
+        reviews.addInstructorReview(newReview);
+        List<InstructorReview> reviewList1 = reviews.getReviewFor(inst);
+        assertEquals(newReview.getComment(), reviewList1.get(0).getComment());
+    }
+
+    @Test
+    public void testDeleteInstructorReview() {
         reviews = new AccessReviews();
         Instructor inst = new Instructor("Abc", "2", "3");
         InstructorReview newReview = new InstructorReview(inst,"xyz",1,2,null);
@@ -61,11 +70,32 @@ public class AccessReviewsTest {
         List<InstructorReview> reviewList1 = reviews.getReviewFor(inst);
         assertEquals(newReview.getComment(), reviewList1.get(0).getComment());
 
+        reviews.deleteInstructorReview(newReview.getId());
+        reviewList1 = reviews.getReviewFor(inst);
+        reviewList1.get(0);
+    }
+
+    @Test
+    public void testAddCourseReview() {
+        Instructor inst = new Instructor("Abc", "2", "3");
         Course c = new Course("a","b","c");
         CourseReview newReview1 = new CourseReview(c,"xyz",1,2,null);
         reviews.addCourseReview(newReview1);
         List<InstructorReview> reviewList2 = reviews.getReviewFor(inst);
-        assertEquals(newReview.getComment(), reviewList2.get(0).getComment());
+        assertEquals(newReview1.getComment(), reviewList2.get(0).getComment());
     }
 
+    @Test
+    public void testDeleteCourseReview() {
+        Instructor inst = new Instructor("Abc", "2", "3");
+        Course c = new Course("a", "b", "c");
+        CourseReview newReview1 = new CourseReview(c, "xyz", 1, 2, null);
+        reviews.addCourseReview(newReview1);
+        List<InstructorReview> reviewList2 = reviews.getReviewFor(inst);
+        assertEquals(newReview1.getComment(), reviewList2.get(0).getComment());
+
+        reviews.deleteCourseReview(c.getCourseID());
+        reviewList2 = reviews.getReviewFor(inst);
+        reviewList2.get(0);
+    }
 }

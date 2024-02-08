@@ -25,7 +25,7 @@ NOTE: We are currently forcing the users to log in before proceeding. In the nex
   * Delete a Course Review
   * Delete an Instructor Review
 
-NOTE: While we finished these user stories, we plan on polishing more aspects of our application as a part of Iteration 2.
+NOTE: While we finished these user stories, we plan on polishing more aspects as a part of our objectives for Iteration 2.
 
 ### Not Started
 
@@ -37,19 +37,7 @@ NOTE: Due to barriers such as time constraints and complications involving the s
 
 ## **Architecture Document** 
 
-As of the end of Iteration 1, our project's architecture design.
-
 This is our project's [architecture design](https://code.cs.umanitoba.ca/comp3350-winter2024/KeyValuePairs-a02-8/-/blob/main/docs/Architecture.md?ref_type=heads) as of the end of Iteration 1.
-
-## **Iteration 1 Retrospective** 
-
-* Communication 
-
-* Coordination 
-
-* Coding Standards
-
-* Contribution Standards
 
 ## **Iteration 2 Objectives** 
 
