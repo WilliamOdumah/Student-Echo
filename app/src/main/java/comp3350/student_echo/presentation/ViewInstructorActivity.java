@@ -15,6 +15,7 @@ import java.util.List;
 
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessReviews;
+import comp3350.student_echo.business.AverageCalculator;
 import comp3350.student_echo.objects.Instructor;
 import comp3350.student_echo.objects.InstructorReview;
 import comp3350.student_echo.objects.StudentAccount;
@@ -48,10 +49,15 @@ public class ViewInstructorActivity extends AppCompatActivity {
             String instructorInfo = "Instructor: "+instructor.getTitle()+". "+instructor.getFirstName()+" "+instructor.getLastName();
             instructorInfoTV.setText(instructorInfo);
 
-            // display average rating
-            TextView averageRatingTV = findViewById(R.id.instructorRating);
-            String avRating = "Average Rating: " + instructor.getAverageRating() + " / 5.0";
-            averageRatingTV.setText(avRating);
+            // display overall rating
+            TextView overallRatingTV = findViewById(R.id.instructorOverallRating);
+            String overallRating = "Average Overall Rating: " + AverageCalculator.calcAverageOverallRating(instructorReviews) + " / 5.0";
+            overallRatingTV.setText(overallRating);
+
+            // display difficulty rating
+            TextView difficultyRatingTV = findViewById(R.id.instructorDifficultyRating);
+            String difficultyRating = "Average Difficulty Rating: " + AverageCalculator.calcAverageDifficultyRating(instructorReviews) + " / 5.0";
+            difficultyRatingTV.setText(difficultyRating);
 
             // display reviews in list
             // obtain listView

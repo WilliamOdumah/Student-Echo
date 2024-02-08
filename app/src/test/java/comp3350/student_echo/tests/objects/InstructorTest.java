@@ -8,18 +8,12 @@ import static org.junit.Assert.*;
 public class InstructorTest {
 
     @Test
-    public void testInstructor()
-    {
-        Instructor instructor;
+    public void testInstructorCreation() {
+        Instructor i1 = new Instructor("Dr.", "John", "Smith");
 
-        System.out.println("\nStarting testInstructor");
-
-        instructor = new Instructor("LOL", "12345", "");
-        assertNotNull(instructor);
-        assertTrue("12345".equals(instructor.getFirstName()));
-        assertTrue("".equals(instructor.getLastName()));
-
-        System.out.println("Finished testInstructor");
+        assertEquals("Check title", i1.getTitle(), "Dr.");
+        assertEquals("Check first name", i1.getFirstName(), "John");
+        assertEquals("Check last name", i1.getLastName(), "Smith");
     }
 
 }
