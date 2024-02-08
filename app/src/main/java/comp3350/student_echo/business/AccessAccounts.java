@@ -13,11 +13,9 @@ public class AccessAccounts {
     private final AccountPersistence accountPersistence;
     private final List<StudentAccount> accounts;
 
-
-    public AccessAccounts()
-    {
+    public AccessAccounts() {
         accountPersistence = Services.getAccountPersistence();
-        accounts = accountPersistence.getAccountSequential();
+        accounts=accountPersistence.getAccountSequential();
     }
 
     public List<StudentAccount> getAccounts() {
@@ -28,7 +26,7 @@ public class AccessAccounts {
         accountPersistence.addAccount(toAdd);
     }
 
-    public StudentAccount getAccount(String username){
+    public StudentAccount getAccount(String username) {
 
         StudentAccount currentAccount;
 
