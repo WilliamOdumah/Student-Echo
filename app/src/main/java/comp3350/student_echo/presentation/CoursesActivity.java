@@ -157,5 +157,4 @@ public class CoursesActivity extends AppCompatActivity {
         Intent logoutIntent= new Intent(CoursesActivity.this, Activity_Login.class);
         CoursesActivity.this.startActivity(logoutIntent);
     }
-
 }
