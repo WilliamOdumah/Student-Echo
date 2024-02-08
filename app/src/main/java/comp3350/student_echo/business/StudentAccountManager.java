@@ -13,6 +13,7 @@ public class StudentAccountManager {
         accountsData=new AccessAccounts();
     }
 
+    // creates account and adds to persistence
     public StudentAccount createAccount(String email, String username, String password, String confirmPass) {
         System.out.println(verifyEmail(email));
         System.out.println(verifyUsername(username));
