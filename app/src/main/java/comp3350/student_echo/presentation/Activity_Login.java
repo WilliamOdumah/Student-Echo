@@ -18,16 +18,12 @@ public class Activity_Login extends AppCompatActivity {
     private StudentAccount loggedInAccount;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         setContentView(R.layout.activity_login);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -52,9 +48,7 @@ public class Activity_Login extends AppCompatActivity {
         }
         else {
             Toast.makeText(this, "Check your username and password!",Toast.LENGTH_LONG).show();
-
         }
-
     }
 
     public void buttonSignupOnClick(View v){

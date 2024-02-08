@@ -24,25 +24,18 @@ public class AccountPersistenceStub implements AccountPersistence {
 
     @Override
     public void addAccount(StudentAccount toAdd){
-
         accounts.add(toAdd);
     }
-
-
-
-
 
     public List<StudentAccount> getAccountSequential() {
         return Collections.unmodifiableList(accounts);
     }
-
 
     public StudentAccount insertAccount(StudentAccount currentStudent) {
         // don't bother checking for duplicates
         accounts.add(currentStudent);
         return currentStudent;
     }
-
 
     public StudentAccount updateAccount(StudentAccount currentInstructor) {
         int index;
@@ -54,7 +47,6 @@ public class AccountPersistenceStub implements AccountPersistence {
         }
         return currentInstructor;
     }
-
 
     public void deleteAccount(StudentAccount currentAccount) {
         int index;

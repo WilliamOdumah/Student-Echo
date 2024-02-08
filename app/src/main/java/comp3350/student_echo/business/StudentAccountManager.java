@@ -46,7 +46,5 @@ public class StudentAccountManager {
     private boolean verifyPassword(String password, String confirmPass) {
         return password.equals(confirmPass);
     }
-
-
 }
 
