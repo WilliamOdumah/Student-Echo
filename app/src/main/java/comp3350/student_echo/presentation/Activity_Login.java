@@ -16,18 +16,10 @@ import comp3350.student_echo.objects.StudentAccount;
 
 public class Activity_Login extends AppCompatActivity {
 
-    private StudentAccount loggedInAccount;
-    private AccessAccounts accessAccounts;
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        accessAccounts = new AccessAccounts();
     }
     @Override
     protected void onDestroy() {
@@ -36,8 +28,7 @@ public class Activity_Login extends AppCompatActivity {
 
     public void buttonSubmitOnClick(View v){
 
-        Intent loginIntent = new Intent(Activity_Login.this, HomeActivity.class);
-
+        // get login info
         EditText Username=(EditText)findViewById(R.id.TextUsername);
         EditText Password=(EditText)findViewById(R.id.TextPassword);;
         String username=Username.getText().toString().trim();
@@ -47,13 +38,13 @@ public class Activity_Login extends AppCompatActivity {
         StudentAccount account = AuthenticateLogin.validate(username, password);
 
         if(account != null) {
+            Intent loginIntent = new Intent(Activity_Login.this, HomeActivity.class);
             loginIntent.putExtra("LoggedAccount", account);
             Activity_Login.this.startActivity(loginIntent);
         }
         else {
             Toast.makeText(this, "Check your username and password!",Toast.LENGTH_LONG).show();
         }
-
     }
 
     public void buttonSignupOnClick(View v){
