@@ -8,11 +8,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".presentation.ViewInstructorActivity"
-            android:exported="false" />
+            android:name=".presentation.ViewInstructorActivity"/>
         <activity
-            android:name=".presentation.ViewCourseActivity"
-            android:exported="false" />
+            android:name=".presentation.ViewCourseActivity"/>
         <activity
             android:name=".presentation.HomeActivity"
             android:exported="true"
@@ -37,6 +35,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="comp3350.student_echo.presentation.HomeActivity" />
         </activity>
+        <activity android:name=".presentation.ReviewFormActivity"/>
+        <activity android:name=".presentation.EditReviewActivity"/>
     </application>
 
 </manifest>

@@ -13,5 +13,11 @@
     <string name="courses">Courses</string>
     <string name="add_course">Add Course</string>
     <string name="find_course">Find Course</string>
+    <string name="edit_review">Edit review</string>
+    <string name="delete_review">Delete review</string>
+    <string name="comment_hint">Enter your review comment here...</string>
+    <string name="overall_rating_label">Overall Rating</string>
+    <string name="difficulty_rating_label">Difficulty Rating</string>
+    <string name="save_changes">Save Changes</string>
 
 </resources>
