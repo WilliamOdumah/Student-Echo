@@ -1,9 +1,11 @@
 package comp3350.student_echo.tests.business;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.student_echo.business.AccessCourses;
@@ -26,4 +28,25 @@ public class AccessCoursesTest {
         courses.remove(0);
 
     }
+
+    @Test
+    public void testFilterCourses() {
+        AccessCourses accessCourses = new AccessCourses();
+        List <Course> courses = accessCourses.getCourses();
+
+        String search = "3010";
+        ArrayList<Course> filteredList = accessCourses.filterCourses(search, courses);
+        assertEquals(1,filteredList.size());
+        assertEquals("COMP3010", filteredList.get(0).getCourseID());
+
+        String searchText = "2043";
+        ArrayList<Course> filtered = accessCourses.filterCourses(searchText, courses);
+        assertEquals(0,filtered.size());
+
+        search = "Da";
+        ArrayList<Course> list= accessCourses.filterCourses(search.toLowerCase(), courses);
+        assertEquals(2,list.size());
+
+    }
+
 }
