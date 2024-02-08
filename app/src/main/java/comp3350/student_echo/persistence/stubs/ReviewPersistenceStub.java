@@ -56,7 +56,6 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         instructorReviews.add(new InstructorReview(instructor2, "She gave me a 0 on my the assignment", 1, 5,fakeUser));
     }
 
-
     // Add a course review
     public void addCourseReview(CourseReview review) {
         courseReviews.add(review);
@@ -193,8 +192,4 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         }
         return matchingReviews; // Returns a list of InstructorReviews for the given instructor
     }
-
-
-
-
 }
