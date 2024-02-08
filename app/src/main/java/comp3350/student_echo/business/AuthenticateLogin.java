@@ -9,7 +9,7 @@ public class AuthenticateLogin {
         AccessAccounts ac = new AccessAccounts();
         List<StudentAccount> accounts = ac.getAccounts();
         for(StudentAccount cur : accounts) {
-            if(cur.getUsername().equals(username) && cur.getPassword().equals(password)){
+            if(cur.getUsername().equals(username) && cur.getPassword().equals(password)) {
                 return cur;
             }
         }

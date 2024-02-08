@@ -1,6 +1,5 @@
 package comp3350.student_echo.business;
 
-import java.util.Iterator;
 import java.util.List;
 
 import comp3350.student_echo.application.Services;
@@ -17,11 +16,11 @@ public class AccessReviews {
         reviewPersistence = Services.getReviewPersistence();
     }
 
-    public void addCourseReview(CourseReview review){
+    public void addCourseReview(CourseReview review) {
         reviewPersistence.addCourseReview(review);
     }
 
-    public void addInstructorReview(InstructorReview review){
+    public void addInstructorReview(InstructorReview review) {
         reviewPersistence.addInstructorReview(review);
     }
 

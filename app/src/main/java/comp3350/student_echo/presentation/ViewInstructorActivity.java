@@ -1,15 +1,12 @@
 package comp3350.student_echo.presentation;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,19 +22,14 @@ import comp3350.student_echo.objects.StudentAccount;
 
 public class ViewInstructorActivity extends AppCompatActivity {
 
-    AccessReviews accessReviews;
-    List<InstructorReview> instructorReviews;
+    private AccessReviews accessReviews;
+    private List<InstructorReview> instructorReviews;
     private RecyclerView reviewsRecyclerView;
     private ReviewsAdapter reviewsAdapter;
-
-    public static final int EDIT_REVIEW_REQUEST_CODE = 2; // Request code for editing a review
-
-    StudentAccount currentUser = null; // the current logged in user
-    StudentAccount userToBe = new StudentAccount("williamo", "password", "odumahw@myumanitoba.ca"); // stub user we will use for implementation
-
-    private boolean isLoggedIn = false; // Flag to track if the user is logged in
-    Instructor instructor;
-    StudentAccount loggedInAccount = null;
+    private StudentAccount currentUser = null;
+    private boolean isLoggedIn = false;
+    private Instructor instructor;
+    private StudentAccount loggedInAccount = null;
     private static final String ACCOUNT_KEY= "LoggedAccount";
 
     @Override
@@ -58,16 +50,8 @@ public class ViewInstructorActivity extends AppCompatActivity {
         String instructorInfo = "Instructor: "+instructor.getTitle()+". "+instructor.getFirstName()+" "+instructor.getLastName();
         instructorInfoTV.setText(instructorInfo);
 
-        // display overall rating
-        TextView overallRatingTV = findViewById(R.id.instructorOverallRating);
-        String overallRating = "Average Overall Rating: " + AverageCalculator.calcAverageOverallRating(instructorReviews) + " / 5.0";
-        overallRatingTV.setText(overallRating);
-
-        // display difficulty rating
-        TextView difficultyRatingTV = findViewById(R.id.instructorDifficultyRating);
-        String difficultyRating = "Average Difficulty Rating: " + AverageCalculator.calcAverageDifficultyRating(instructorReviews) + " / 5.0";
-        difficultyRatingTV.setText(difficultyRating);
-
+        displayOverallRating();
+        displayDifficultyRating();
 
         reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
         reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -93,15 +77,18 @@ public class ViewInstructorActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-
         super.onResume();
-        System.out.println("BACK TO MAIN ACTIVITY");
-        // When the activity resumes, fetch the updated list of reviews
-        List<InstructorReview> updatedReviews = accessReviews.getReviewFor(instructor);
 
-        // Update the adapter with the new list and refresh the RecyclerView
-        reviewsAdapter.setReviews(updatedReviews, loggedInAccount);    // with the logged in user
+        // get updated reviews
+        instructorReviews = accessReviews.getReviewFor(instructor);
+
+        // update list
+        reviewsAdapter.setReviews(instructorReviews, loggedInAccount);
         reviewsAdapter.notifyDataSetChanged();
+
+        // update displayed ratings
+        displayOverallRating();
+        displayDifficultyRating();
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==android.R.id.home){
@@ -110,5 +97,16 @@ public class ViewInstructorActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void displayOverallRating() {
+        TextView overallRatingTV = findViewById(R.id.instructorOverallRating);
+        String overallRating = "Average Overall Rating: " + AverageCalculator.calcAverageOverallRating(instructorReviews) + " / 5.0";
+        overallRatingTV.setText(overallRating);
+    }
+    private void displayDifficultyRating() {
+        TextView difficultyRatingTV = findViewById(R.id.instructorDifficultyRating);
+        String difficultyRating = "Average Difficulty Rating: " + AverageCalculator.calcAverageDifficultyRating(instructorReviews) + " / 5.0";
+        difficultyRatingTV.setText(difficultyRating);
     }
 }

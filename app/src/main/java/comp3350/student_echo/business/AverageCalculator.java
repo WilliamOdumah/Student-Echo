@@ -35,6 +35,4 @@ public class AverageCalculator {
         // format result to single decimal
         return String.format("%.1f", res);
     }
-
-
 }

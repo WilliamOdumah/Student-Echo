@@ -19,13 +19,4 @@ public class Messages {
 
         alertDialog.show();
     }
-
-    public static void warning(Activity owner, String message) {
-        AlertDialog alertDialog = new AlertDialog.Builder(owner).create();
-
-        alertDialog.setTitle(owner.getString(R.string.warning));
-        alertDialog.setMessage(message);
-
-        alertDialog.show();
-    }
 }

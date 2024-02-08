@@ -8,20 +8,14 @@ import comp3350.student_echo.objects.StudentAccount;
 public class StudentAccountManager {
     private final AccessAccounts accountsData;
 
-
     public StudentAccountManager() {
         accountsData=new AccessAccounts();
     }
 
     // creates account and adds to persistence
     public StudentAccount createAccount(String email, String username, String password, String confirmPass) {
-        System.out.println(verifyEmail(email));
-        System.out.println(verifyUsername(username));
-        System.out.println(verifyPassword(password, confirmPass));
 
-        if (verifyEmail(email) &&
-                verifyUsername(username) &&
-                verifyPassword(password, confirmPass)) {
+        if (verifyEmail(email) && verifyUsername(username) && verifyPassword(password, confirmPass)) {
             StudentAccount account = new StudentAccount(username, password, email);
             accountsData.addAccount(account);
             return account;
@@ -36,7 +30,7 @@ public class StudentAccountManager {
         Pattern pattern = Pattern.compile(regexPattern);
         Matcher matcher = pattern.matcher(email);
 
-        return matcher.matches(); // returns if email address matches the established pattern
+        return matcher.matches(); // true if email address matches the established pattern
     }
 
     // there should be no account with the same username

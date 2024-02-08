@@ -8,6 +8,5 @@ public interface AccountPersistence {
 
     List<StudentAccount> getAccountSequential();
 
-
     void addAccount(final StudentAccount currentStudent);
 }

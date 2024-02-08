@@ -1,12 +1,9 @@
 package comp3350.student_echo.presentation;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +29,8 @@ public class CoursesActivity extends AppCompatActivity {
     private AccessCourses accessCourses;
     private List<Course> courseList;
     private ArrayAdapter<Course> courseArrayAdapter;
-
     private StudentAccount loggedInAccount;
 
-
-
-
-    @SuppressLint({"CutPasteId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,22 +83,17 @@ public class CoursesActivity extends AppCompatActivity {
             EditText courseSearchBar = (EditText) findViewById(R.id.enter_course);
             courseSearchBar.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                }
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                     String searchText = charSequence.toString().toLowerCase();
-
                     ArrayList<Course> filteredCourses = accessCourses.filterCourses(searchText, courseList);
-
                     updateView(filteredCourses, listView);
-
                 }
 
                 @Override
-                public void afterTextChanged(Editable editable) {
-                }
+                public void afterTextChanged(Editable editable) {}
             });
 
         } catch (final Exception e) {
@@ -137,19 +124,11 @@ public class CoursesActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_courses, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==android.R.id.home){
             super.onBackPressed();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

@@ -5,13 +5,15 @@ import java.util.UUID;
 public abstract class Review {
     private String id; // Unique identifier for each review
     private StudentAccount writtenBy;  // the user that wrote the review
-    Date datePosted;
-    String comment;
-    int overallRating;
-    int difficultyRating;
-    int totalLikes;
-    int totalDislikes;
-    int numberOfFlagReports;
+    private String comment;
+    private int overallRating;
+    private int difficultyRating;
+
+    // THE 4 FIELDS BELOW WILL BE USED IN ITERATION 2 & 3
+    private Date datePosted;
+    private int totalLikes;
+    private int totalDislikes;
+    private int numberOfFlagReports;
 
     public Review(){}
     public Review(String comment, int overallRating, int difficultyRating, StudentAccount writtenBy) {
