@@ -8,6 +8,5 @@ public class InstructorReview extends Review {
         this.instructor = instructor;
     }
 
-
     public Instructor getInstructor() {return instructor;}
 }

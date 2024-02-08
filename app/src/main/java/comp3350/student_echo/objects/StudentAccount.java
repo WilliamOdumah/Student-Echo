@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class StudentAccount implements Serializable {
     private String username;
     private String password;
-    private String email;
+    private String email; // this will be used for further account creation validation
 
 
     public StudentAccount(String username, String password, String email) {
