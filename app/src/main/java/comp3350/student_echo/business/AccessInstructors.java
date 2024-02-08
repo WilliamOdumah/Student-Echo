@@ -16,10 +16,6 @@ public class AccessInstructors
 		instructorPersistence = Services.getInstructorPersistence();
 	}
 
-    public AccessInstructors(InstructorPersistence instructorPersistence){
-        this.instructorPersistence = instructorPersistence;
-    }
-
     public List<Instructor> getInstructors() {
         List<Instructor> instructors = instructorPersistence.getInstructorSequential();
         return Collections.unmodifiableList(instructors);
