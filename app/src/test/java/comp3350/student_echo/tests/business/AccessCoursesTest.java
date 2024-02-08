@@ -26,7 +26,7 @@ public class AccessCoursesTest {
     @Test
     public void testGetCourses() {
         final List<Course> courses = accessCourses.getCourses();
-        assertEquals(10, courses.size());
+        assertEquals(11, courses.size());
         System.out.println("Finished test Get Courses\n");
     }
 }
