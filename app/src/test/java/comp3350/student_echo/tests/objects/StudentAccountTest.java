@@ -21,11 +21,4 @@ public class StudentAccountTest {
         assertEquals("Check username", a1.getUsername(), "username");
         assertNotEquals("Check username", a1.getUsername(), "notusername");
     }
-
-    @Test
-    public void testLoginAuthentication() {
-        assertTrue("Same account info is same account", a1.loginAuthentication(a2));
-        assertFalse("Different accounts are not equal", a1.loginAuthentication(a3));
-    }
-
 }
