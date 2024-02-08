@@ -153,11 +153,6 @@ public class CoursesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void buttonBackHomeOnclick(View v) {
-        onBackPressed();
-    }
-
-
     public void buttonLogOutOnClick(View v){
         Intent logoutIntent= new Intent(CoursesActivity.this, Activity_Login.class);
         CoursesActivity.this.startActivity(logoutIntent);
