@@ -18,22 +18,30 @@ import comp3350.student_echo.business.AccessReviews;
 import comp3350.student_echo.business.AverageCalculator;
 import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.CourseReview;
+import comp3350.student_echo.objects.StudentAccount;
 
 public class ViewCourseActivity extends AppCompatActivity {
 
     AccessReviews accessReviews;
     List<CourseReview> courseReviews;
 
+    private StudentAccount loggedInAccount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        loggedInAccount= (StudentAccount)intent.getExtras().getSerializable("LoggedAccount");
+
+
         setContentView(R.layout.activity_view_course);
 
         accessReviews = new AccessReviews();
 
         try {
             // obtain course from prev Activity
-            Intent intent = getIntent();
+
             Course course = (Course) intent.getSerializableExtra("Course");
 
             // obtain corresponding course reviews
