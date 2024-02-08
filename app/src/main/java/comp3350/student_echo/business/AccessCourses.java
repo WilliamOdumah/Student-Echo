@@ -12,14 +12,8 @@ public class AccessCourses
 	private final CoursePersistence coursePersistence;
 	private List<Course> courses;
 
-	public AccessCourses()
-	{
+	public AccessCourses() {
 		coursePersistence = Services.getCoursePersistence();
-		courses = null;
-	}
-
-	public AccessCourses(CoursePersistence coursePersistence) {
-		this.coursePersistence = coursePersistence;
 		courses = null;
 	}
 
