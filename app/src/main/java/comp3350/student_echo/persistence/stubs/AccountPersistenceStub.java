@@ -19,7 +19,6 @@ public class AccountPersistenceStub implements AccountPersistence {
         accounts.add(new StudentAccount("rishamdeep","singh","risham@myumanitoba.ca"));
         accounts.add(new StudentAccount("ning","liu","ning@myumanitoba.ca"));
         accounts.add(new StudentAccount("brett","aseltine","brett@myumanitoba.ca"));
-
     }
 
     @Override
