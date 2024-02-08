@@ -13,7 +13,7 @@ import comp3350.student_echo.business.AuthenticateLogin;
 import comp3350.student_echo.objects.StudentAccount;
 
 
-public class Activity_Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +37,9 @@ public class Activity_Login extends AppCompatActivity {
         StudentAccount account = AuthenticateLogin.validate(username, password);
 
         if(account != null) {
-            Intent loginIntent = new Intent(Activity_Login.this, HomeActivity.class);
+            Intent loginIntent = new Intent(LoginActivity.this, HomeActivity.class);
             loginIntent.putExtra("LoggedAccount", account);
-            Activity_Login.this.startActivity(loginIntent);
+            LoginActivity.this.startActivity(loginIntent);
         }
         else {
             Toast.makeText(this, "Check your username and password!",Toast.LENGTH_LONG).show();
@@ -47,7 +47,7 @@ public class Activity_Login extends AppCompatActivity {
     }
 
     public void buttonSignupOnClick(View v){
-        Intent signUpIntent= new Intent(Activity_Login.this, SignUpActivity.class);
-        Activity_Login.this.startActivity(signUpIntent);
+        Intent signUpIntent= new Intent(LoginActivity.this, SignUpActivity.class);
+        LoginActivity.this.startActivity(signUpIntent);
     }
 }

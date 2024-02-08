@@ -52,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void buttonLogOutOnClick(View v){
-        Intent logoutIntent= new Intent(HomeActivity.this, Activity_Login.class);
+        Intent logoutIntent= new Intent(HomeActivity.this, LoginActivity.class);
         HomeActivity.this.startActivity(logoutIntent);
     }
 }

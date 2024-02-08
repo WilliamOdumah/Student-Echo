@@ -153,7 +153,7 @@ public class InstructorActivity extends AppCompatActivity {
     }
 
     public void buttonLogOutOnClick(View v){
-        Intent logoutIntent= new Intent(InstructorActivity.this, Activity_Login.class);
+        Intent logoutIntent= new Intent(InstructorActivity.this, LoginActivity.class);
         InstructorActivity.this.startActivity(logoutIntent);
     }
 
