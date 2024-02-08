@@ -14,14 +14,6 @@ public class StudentAccount implements Serializable {
         this.email = email;
 
     }
-
-    public boolean loginAuthentication(StudentAccount toCompare){
-
-        return toCompare.username.equals(this.username)&&toCompare.password.equals(this.password);
-
-    }
-    public String getUsername(){
-
-        return username;
-    }
+    public String getUsername(){return username;}
+    public String getPassword(){return password;}
 }

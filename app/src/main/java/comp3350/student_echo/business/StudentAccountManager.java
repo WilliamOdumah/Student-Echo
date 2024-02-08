@@ -21,14 +21,14 @@ public class StudentAccountManager {
         if (verifyEmail(email) &&
                 verifyUsername(username) &&
                 verifyPassword(password, confirmPass)) {
-            StudentAccount account = new StudentAccount(email, username, password );
+            StudentAccount account = new StudentAccount(username, password, email);
             accountsData.addAccount(account);
             return account;
         }
         return null;
     }
 
-    private boolean verifyEmail(String email) {
+    public boolean verifyEmail(String email) {
         // the pattern every valid uofm student email should follow
         String regexPattern = "^[a-zA-Z0-9]+@myumanitoba\\.ca$";
 
@@ -39,12 +39,12 @@ public class StudentAccountManager {
     }
 
     // there should be no account with the same username
-    private boolean verifyUsername(String username) {
-        return accountsData.getAccount(username) == null;
+    public boolean verifyUsername(String username) {
+        return username != null && !username.equals("") && accountsData.getAccount(username) == null;
     }
 
-    private boolean verifyPassword(String password, String confirmPass) {
-        return password.equals(confirmPass);
+    public boolean verifyPassword(String password, String confirmPass) {
+        return password != null && !password.equals("") && password.equals(confirmPass);
     }
 }
 

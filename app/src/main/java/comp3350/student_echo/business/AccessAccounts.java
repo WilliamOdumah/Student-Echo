@@ -1,5 +1,6 @@
 package comp3350.student_echo.business;
 
+import java.util.Collections;
 import java.util.List;
 
 import comp3350.student_echo.application.Services;
@@ -19,17 +20,8 @@ public class AccessAccounts {
         accounts = accountPersistence.getAccountSequential();
     }
 
-    public  StudentAccount findLoginMatch(StudentAccount toFind){
-
-        StudentAccount currentAccount;
-
-        for (int i=0; i<accounts.size();i++){
-            currentAccount=accounts.get(i);
-            if(currentAccount.loginAuthentication(toFind))
-                return currentAccount;
-        }
-
-        return null;
+    public List<StudentAccount> getAccounts() {
+        return Collections.unmodifiableList(accounts);
     }
 
     public void addAccount(StudentAccount toAdd){

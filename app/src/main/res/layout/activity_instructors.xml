@@ -50,6 +50,18 @@
             android:contentDescription="Noting"
             android:src="?android:attr/actionModeWebSearchDrawable" />
 
+        <EditText
+            android:id="@+id/enter_instructor"
+            android:layout_width="331dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="0dp"
+            android:layout_toEndOf="@+id/find_instructor"
+            android:hint="Search instructor here...">
+
+        </EditText>
+
     </RelativeLayout>
 
 
@@ -78,13 +90,5 @@
 
 
     </RelativeLayout>
-
-    <EditText
-        android:id="@+id/enter_instructor"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Search instructor here...">
-
-    </EditText>
 
 </LinearLayout>
