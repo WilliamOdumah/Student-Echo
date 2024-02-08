@@ -9,24 +9,21 @@ import comp3350.student_echo.persistence.stubs.CoursePersistenceStub;
 import comp3350.student_echo.persistence.stubs.InstructorPersistenceStub;
 import comp3350.student_echo.persistence.stubs.ReviewPersistenceStub;
 
-public class Services
-{
+public class Services {
 	private static InstructorPersistence studentPersistence = null;
 	private static CoursePersistence coursePersistence = null;
     private static AccountPersistence accountPersistence = null;
     private static ReviewPersistence reviewPersistence = null;
 
 
-	public static synchronized InstructorPersistence getInstructorPersistence()
-    {
+	public static synchronized InstructorPersistence getInstructorPersistence() {
 		if (studentPersistence == null) {
 		    studentPersistence = new InstructorPersistenceStub();
         }
         return studentPersistence;
 	}
 
-    public static synchronized CoursePersistence getCoursePersistence()
-    {
+    public static synchronized CoursePersistence getCoursePersistence() {
         if (coursePersistence == null) {
             coursePersistence = new CoursePersistenceStub();
         }
@@ -40,8 +37,7 @@ public class Services
         return reviewPersistence;
     }
 
-    public static synchronized AccountPersistence getAccountPersistence()
-    {
+    public static synchronized AccountPersistence getAccountPersistence() {
         if (accountPersistence == null)
         {
             accountPersistence = new AccountPersistenceStub();

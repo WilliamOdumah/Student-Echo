@@ -1,6 +1,5 @@
 package comp3350.student_echo.presentation;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,7 +22,6 @@ import java.util.List;
 
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessInstructors;
-import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.Instructor;
 import comp3350.student_echo.objects.StudentAccount;
 
@@ -32,10 +30,6 @@ public class InstructorActivity extends AppCompatActivity {
     private AccessInstructors accessInstructors;
     private List<Instructor> instructorList;
     private ArrayAdapter<Instructor> instructorArrayAdapter;
-
-
-    @SuppressLint("MissingInflatedId")
-
     private StudentAccount loggedInAccount;
 
 
@@ -55,7 +49,6 @@ public class InstructorActivity extends AppCompatActivity {
 
             // obtain listView
             final ListView listView = (ListView) findViewById(R.id.listInstructor);
-
 
             // create adapter holding Instructor object to display name and title
             instructorArrayAdapter = new ArrayAdapter<Instructor>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, instructorList) {

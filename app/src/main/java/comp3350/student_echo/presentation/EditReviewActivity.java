@@ -12,25 +12,19 @@ import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessReviews;
 import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.InstructorReview;
-import comp3350.student_echo.persistence.stubs.ReviewPersistenceStub;
 import comp3350.student_echo.objects.CourseReview;
 import comp3350.student_echo.objects.Review;
 
-// The activity for editing a review
 public class EditReviewActivity extends AppCompatActivity {
 
-    // UI elements and a variable to hold the current review being edited
     private Review currentReview;
     private EditText commentEditText;
     private RatingBar overallRatingBar;
     private RatingBar difficultyRatingBar;
     private Button saveButton;
-    boolean isCourse = false;
-
-    // Constant to identify the intent extra
+    private boolean isCourse = false;
+    private AccessReviews accessReviews;
     public static final String EXTRA_REVIEW_ID = "REVIEW_ID";
-
-    AccessReviews accessReviews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +67,12 @@ public class EditReviewActivity extends AppCompatActivity {
                 currentReview.setOverallRating((int) overallRatingBar.getRating());
                 currentReview.setDifficultyRating((int) difficultyRatingBar.getRating());
 
-                // Call the method to update the review in the database
-                if (isCourse){
-                    updateCourseReviewInDatabase((CourseReview) currentReview);
+                // prompt database to update
+                if (isCourse) {
+                    accessReviews.updateCourseReviewInDatabase((CourseReview) currentReview);
                 }
-                else{
-                    updateInstructorReviewInDatabase((InstructorReview) currentReview);
+                else {
+                    accessReviews.updateInstructorReviewInDatabase((InstructorReview) currentReview);
                 }
 
 
@@ -92,8 +86,6 @@ public class EditReviewActivity extends AppCompatActivity {
     }
 
     private Review loadCourseReview(String reviewId) {
-        // Implement the logic to retrieve a Review object given its ID
-        // Here, we just simulate the retrieval from the stub database
         return accessReviews.getCourseReviewById(reviewId);
     }
 
@@ -101,13 +93,4 @@ public class EditReviewActivity extends AppCompatActivity {
         return accessReviews.getInstructorReviewById(reviewId);
     }
 
-    private void updateCourseReviewInDatabase(CourseReview review) {
-        // Implement the logic to update a review in the database
-        // Here, we just simulate the update in the stub database
-        accessReviews.updateCourseReviewInDatabase(review);
-    }
-
-    private void updateInstructorReviewInDatabase(InstructorReview review) {
-        accessReviews.updateInstructorReviewInDatabase(review);
-    }
 }

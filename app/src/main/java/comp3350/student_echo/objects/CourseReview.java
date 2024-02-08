@@ -1,7 +1,7 @@
 package comp3350.student_echo.objects;
 
 public class CourseReview extends Review {
-    Course course;
+    private Course course;
 
     public CourseReview(Course course, String comment, int overallRating, int difficultyRating, StudentAccount by) {
         super(comment, overallRating, difficultyRating, by);

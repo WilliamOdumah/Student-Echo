@@ -23,8 +23,8 @@ public class CoursePersistenceStub implements CoursePersistence {
         courses.add(new Course("CS", "COMP3380", "Databases Concepts and Usage"));
         courses.add(new Course("CS", "COMP4620", "Professional Practice in Computer Science"));
         courses.add(new Course("CS", "COMP4350", "Software Engineering 2"));
-
     }
+
     @Override
     public List<Course> getCourseSequential() {
         return Collections.unmodifiableList(courses);

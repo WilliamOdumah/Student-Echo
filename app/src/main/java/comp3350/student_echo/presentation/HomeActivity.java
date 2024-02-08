@@ -26,7 +26,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==android.R.id.home){
@@ -39,9 +38,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void buttonCourseOnClick(View v) {
         Intent studentsIntent = new Intent(HomeActivity.this, CoursesActivity.class);
-
         studentsIntent.putExtra("LoggedAccount",loggedInAccount);
-
         HomeActivity.this.startActivity(studentsIntent);
     }
 
@@ -51,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
         HomeActivity.this.startActivity(instructorIntent);
     }
 
-    public void buttonLogOutOnClick(View v){
+    public void buttonLogOutOnClick(View v) {
         Intent logoutIntent= new Intent(HomeActivity.this, Activity_Login.class);
         HomeActivity.this.startActivity(logoutIntent);
     }

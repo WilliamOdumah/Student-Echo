@@ -15,7 +15,6 @@ import comp3350.student_echo.objects.StudentAccount;
 
 public class SignUpActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
