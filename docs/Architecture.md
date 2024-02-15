@@ -4,7 +4,7 @@ An overview of our classes and its locations.
 
 ### Iteration 1 Diagram
 
-![Architecture](Architecture1.png)
+![Architecture](docs/"Iteration 1"/Architecture1.png)
 
 #### Presentation
 
