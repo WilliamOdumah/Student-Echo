@@ -102,7 +102,11 @@ public class CoursesActivity extends AppCompatActivity {
     }
 
     private void updateView(ArrayList<Course> filteredCourses, ListView listView ) {
-        ArrayAdapter<Course> filtered_adapter = new ArrayAdapter<Course>(this, android.R.layout.simple_list_item_activated_2,android.R.id.text1,filteredCourses){
+        ArrayAdapter<Course> filtered_adapter = new ArrayAdapter<Course>(
+                this,
+                android.R.layout.simple_list_item_activated_2,
+                android.R.id.text1,
+                filteredCourses){
             @NonNull
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
