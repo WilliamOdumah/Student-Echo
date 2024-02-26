@@ -1,5 +1,6 @@
 package comp3350.student_echo.presentation;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -102,15 +103,19 @@ public class ViewCourseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("DefaultLocale")
     private void displayOverallRating() {
         TextView overallRatingTV = findViewById(R.id.courseOverallRating);
-        String overallRating = "Average Overall Rating: " + AverageCalculator.calcAverageOverallRating(courseReviews) + " / 5.0";
+        double rating = AverageCalculator.calcAverageOverallRating(courseReviews);
+        String overallRating = String.format("Average Overall Rating: %.1f / 5.0", rating);
         overallRatingTV.setText(overallRating);
     }
 
+    @SuppressLint("DefaultLocale")
     private void displayDifficultyRating() {
         TextView difficultyRatingTV = findViewById(R.id.courseDifficultyRating);
-        String difficultyRating = "Average Difficulty Rating: " + AverageCalculator.calcAverageDifficultyRating(courseReviews) + " / 5.0";
+        double rating = AverageCalculator.calcAverageDifficultyRating(courseReviews);
+        String difficultyRating = String.format("Average Difficulty Rating: %.1f / 5.0", rating);
         difficultyRatingTV.setText(difficultyRating);
     }
 }
