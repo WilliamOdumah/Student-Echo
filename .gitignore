@@ -1,2 +1,7 @@
+# ignore local files
 local.properties
 .DS_Store
+
+# ignore build
+build/
+.gradle/
