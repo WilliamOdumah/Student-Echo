@@ -6,18 +6,12 @@ import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.CourseReview;
 import comp3350.student_echo.objects.Instructor;
 import comp3350.student_echo.objects.InstructorReview;
+import comp3350.student_echo.objects.Review;
 
 public interface ReviewPersistence {
-    void addCourseReview(CourseReview review);
-    List<CourseReview> getAllCourseReviews();
-    void addInstructorReview(InstructorReview review);
-    List<InstructorReview> getAllInstructorReviews();
-    void deleteCourseReview(String reviewId);
-    void deleteInstructorReview(String reviewId);
-    CourseReview getCourseReviewById(String reviewId);
-    InstructorReview getInstructorReviewById(String reviewId);
-    boolean updateCourseReviewInDatabase(CourseReview updatedReview);
-    boolean updateInstructorReviewInDatabase(InstructorReview updatedReview);
+
+    void addReview(Review r);
+    void deleteReview(Review r);
     List<CourseReview> getReviewsFor(Course c);
     List<InstructorReview> getReviewsFor(Instructor inst);
 

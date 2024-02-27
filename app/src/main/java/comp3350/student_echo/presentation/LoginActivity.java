@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import comp3350.student_echo.R;
-import comp3350.student_echo.business.AuthenticateLogin;
+import comp3350.student_echo.business.LoginManager;
 import comp3350.student_echo.objects.StudentAccount;
 
 
@@ -33,15 +33,14 @@ public class LoginActivity extends AppCompatActivity {
         String username=Username.getText().toString().trim();
         String password=Password.getText().toString().trim();
 
-        // ensure username and password valid
-        StudentAccount account = AuthenticateLogin.validate(username, password);
+        // try login
+        boolean success = LoginManager.performLogin(username, password);
 
-        if(account != null) {
+        // go to home page if successful
+        if(success) {
             Intent loginIntent = new Intent(LoginActivity.this, HomeActivity.class);
-            loginIntent.putExtra("LoggedAccount", account);
             LoginActivity.this.startActivity(loginIntent);
-        }
-        else {
+        } else {
             Toast.makeText(this, "Check your username and password!",Toast.LENGTH_LONG).show();
         }
     }

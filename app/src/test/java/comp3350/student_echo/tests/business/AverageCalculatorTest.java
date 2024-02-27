@@ -10,7 +10,6 @@ import java.util.List;
 import comp3350.student_echo.business.AverageCalculator;
 import comp3350.student_echo.objects.CourseReview;
 import comp3350.student_echo.objects.InstructorReview;
-import comp3350.student_echo.objects.Review;
 
 public class AverageCalculatorTest {
     List<CourseReview> courseReviews;
@@ -34,17 +33,22 @@ public class AverageCalculatorTest {
 
     @Test
     public void testCalcAverageOverallRating() {
-        // 1 + 2 + 5 + 5 = 13/4 = 3.25 -->round--> 3.3
-        assertEquals("test with course reviews", AverageCalculator.calcAverageOverallRating(courseReviews), "3.3");
-        assertEquals("test with instructor reviews", AverageCalculator.calcAverageOverallRating(instructorReviews), "3.3");
-        assertEquals("test with no reviews", AverageCalculator.calcAverageOverallRating(new ArrayList<CourseReview>()), "0.0");
+        // 1 + 2 + 5 + 5 = 13/4 = 3.25000...
+        assertTrue("test with course reviews", isEqual(AverageCalculator.calcAverageOverallRating(courseReviews), 3.25));
+        assertTrue("test with instructor reviews", isEqual(AverageCalculator.calcAverageOverallRating(instructorReviews), 3.25));
+        assertTrue("test with no reviews", isEqual(AverageCalculator.calcAverageOverallRating(new ArrayList<CourseReview>()), 0));
     }
 
     @Test
     public void testCalcAverageDifficultyRating() {
-        // 2 + 2 + 3 + 3 = 10 / 4 = 2.5
-        assertEquals("test with course reviews", AverageCalculator.calcAverageDifficultyRating(courseReviews), "2.5");
-        assertEquals("test with instructor reviews", AverageCalculator.calcAverageDifficultyRating(instructorReviews), "2.5");
-        assertEquals("test with no reviews", AverageCalculator.calcAverageDifficultyRating(new ArrayList<CourseReview>()), "0.0");
+        // 2 + 2 + 3 + 3 = 10 / 4 = 2.5000...
+        assertTrue("test with course reviews", isEqual(AverageCalculator.calcAverageDifficultyRating(courseReviews), 2.5));
+        assertTrue("test with instructor reviews", isEqual(AverageCalculator.calcAverageDifficultyRating(instructorReviews), 2.5));
+        assertTrue("test with no reviews", isEqual(AverageCalculator.calcAverageDifficultyRating(new ArrayList<CourseReview>()), 0.0));
+    }
+
+    private boolean isEqual(double a, double b) {
+        double epsilon = 0.00001;
+        return Math.abs(a-b) < epsilon;
     }
 }

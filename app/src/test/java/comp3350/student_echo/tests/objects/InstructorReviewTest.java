@@ -31,8 +31,8 @@ public class InstructorReviewTest {
 
     @Test
     public void testGetWrittenBy() {
-        assertEquals("checking instructor review's author", instructorReview.getWrittenBy(), "kelly");
-        assertNotEquals("checking instructor review's author", instructorReview.getWrittenBy(), "a");
+        assertEquals("checking instructor review's author", instructorReview.getAuthorUsername(), "kelly");
+        assertNotEquals("checking instructor review's author", instructorReview.getAuthorUsername(), "a");
     }
 
     @Test
