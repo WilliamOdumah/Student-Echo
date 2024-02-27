@@ -52,7 +52,7 @@ Our [architecture](https://code.cs.umanitoba.ca/comp3350-winter2024/KeyValuePair
 
 ## Summaries
 
-- [Iteration 1](https://code.cs.umanitoba.ca/comp3350-winter2024/KeyValuePairs-a02-8/-/blob/main/docs/Iteration1.md?ref_type=heads)
+- [Iteration 1](https://code.cs.umanitoba.ca/comp3350-winter2024/KeyValuePairs-a02-8/-/blob/main/docs/Iteration%201/Iteration1.md?ref_type=heads)
 
 - [Iteration 2](https://code.cs.umanitoba.ca/comp3350-winter2024/KeyValuePairs-a02-8/-/blob/main/docs/Iteration%202/Iteration2.md?ref_type=heads)
 
