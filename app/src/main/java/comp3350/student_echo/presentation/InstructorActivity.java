@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,23 +12,20 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessInstructors;
+import comp3350.student_echo.business.LoginManager;
 import comp3350.student_echo.objects.Instructor;
-import comp3350.student_echo.objects.StudentAccount;
 
 public class InstructorActivity extends AppCompatActivity {
 
     private AccessInstructors accessInstructors;
     private List<Instructor> instructorList;
-    private ArrayAdapter<Instructor> instructorArrayAdapter;
-    private StudentAccount loggedInAccount;
+    private ArrayAdapter<Instructor> adapter;
 
 
     @Override
@@ -38,77 +33,49 @@ public class InstructorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructors);
 
-        Intent intent = getIntent();
-        loggedInAccount= (StudentAccount)intent.getExtras().getSerializable("LoggedAccount");
-
         accessInstructors = new AccessInstructors();
+        instructorList = accessInstructors.getInstructors();
 
-        try {
-            // obtain instructors from DB
-            instructorList = accessInstructors.getInstructors();
+        // obtain listView
+        final ListView listView = (ListView) findViewById(R.id.listInstructor);
 
-            // obtain listView
-            final ListView listView = (ListView) findViewById(R.id.listInstructor);
+        // set adapter for listView
+        adapter = buildInstructorAdapter(instructorList);
+        listView.setAdapter(adapter);
 
-            // create adapter holding Instructor object to display name and title
-            instructorArrayAdapter = new ArrayAdapter<Instructor>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, instructorList) {
-                @Override
-                public View getView(int position, View convertView, ViewGroup parent) {
-                    View view = super.getView(position, convertView, parent);
+        // set listener
+        listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
+                // go to ViewInstructorActivity with selected instructor
+                Instructor selectedInstructor = (Instructor) parent.getItemAtPosition(position);
+                Intent viewInstructorIntent = new Intent(InstructorActivity.this, ViewInstructorActivity.class);
+                viewInstructorIntent.putExtra("Instructor", selectedInstructor);
+                InstructorActivity.this.startActivity(viewInstructorIntent);
+            }
+        });
 
-                    TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-                    TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+        // set addTextChangedListener for search bar
+        EditText instructorSearchBar = (EditText) findViewById(R.id.enter_instructor);
+        instructorSearchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String searchText = charSequence.toString().toLowerCase();
+                List<Instructor> filteredList = accessInstructors.filterInstructor(searchText, instructorList);
+                ArrayAdapter<Instructor> filterAdapter = buildInstructorAdapter(filteredList);
+                listView.setAdapter(filterAdapter);
 
-                    text1.setText(instructorList.get(position).getFirstName() + " " + instructorList.get(position).getLastName());
-                    text2.setText(instructorList.get(position).getTitle());
-
-                    return view;
-                }
-            };
-
-            // set adapter for listView
-            listView.setAdapter(instructorArrayAdapter);
-
-            // set onItemClickListener for listView
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
-                    // go to ViewInstructorActivity with selected instructor
-                    Instructor selectedInstructor = (Instructor) parent.getItemAtPosition(position);
-                    Intent viewInstructorIntent = new Intent(InstructorActivity.this, ViewInstructorActivity.class);
-                    viewInstructorIntent.putExtra("Instructor", selectedInstructor);
-                    viewInstructorIntent.putExtra("LoggedAccount",loggedInAccount);
-                    InstructorActivity.this.startActivity(viewInstructorIntent);
-                }
-            });
-
-            // set addTextChangedListener for search bar
-            EditText findInstructor = (EditText) findViewById(R.id.enter_instructor);
-            findInstructor.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    String searchText = charSequence.toString().toLowerCase();
-
-                    ArrayList<Instructor> filteredInstructor = accessInstructors.filterInstructor(searchText, instructorList);
-
-                    updateView(filteredInstructor, listView);
-
-                }
-                @Override
-                public void afterTextChanged(Editable editable) {}
-            });
-        }
-        catch (final Exception e) {
-            Messages.fatalError(this, e.getMessage());
-        }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
     }
 
-    private void updateView(ArrayList<Instructor> filteredInstructor, ListView listView){
-
-        ArrayAdapter<Instructor> filtered_adapter = new ArrayAdapter<Instructor>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, filteredInstructor) {
-            @NonNull
+    private ArrayAdapter<Instructor> buildInstructorAdapter(List<Instructor> list) {
+        return new ArrayAdapter<Instructor>(this,
+                android.R.layout.simple_list_item_activated_2, android.R.id.text1, list) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
@@ -116,36 +83,16 @@ public class InstructorActivity extends AppCompatActivity {
                 TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
-                // Use filteredInstructor list to access data directly
-                text1.setText(filteredInstructor.get(position).getFirstName() + " " + filteredInstructor.get(position).getLastName());
-                text2.setText(filteredInstructor.get(position).getTitle());
+                text1.setText(instructorList.get(position).getFirstName() + " " + instructorList.get(position).getLastName());
+                text2.setText(instructorList.get(position).getTitle());
 
                 return view;
             }
         };
-
-        listView.setAdapter(filtered_adapter);
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_students, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==android.R.id.home){
-            super.onBackPressed();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void buttonLogOutOnClick(View v){
+        LoginManager.performLogout();
         Intent logoutIntent= new Intent(InstructorActivity.this, LoginActivity.class);
         InstructorActivity.this.startActivity(logoutIntent);
     }

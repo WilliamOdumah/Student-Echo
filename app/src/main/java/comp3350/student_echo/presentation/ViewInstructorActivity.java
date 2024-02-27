@@ -1,11 +1,12 @@
 package comp3350.student_echo.presentation;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,97 +17,89 @@ import java.util.List;
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessReviews;
 import comp3350.student_echo.business.AverageCalculator;
+import comp3350.student_echo.business.LoginManager;
 import comp3350.student_echo.objects.Instructor;
 import comp3350.student_echo.objects.InstructorReview;
 import comp3350.student_echo.objects.StudentAccount;
 
 public class ViewInstructorActivity extends AppCompatActivity {
 
+    RecyclerView reviewsRecyclerView;
+    private ReviewsAdapter reviewsAdapter;
     private AccessReviews accessReviews;
     private List<InstructorReview> instructorReviews;
-    private RecyclerView reviewsRecyclerView;
-    private ReviewsAdapter reviewsAdapter;
-    private StudentAccount currentUser = null;
-    private boolean isLoggedIn = false;
+    private StudentAccount user;
     private Instructor instructor;
-    private StudentAccount loggedInAccount = null;
-    private static final String ACCOUNT_KEY= "LoggedAccount";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_instructor);
 
-        accessReviews = new AccessReviews();
         Intent intent = getIntent();
         instructor = (Instructor) intent.getSerializableExtra("Instructor");
-        loggedInAccount= (StudentAccount)intent.getExtras().getSerializable(ACCOUNT_KEY);
-        // obtain corresponding course reviews
-        instructorReviews = accessReviews.getReviewFor(instructor);
+        accessReviews = new AccessReviews();
+        instructorReviews = accessReviews.getReviewsFor(instructor);
+        user = LoginManager.getLoggedInUser();
 
-
-        // display the course info
+        // display the instructor info
         TextView instructorInfoTV = findViewById(R.id.instructorInfo);
         String instructorInfo = "Instructor: "+instructor.getTitle()+". "+instructor.getFirstName()+" "+instructor.getLastName();
         instructorInfoTV.setText(instructorInfo);
 
+        // display averages
         displayOverallRating();
         displayDifficultyRating();
 
+        // display list of reviews
         reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
         reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        reviewsAdapter = new ReviewsAdapter(instructorReviews, currentUser, instructor);
+        reviewsAdapter = new ReviewsAdapter(instructorReviews, user, instructor);
         reviewsRecyclerView.setAdapter(reviewsAdapter);
 
-
-        // Initialize the write review button and set its click listener
+        // set listeners
         Button reviewButton = findViewById(R.id.reviewButton);
         reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ViewInstructorActivity.this, ReviewFormActivity.class);
-                // Pass the current user and the review type to the intent
-                intent.putExtra("CURRENT_USER", loggedInAccount);
-                intent.putExtra("REVIEW_TYPE", instructor);
-                // Start the ReviewFormActivity
-                startActivity(intent);
+                if(user != null) {
+                    Intent intent = new Intent(ViewInstructorActivity.this, WriteReviewActivity.class);
+                    intent.putExtra("REVIEW_TYPE", instructor);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(ViewInstructorActivity.this, "Must be logged in to write review!",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-
         // get updated reviews
-        instructorReviews = accessReviews.getReviewFor(instructor);
+        instructorReviews = accessReviews.getReviewsFor(instructor);
 
-        // update list
-        reviewsAdapter.setReviews(instructorReviews, loggedInAccount);
-        reviewsAdapter.notifyDataSetChanged();
-
-        // update displayed ratings
+        // update view with current instructorReview
+        reviewsAdapter = new ReviewsAdapter(instructorReviews, user, instructor);
+        reviewsRecyclerView.setAdapter(reviewsAdapter);
         displayOverallRating();
         displayDifficultyRating();
     }
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==android.R.id.home){
-            super.onBackPressed();
-            return true;
-        }
 
-        return super.onOptionsItemSelected(item);
-    }
-
+    @SuppressLint("DefaultLocale")
     private void displayOverallRating() {
         TextView overallRatingTV = findViewById(R.id.instructorOverallRating);
-        String overallRating = "Average Overall Rating: " + AverageCalculator.calcAverageOverallRating(instructorReviews) + " / 5.0";
+        double rating = AverageCalculator.calcAverageDifficultyRating(instructorReviews);
+        String overallRating = String.format("Average Overall Rating: %.1f / 5.0", rating);
         overallRatingTV.setText(overallRating);
     }
+
+    @SuppressLint("DefaultLocale")
     private void displayDifficultyRating() {
         TextView difficultyRatingTV = findViewById(R.id.instructorDifficultyRating);
-        String difficultyRating = "Average Difficulty Rating: " + AverageCalculator.calcAverageDifficultyRating(instructorReviews) + " / 5.0";
+        double rating = AverageCalculator.calcAverageDifficultyRating(instructorReviews);
+        String difficultyRating = String.format("Average Difficulty Rating: %.1f / 5.0", rating);
         difficultyRatingTV.setText(difficultyRating);
     }
 }
