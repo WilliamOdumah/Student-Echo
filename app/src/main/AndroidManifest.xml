@@ -59,7 +59,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="comp3350.student_echo.presentation.HomeActivity" />
         </activity>
-        <activity android:name=".presentation.ReviewFormActivity" />
+        <activity android:name=".presentation.WriteReviewActivity" />
         <activity android:name=".presentation.EditReviewActivity"/>
     </application>
 

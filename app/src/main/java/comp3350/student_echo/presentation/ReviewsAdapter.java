@@ -1,7 +1,5 @@
 package comp3350.student_echo.presentation;
 
-import static comp3350.student_echo.presentation.ViewCourseActivity.EDIT_REVIEW_REQUEST_CODE;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -20,37 +18,18 @@ import java.util.List;
 
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.AccessReviews;
-import comp3350.student_echo.objects.Course;
-import comp3350.student_echo.objects.Instructor;
 import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.StudentAccount;
 
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHolder> {
 
     private List<? extends Review> reviews;
-    private Course course;
-    private Instructor instructor;
-    private AccessReviews accessReviews;
-    private boolean isCourse = false;
+    private final AccessReviews accessReviews;
     private StudentAccount currentUser;
     public ReviewsAdapter(List<? extends Review> reviews, StudentAccount currentUser, Object type) {
         accessReviews = new AccessReviews();
         this.reviews = reviews;
         this.currentUser = currentUser;
-        if (type instanceof Course){
-            this.course = (Course) type;
-            isCourse = true;
-        }
-        else {
-            this.instructor= (Instructor) type;
-        }
-    }
-
-
-    // Method to update the list of reviews
-    public void setReviews(List<? extends Review> newReviews, StudentAccount currentUser) {
-        this.reviews = newReviews;
-        this.currentUser =currentUser;
     }
 
     @NonNull
@@ -62,70 +41,64 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Review review = reviews.get(position);
+        displayReview(holder, reviews.get(position));
+        holder.editIcon.setOnClickListener(v -> editReviewAction(holder, v));
+        holder.deleteIcon.setOnClickListener(v -> deleteReviewAction(holder, v));
+    }
+
+    @Override
+    public int getItemCount() {
+        return reviews.size();
+    }
+
+    private void displayReview(ViewHolder holder, Review review) {
         holder.reviewCommentTextView.setText(review.getComment());
         holder.reviewRatingBar.setRating((float) review.getOverallRating());
         // Show or hide the edit and delete buttons based on the user ID
-        if (review.getWrittenBy().equals(currentUser.getUsername())) {
+        if (review.getAuthorUsername().equals(currentUser.getUsername())) {
             holder.editIcon.setVisibility(View.VISIBLE);
             holder.deleteIcon.setVisibility(View.VISIBLE);
         } else {
             holder.editIcon.setVisibility(View.GONE);
             holder.deleteIcon.setVisibility(View.GONE);
         }
-        holder.editIcon.setOnClickListener(v -> {
-            // Get the position of the clicked item
-            int editPosition = holder.getAdapterPosition();
-
-            // Get the Review object at this position
-            Review editReview = reviews.get(editPosition);
-
-            // Intent to start an activity to edit the review, passing the review details
-            Intent editIntent = new Intent(v.getContext(), EditReviewActivity.class);
-            editIntent.putExtra("REVIEW_ID", editReview.getId()); // Pass the review's unique ID
-            if (isCourse){
-                editIntent.putExtra("REVIEW_TYPE",course);
-            }
-            else {
-                editIntent.putExtra("REVIEW_TYPE",instructor);
-            }
-            // Start the activity with a request code
-            ((Activity) v.getContext()).startActivityForResult(editIntent, EDIT_REVIEW_REQUEST_CODE);
-        });
-
-        holder.deleteIcon.setOnClickListener(v -> {
-            // Get the position of the clicked item
-            int deletePosition = holder.getAdapterPosition();
-            if (deletePosition != RecyclerView.NO_POSITION) {
-                // Confirm before deleting
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle("Delete Review")
-                        .setMessage("Are you sure you want to delete this review?")
-                        .setPositiveButton("Yes", (dialog, which) -> {
-                            // Delete the review from the database
-                            Review reviewToDelete = reviews.get(deletePosition);
-                            if (isCourse) {
-                                accessReviews.deleteCourseReview(reviewToDelete.getId());
-                            }
-                            else {
-                                accessReviews.deleteInstructorReview(reviewToDelete.getId());
-                            }
-
-                            // Remove the review from the adapter's list
-                            reviews.remove(deletePosition);
-                            Toast.makeText(v.getContext(), "Review deleted", Toast.LENGTH_SHORT).show();
-                            // Notify the adapter of the item removal
-                            notifyItemRemoved(deletePosition);
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
-            }
-        });
     }
 
-    @Override
-    public int getItemCount() {
-        return reviews.size();
+    private void editReviewAction(ViewHolder holder, View v) {
+        // Get the position of the clicked item
+        int editPosition = holder.getAdapterPosition();
+
+        // Get the Review object at this position
+        Review editReview = reviews.get(editPosition);
+
+        // go to EditReviewActivity page
+        Intent editIntent = new Intent(v.getContext(), EditReviewActivity.class);
+        editIntent.putExtra("REVIEW", editReview);
+        ((Activity) v.getContext()).startActivityForResult(editIntent, 0);
+    }
+
+    private void deleteReviewAction(ViewHolder holder, View v) {
+        // Get the position of the clicked item
+        int deletePosition = holder.getAdapterPosition();
+        if (deletePosition != RecyclerView.NO_POSITION) {
+            // Confirm before deleting
+            new AlertDialog.Builder(v.getContext())
+                    .setTitle("Delete Review")
+                    .setMessage("Are you sure you want to delete this review?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        // Prompt database to delete
+                        Review reviewToDelete = reviews.get(deletePosition);
+                        accessReviews.deleteReview(reviewToDelete);
+
+                        // Remove the review from the adapter's list
+                        reviews.remove(deletePosition);
+                        Toast.makeText(v.getContext(), "Review deleted", Toast.LENGTH_SHORT).show();
+                        // Notify the adapter of the item removal
+                        notifyItemRemoved(deletePosition);
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -7,7 +7,7 @@ import comp3350.student_echo.tests.business.AccessAccountsTest;
 import comp3350.student_echo.tests.business.AccessCoursesTest;
 import comp3350.student_echo.tests.business.AccessInstructorsTest;
 import comp3350.student_echo.tests.business.AccessReviewsTest;
-import comp3350.student_echo.tests.business.AuthenticateLoginTest;
+import comp3350.student_echo.tests.business.LoginManagerTest;
 import comp3350.student_echo.tests.business.AverageCalculatorTest;
 import comp3350.student_echo.tests.business.StudentAccountManagerTest;
 import comp3350.student_echo.tests.objects.CourseReviewTest;
@@ -24,7 +24,7 @@ import comp3350.student_echo.tests.objects.StudentAccountTest;
         AccessCoursesTest.class,
         AccessInstructorsTest.class,
         AccessReviewsTest.class,
-        AuthenticateLoginTest.class,
+        LoginManagerTest.class,
         AverageCalculatorTest.class,
         StudentAccountManagerTest.class,
         AccessReviewsTest.class,
