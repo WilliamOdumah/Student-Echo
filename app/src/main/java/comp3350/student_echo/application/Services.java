@@ -3,6 +3,7 @@ package comp3350.student_echo.application;
 import comp3350.student_echo.persistence.AccountPersistence;
 import comp3350.student_echo.persistence.CoursePersistence;
 import comp3350.student_echo.persistence.InstructorPersistence;
+import comp3350.student_echo.persistence.hsqldb.CoursePersistenceHSQLDB;
 import comp3350.student_echo.persistence.stubs.AccountPersistenceStub;
 import comp3350.student_echo.persistence.ReviewPersistence;
 import comp3350.student_echo.persistence.stubs.CoursePersistenceStub;
@@ -23,9 +24,14 @@ public class Services {
         return studentPersistence;
 	}
 
-    public static synchronized CoursePersistence getCoursePersistence() {
+    public static synchronized CoursePersistence getCoursePersistence(boolean forProduction) {
         if (coursePersistence == null) {
-            coursePersistence = new CoursePersistenceStub();
+            if(forProduction) {
+                coursePersistence = new CoursePersistenceHSQLDB(Main.getDBPathName());
+            }
+            else {
+                coursePersistence = new CoursePersistenceStub();
+            }
         }
         return coursePersistence;
     }

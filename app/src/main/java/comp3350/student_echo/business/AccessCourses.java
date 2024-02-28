@@ -13,7 +13,9 @@ public class AccessCourses {
 	private List<Course> courses;
 
 	public AccessCourses() {
-		coursePersistence = Services.getCoursePersistence();
+		System.out.println("ATTEMPTING TO GET COURSE PERSISTENCE");
+		coursePersistence = Services.getCoursePersistence(true);
+		System.out.println("DONE CALL");
 		courses = null;
 	}
 
