@@ -25,12 +25,23 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==android.R.id.home){
-            super.onBackPressed();
+            onBackPressed();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    public void onBackPressed(){
+        LoginManager.performLogout();
+        Intent logoutIntent= new Intent(HomeActivity.this, LoginActivity.class);
+        logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        HomeActivity.this.startActivity(logoutIntent);
+        finish();
+    }
+
 
     public void buttonCourseOnClick(View v) {
         Intent studentsIntent = new Intent(HomeActivity.this, CoursesActivity.class);
