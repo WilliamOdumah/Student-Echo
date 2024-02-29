@@ -2,6 +2,7 @@ package comp3350.student_echo.persistence.stubs;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.CourseReview;
@@ -60,6 +61,24 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         return result;
     }
 
+    public boolean updateReview(Review r){
+        int index = findReviewIndexById(r.getUid());
+        if (index != -1) {
+            reviews.set(index,r);
+            return true;
+        }
+        return false;
+    }
+
+
+    private int findReviewIndexById(UUID reviewId) {
+        for (int i = 0; i < reviews.size(); i++) {
+            if (reviews.get(i).getUid().equals(reviewId)) {
+                return i;
+            }
+        }
+        return -1;
+    }
     public List<InstructorReview> getReviewsFor(Instructor inst) {
         List<InstructorReview> result = new ArrayList<>();
         for (Review review : reviews) {

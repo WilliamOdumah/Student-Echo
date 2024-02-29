@@ -1,4 +1,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".HomeActivity">
+    <item
+        app:showAsAction="always"
+        android:title=" "
+        android:icon="@drawable/baseline_menu_24">
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:title="Log Out"
+                app:showAsAction="never"/>
+
+            <item
+                android:id="@+id/accountSettings"
+                android:title="Account Settings"
+                app:showAsAction="never"/>
+
+
+            </menu>
+    </item>
 </menu>
+
+

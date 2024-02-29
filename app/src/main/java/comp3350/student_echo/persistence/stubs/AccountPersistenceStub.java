@@ -26,6 +26,11 @@ public class AccountPersistenceStub implements AccountPersistence {
         accounts.add(toAdd);
     }
 
+    @Override
+    public void updateAccount(StudentAccount currentStudent) {
+
+    }
+
     public List<StudentAccount> getAccountSequential() {
         return Collections.unmodifiableList(accounts);
     }

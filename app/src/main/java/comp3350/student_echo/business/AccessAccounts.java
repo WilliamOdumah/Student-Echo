@@ -14,7 +14,7 @@ public class AccessAccounts {
 
     public AccessAccounts()
     {
-        accountPersistence = Services.getAccountPersistence();
+        accountPersistence = Services.getAccountPersistence(true);
     }
 
     public void addAccount(StudentAccount toAdd){

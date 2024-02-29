@@ -26,17 +26,6 @@
             android:textAlignment="center"
             android:textSize="30sp" />
 
-        <Button
-            android:id="@+id/logOut"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="-1dp"
-            android:onClick="buttonLogOutOnClick"
-            android:text="Log-Out" />
-
     </RelativeLayout>
 
 
@@ -78,7 +67,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:gravity="center">
 
         <View
             android:id="@+id/separator"
@@ -87,7 +77,18 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="#000000" />
+
+        <Button
+            android:id="@+id/addCourse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="add Course" />
+
     </RelativeLayout>
+
+
 
 
 </LinearLayout>

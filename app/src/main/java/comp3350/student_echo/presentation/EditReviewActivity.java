@@ -9,6 +9,7 @@ import android.widget.RatingBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import comp3350.student_echo.R;
+import comp3350.student_echo.business.AccessReviews;
 import comp3350.student_echo.objects.Review;
 
 public class EditReviewActivity extends AppCompatActivity {
@@ -18,10 +19,13 @@ public class EditReviewActivity extends AppCompatActivity {
     Button saveButton;
     Review review;
 
+    private AccessReviews accessReviews;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_review);
+        accessReviews = new AccessReviews();
 
         // Link the UI elements from the layout to the variables
         commentEditText = findViewById(R.id.commentEditText);
@@ -38,11 +42,7 @@ public class EditReviewActivity extends AppCompatActivity {
         difficultyRatingBar.setRating(review.getDifficultyRating());
 
         // Set an OnClickListener for the save button to update the review
-        saveButton.setOnClickListener(this::saveButtonAction);
-    }
-
-    private void saveButtonAction(View v) {
-        new View.OnClickListener() {
+        saveButton.setOnClickListener(new  View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Update review with the new values from UI elements
@@ -50,13 +50,14 @@ public class EditReviewActivity extends AppCompatActivity {
                 review.setOverallRating((int) overallRatingBar.getRating());
                 review.setDifficultyRating((int) difficultyRatingBar.getRating());
 
+                accessReviews.updateReviewInDatabase(review);
                 // Notify the calling activity that the edit was successful
                 setResult(RESULT_OK);
 
                 // Finish the activity and return to the previous screen
                 finish();
             }
-        };
+        });
     }
 
 }

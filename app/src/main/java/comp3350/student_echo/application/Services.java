@@ -5,6 +5,9 @@ import comp3350.student_echo.persistence.CoursePersistence;
 import comp3350.student_echo.persistence.InstructorPersistence;
 import comp3350.student_echo.persistence.hsqldb.CoursePersistenceHSQLDB;
 import comp3350.student_echo.persistence.hsqldb.InstructorPersistenceHSQLDB;
+import comp3350.student_echo.persistence.hsqldb.AccountPersistenceHSQLDB;
+import comp3350.student_echo.persistence.hsqldb.CoursePersistenceHSQLDB;
+import comp3350.student_echo.persistence.hsqldb.InstructorPersistenceHSQLDB;
 import comp3350.student_echo.persistence.stubs.AccountPersistenceStub;
 import comp3350.student_echo.persistence.ReviewPersistence;
 import comp3350.student_echo.persistence.stubs.CoursePersistenceStub;
@@ -48,9 +51,13 @@ public class Services {
         return reviewPersistence;
     }
 
-    public static synchronized AccountPersistence getAccountPersistence() {
+    public static synchronized AccountPersistence getAccountPersistence(boolean forProduction) {
         if (accountPersistence == null) {
-            accountPersistence = new AccountPersistenceStub();
+            if (forProduction){
+                accountPersistence = new AccountPersistenceHSQLDB(Main.getDBPathName());
+            }else{
+                accountPersistence = new AccountPersistenceStub();
+            }
         }
         return accountPersistence;
     }

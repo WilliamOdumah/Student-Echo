@@ -30,4 +30,9 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     public List<InstructorReview> getReviewsFor(Instructor inst) {
         return null;
     }
+
+    @Override
+    public boolean updateReview(Review updatedReview) {
+        return false;
+    }
 }
