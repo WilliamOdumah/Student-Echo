@@ -39,7 +39,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.review_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, this, reviews); // Pass the adapter and reviews to the ViewHolder
     }
 
     @Override
@@ -65,6 +65,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
             holder.editIcon.setVisibility(View.GONE);
             holder.deleteIcon.setVisibility(View.GONE);
         }
+        holder.txtLikeCount.setText(String.valueOf(review.getLikes()));
+        holder.txtDislikeCount.setText(String.valueOf(review.getDislikes()));
     }
 
     private void editReviewAction(ViewHolder holder, View v) {
@@ -104,18 +106,62 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         }
     }
 
+
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView reviewCommentTextView;
         public RatingBar reviewRatingBar;
         public ImageView editIcon;
         public ImageView deleteIcon;
+        public ImageView btnLike, btnDislike;
+        public TextView txtLikeCount, txtDislikeCount;
+        private List<? extends Review> reviews; // Add this lin
 
-        public ViewHolder(View itemView) {
+        // Add a reference to the adapter
+        private final ReviewsAdapter adapter;
+
+        public ViewHolder(View itemView, ReviewsAdapter adapter, List<? extends Review> reviews) {
             super(itemView);
             reviewCommentTextView = itemView.findViewById(R.id.reviewCommentTextView);
             reviewRatingBar = itemView.findViewById(R.id.reviewRatingBar);
             editIcon = itemView.findViewById(R.id.editIcon);
             deleteIcon = itemView.findViewById(R.id.deleteIcon);
+            btnLike = itemView.findViewById(R.id.btnLike);
+            btnDislike = itemView.findViewById(R.id.btnDislike);
+            txtLikeCount = itemView.findViewById(R.id.txtLikeCount);
+            txtDislikeCount = itemView.findViewById(R.id.txtDislikeCount);
+
+
+            this.adapter = adapter;
+            this.reviews = reviews; // Set the reviews
+
+            btnLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Review review = reviews.get(position);
+                        review.setLikes(review.getLikes() + 1);
+                        btnLike.setImageResource(R.drawable.ic_like_filled); //change color of button after its clicked
+                        txtLikeCount.setText(String.valueOf(review.getLikes()));
+                        adapter.notifyItemChanged(position);
+                    }
+                }
+            });
+
+            btnDislike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Review review = reviews.get(position);
+                        btnDislike.setImageResource(R.drawable.ic_dislike_filled); //change color of button after its clicked
+                        review.setDislikes(review.getDislikes() + 1);
+
+                        adapter.notifyItemChanged(position);
+                    }
+                }
+            });
         }
     }
 }
