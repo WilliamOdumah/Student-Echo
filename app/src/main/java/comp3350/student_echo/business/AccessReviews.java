@@ -33,4 +33,8 @@ public class AccessReviews {
         reviewPersistence.deleteReview(r);
     }
 
+    public boolean updateReviewInDatabase(Review updatedReview) {
+        return reviewPersistence.updateReview(updatedReview);
+    }
+
 }

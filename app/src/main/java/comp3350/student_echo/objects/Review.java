@@ -45,6 +45,7 @@ public abstract class Review implements Serializable {
     public void setDifficultyRating(int rating) {
         this.difficultyRating = rating;
     }
+
 }
 
 

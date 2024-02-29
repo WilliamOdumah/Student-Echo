@@ -15,4 +15,5 @@ public interface ReviewPersistence {
     List<CourseReview> getReviewsFor(Course c);
     List<InstructorReview> getReviewsFor(Instructor inst);
 
+    boolean updateReview(Review updatedReview);
 }
