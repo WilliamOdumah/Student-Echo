@@ -2,6 +2,7 @@ package comp3350.student_echo.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -18,18 +19,34 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
+    @Override
     protected void onDestroy() {
         super.onDestroy();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==android.R.id.home){
-            onBackPressed();
-            return true;
-        }
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.logout:
+                LoginManager.performLogout();
+                Intent logoutIntent= new Intent(HomeActivity.this, LoginActivity.class);
+                HomeActivity.this.startActivity(logoutIntent);
+                return true;
+            case R.id.accountSettings:
+                //to be added
+                return true;
+            default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 
 
@@ -53,9 +70,5 @@ public class HomeActivity extends AppCompatActivity {
         HomeActivity.this.startActivity(instructorIntent);
     }
 
-    public void buttonLogOutOnClick(View v) {
-        LoginManager.performLogout();
-        Intent logoutIntent= new Intent(HomeActivity.this, LoginActivity.class);
-        HomeActivity.this.startActivity(logoutIntent);
-    }
+
 }

@@ -3,6 +3,8 @@ package comp3350.student_echo.presentation;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,6 +32,11 @@ public class ViewCourseActivity extends AppCompatActivity {
     private StudentAccount user;
     private Course course;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,5 +113,25 @@ public class ViewCourseActivity extends AppCompatActivity {
         double rating = AverageCalculator.calcAverageDifficultyRating(courseReviews);
         String difficultyRating = String.format("Average Difficulty Rating: %.1f / 5.0", rating);
         difficultyRatingTV.setText(difficultyRating);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.logout:
+                LoginManager.performLogout();
+                Intent logoutIntent= new Intent(ViewCourseActivity.this, LoginActivity.class);
+                ViewCourseActivity.this.startActivity(logoutIntent);
+                return true;
+            case R.id.accountSettings:
+                //to be added
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

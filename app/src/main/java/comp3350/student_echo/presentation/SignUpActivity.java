@@ -2,6 +2,7 @@ package comp3350.student_echo.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,6 +21,11 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
     public void buttonSignUpOnClick(View v){
         Intent signUpIntent = new Intent(SignUpActivity.this, HomeActivity.class);
 

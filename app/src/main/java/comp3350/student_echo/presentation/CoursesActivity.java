@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,6 +27,12 @@ public class CoursesActivity extends AppCompatActivity {
 
     private AccessCourses accessCourses;
     private List<Course> courseList;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +96,29 @@ public class CoursesActivity extends AppCompatActivity {
             }
         };
     }
-    public void buttonLogOutOnClick(View v){
-        LoginManager.performLogout();
-        Intent logoutIntent= new Intent(CoursesActivity.this, LoginActivity.class);
-        CoursesActivity.this.startActivity(logoutIntent);
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.logout:
+                LoginManager.performLogout();
+                Intent logoutIntent= new Intent(CoursesActivity.this, LoginActivity.class);
+                CoursesActivity.this.startActivity(logoutIntent);
+                return true;
+            case R.id.accountSettings:
+                //to be added
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
+
+
+
+
 }
