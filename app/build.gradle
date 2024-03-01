@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
 
     defaultConfig {
-        applicationId "comp3350.srsys"
+        applicationId "comp3350.student_echo"
         minSdkVersion 30
         targetSdkVersion 34
         compileSdkVersion 34

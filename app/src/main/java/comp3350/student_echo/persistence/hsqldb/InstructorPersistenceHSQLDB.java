@@ -55,7 +55,6 @@ public class InstructorPersistenceHSQLDB implements InstructorPersistence {
         return null;
     }
 
-    // TODO
     @Override
     public Instructor getInstructor(int instructorID) {
         try (final Connection c = connection()) {

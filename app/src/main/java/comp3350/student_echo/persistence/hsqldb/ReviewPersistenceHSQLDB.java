@@ -39,7 +39,7 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     }
 
     private CourseReview fromResultSetCR(final ResultSet rs) throws SQLException {
-        final int uid = rs.getInt("uid");
+        final int reviewID = rs.getInt("uid");
         final String courseID = rs.getString("courseID");
         final String username = rs.getString("username");
         final String comment = rs.getString("comment");
@@ -48,10 +48,10 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
 
         Course course = accessCourses.getCourse(courseID);
         StudentAccount sa = accessAccounts.getAccount(username);
-        return new CourseReview(course, comment, overallRating, difficultyRating, sa);
+        return new CourseReview(reviewID, course, comment, overallRating, difficultyRating, sa);
     }
     private InstructorReview fromResultSetIR(final ResultSet rs) throws SQLException {
-        final int reviewUID = rs.getInt("uid");
+        final int reviewID = rs.getInt("uid");
         final int instructorID = rs.getInt("instructorID");
         final String username = rs.getString("username");
         final String comment = rs.getString("comment");
@@ -60,7 +60,7 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
 
         Instructor instructor = accessInstructors.getInstructor(instructorID);
         StudentAccount sa = accessAccounts.getAccount(username);
-        return new InstructorReview(instructor, comment, overallRating, difficultyRating, sa);
+        return new InstructorReview(reviewID, instructor, comment, overallRating, difficultyRating, sa);
     }
 
     @Override
@@ -68,28 +68,40 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         try (final Connection c = connection()) {
             // Form query
             String tableName = (r instanceof CourseReview) ? "course_reviews" : "instructor_reviews";
-            final PreparedStatement st = c.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?)");
+            final PreparedStatement ps = c.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?)");
             int at = 1;
-            st.setInt(at++, r.getUid());
-            if(r instanceof CourseReview) st.setString(at++,((CourseReview)r).getCourse().getCourseID());
-            else st.setInt(at++,((InstructorReview)r).getInstructor().getInstructorID());
-            st.setString(at++, r.getAuthorUsername());
-            st.setString(at++, r.getComment());
-            st.setInt(at++,r.getOverallRating());
-            st.setInt(at++,r.getDifficultyRating());
+            ps.setInt(at++, r.getUid());
+            if(r instanceof CourseReview) ps.setString(at++,((CourseReview)r).getCourse().getCourseID());
+            else ps.setInt(at++,((InstructorReview)r).getInstructor().getInstructorID());
+            ps.setString(at++, r.getAuthorUsername());
+            ps.setString(at++, r.getComment());
+            ps.setInt(at++,r.getOverallRating());
+            ps.setInt(at++,r.getDifficultyRating());
 
             // execute query
-            st.executeUpdate();
+            ps.executeUpdate();
+            ps.close();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }
     }
 
-    // TODO
     @Override
     public void deleteReview(Review r) {
+        try (final Connection c = connection()) {
+            // Form query
+            String tableName = (r instanceof CourseReview) ? "course_reviews" : "instructor_reviews";
+            final PreparedStatement ps = c.prepareStatement("DELETE FROM "+tableName+" r WHERE r.uid=?");
+            ps.setInt(1,r.getUid());
 
+            // execute query
+            ps.executeUpdate();
+            ps.close();
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -140,9 +152,27 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         return null;
     }
 
-    // TODO
     @Override
-    public boolean updateReview(Review updatedReview) {
+    public boolean updateReview(Review r) {
+        try (final Connection c = connection()) {
+            // Form query
+            String tableName = (r instanceof CourseReview) ? "course_reviews" : "instructor_reviews";
+            final PreparedStatement ps = c.prepareStatement("UPDATE "+tableName+" "+
+                    "SET comment=?,overall_rating=?,difficulty_rating=? "+
+                    "WHERE uid=?");
+            ps.setString(1,r.getComment());
+            ps.setInt(2,r.getOverallRating());
+            ps.setInt(3,r.getDifficultyRating());
+            System.out.println("THIS IS THE reviewID we want=" + r.getUid());
+            ps.setInt(4,r.getUid());
+
+            // execute query
+            ps.executeUpdate();
+            ps.close();
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
         return false;
     }
 }

@@ -12,8 +12,7 @@ public class AccessAccounts {
 
     private final AccountPersistence accountPersistence;
 
-    public AccessAccounts()
-    {
+    public AccessAccounts() {
         accountPersistence = Services.getAccountPersistence(true);
     }
 

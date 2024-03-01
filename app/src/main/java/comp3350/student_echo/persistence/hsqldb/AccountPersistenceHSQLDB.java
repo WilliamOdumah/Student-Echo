@@ -47,6 +47,7 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
             return accounts;
         }
         catch (final SQLException e) {
+            System.out.println("FAILED TO GET ALL ACCOUNTS");
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }

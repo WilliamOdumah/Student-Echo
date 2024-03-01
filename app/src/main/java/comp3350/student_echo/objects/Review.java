@@ -1,19 +1,13 @@
 package comp3350.student_echo.objects;
 
 import java.io.Serializable;
-import java.util.UUID;
 public abstract class Review implements Serializable {
     private int uid;
     private StudentAccount author;
     private String comment;
     private int overallRating;
     private int difficultyRating;
-    private static int nextReviewID = 1;
 
-    public Review(){}
-    public Review(String comment, int overallRating, int difficultyRating, StudentAccount author) {
-        this(nextReviewID++, comment, overallRating, difficultyRating, author);
-    }
     public Review(int uid, String comment, int overallRating, int difficultyRating, StudentAccount author) {
         this.uid = uid;
         this.author = author;

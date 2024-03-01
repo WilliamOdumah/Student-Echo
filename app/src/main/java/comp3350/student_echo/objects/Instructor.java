@@ -8,7 +8,7 @@ public class Instructor implements Serializable {
 	private String firstName;
 	private String lastName;
 
-	private static int nextInstructorID = 1;
+	private static int nextInstructorID = 10;
 
 	public Instructor(String title, String first, String last) {
 		this(nextInstructorID++, title, first, last);
