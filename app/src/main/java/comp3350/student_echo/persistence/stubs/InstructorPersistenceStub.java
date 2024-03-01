@@ -26,4 +26,14 @@ public class InstructorPersistenceStub implements InstructorPersistence {
     public List<Instructor> getInstructorSequential() {
         return Collections.unmodifiableList(instructors);
     }
+
+    @Override
+    public Instructor getInstructor(int instructorID) {
+        for(Instructor i : instructors) {
+            if(i.getInstructorID() == instructorID){
+                return i;
+            }
+        }
+        return null;
+    }
 }

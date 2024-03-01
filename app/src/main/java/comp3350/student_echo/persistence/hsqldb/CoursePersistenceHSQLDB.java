@@ -3,7 +3,9 @@ package comp3350.student_echo.persistence.hsqldb;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -53,4 +55,27 @@ public class CoursePersistenceHSQLDB implements CoursePersistence {
         return null;
     }
 
+    @Override
+    public Course getCourse(String courseID) {
+        try (final Connection c = connection()) {
+            // form query
+            final PreparedStatement ps = c.prepareStatement("SELECT * FROM courses WHERE courses.courseid=?");
+            ps.setString(1, courseID);
+
+            // execute
+            final ResultSet rs = ps.executeQuery();
+            rs.next();  // point to data
+
+            // build result
+            final Course course = fromResultSet(rs);
+            rs.close();
+            ps.close();
+            return course;
+        }
+        catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

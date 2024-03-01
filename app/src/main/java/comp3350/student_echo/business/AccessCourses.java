@@ -33,4 +33,8 @@ public class AccessCourses {
         courses = coursePersistence.getCourseSequential();
         return Collections.unmodifiableList(courses);
     }
+
+	public Course getCourse(String courseID) {
+		return coursePersistence.getCourse(courseID);
+	}
 }

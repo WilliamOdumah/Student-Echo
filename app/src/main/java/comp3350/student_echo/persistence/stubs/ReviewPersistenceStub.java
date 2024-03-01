@@ -61,24 +61,6 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         return result;
     }
 
-    public boolean updateReview(Review r){
-        int index = findReviewIndexById(r.getUid());
-        if (index != -1) {
-            reviews.set(index,r);
-            return true;
-        }
-        return false;
-    }
-
-
-    private int findReviewIndexById(UUID reviewId) {
-        for (int i = 0; i < reviews.size(); i++) {
-            if (reviews.get(i).getUid().equals(reviewId)) {
-                return i;
-            }
-        }
-        return -1;
-    }
     public List<InstructorReview> getReviewsFor(Instructor inst) {
         List<InstructorReview> result = new ArrayList<>();
         for (Review review : reviews) {
@@ -90,5 +72,23 @@ public class ReviewPersistenceStub implements ReviewPersistence {
             }
         }
         return result;
+    }
+
+    public boolean updateReview(Review r){
+        int index = findReviewIndexById(r.getUid());
+        if (index != -1) {
+            reviews.set(index,r);
+            return true;
+        }
+        return false;
+    }
+
+    private int findReviewIndexById(int reviewId) {
+        for (int i = 0; i < reviews.size(); i++) {
+            if (reviews.get(i).getUid() == reviewId) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

@@ -2,6 +2,7 @@ package comp3350.student_echo.persistence.hsqldb;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.ArrayList;
 import android.util.Log; // TODO: IS IT OK TO HAVE ANDROID LOG HERE??
 
+import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.Instructor;
 import comp3350.student_echo.persistence.InstructorPersistence;
 
@@ -24,11 +26,11 @@ public class InstructorPersistenceHSQLDB implements InstructorPersistence {
     }
 
     private Instructor fromResultSet(final ResultSet rs) throws SQLException {
+        final int instructorID = rs.getInt("instructorID");
         final String title = rs.getString("title");
         final String firstName = rs.getString("firstName");
         final String lastName = rs.getString("lastName");
-
-        return new Instructor(title, firstName, lastName);
+        return new Instructor(instructorID, title, firstName, lastName);
     }
 
     @Override
@@ -45,6 +47,31 @@ public class InstructorPersistenceHSQLDB implements InstructorPersistence {
             rs.close();
             st.close();
             return instructors;
+        }
+        catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // TODO
+    @Override
+    public Instructor getInstructor(int instructorID) {
+        try (final Connection c = connection()) {
+            // form query
+            final PreparedStatement ps = c.prepareStatement("SELECT * FROM instructors WHERE instructors.instructorid=?");
+            ps.setInt(1, instructorID);
+
+            // execute
+            final ResultSet rs = ps.executeQuery();
+            rs.next();  // point to data
+
+            // build result
+            final Instructor instructor = fromResultSet(rs);
+            rs.close();
+            ps.close();
+            return instructor;
         }
         catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());

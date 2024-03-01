@@ -14,7 +14,7 @@ public class AccessReviews {
     private final ReviewPersistence reviewPersistence;
 
     public AccessReviews() {
-        reviewPersistence = Services.getReviewPersistence();
+        reviewPersistence = Services.getReviewPersistence(true);
     }
 
     public void addReview(Review r) {
@@ -36,5 +36,4 @@ public class AccessReviews {
     public boolean updateReviewInDatabase(Review updatedReview) {
         return reviewPersistence.updateReview(updatedReview);
     }
-
 }

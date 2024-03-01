@@ -31,4 +31,9 @@ public class AccessInstructors {
         }
         return filteredInstructor;
     }
+
+    // TODO
+    public Instructor getInstructor(int instructorID) {
+        return instructorPersistence.getInstructor(instructorID);
+    }
 }

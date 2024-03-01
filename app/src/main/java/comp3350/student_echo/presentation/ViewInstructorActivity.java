@@ -117,7 +117,7 @@ public class ViewInstructorActivity extends AppCompatActivity {
     @SuppressLint("DefaultLocale")
     private void displayOverallRating() {
         TextView overallRatingTV = findViewById(R.id.instructorOverallRating);
-        double rating = AverageCalculator.calcAverageDifficultyRating(instructorReviews);
+        double rating = AverageCalculator.calcAverageOverallRating(instructorReviews);
         String overallRating = String.format("Average Overall Rating: %.1f / 5.0", rating);
         overallRatingTV.setText(overallRating);
     }
