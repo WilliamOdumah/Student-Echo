@@ -85,8 +85,8 @@ public class InstructorActivity extends AppCompatActivity {
                 TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
-                text1.setText(instructorList.get(position).getFirstName() + " " + instructorList.get(position).getLastName());
-                text2.setText(instructorList.get(position).getTitle());
+                text1.setText(list.get(position).getFirstName() + " " + instructorList.get(position).getLastName());
+                text2.setText(list.get(position).getTitle());
 
                 return view;
             }

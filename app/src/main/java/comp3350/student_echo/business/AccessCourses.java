@@ -22,7 +22,7 @@ public class AccessCourses {
 		ArrayList<Course> filteredCourses = new ArrayList<>();
 
 		for (Course course: courseList) {
-			if (course.getCourseID().toLowerCase().contains(searchText) || course.getCourseName().toLowerCase().contains(searchText)) {
+			if (course.getCourseID().toLowerCase().contains(searchText.toLowerCase()) || course.getCourseName().toLowerCase().contains(searchText.toLowerCase())) {
 				filteredCourses.add(course);
 			}
 		}

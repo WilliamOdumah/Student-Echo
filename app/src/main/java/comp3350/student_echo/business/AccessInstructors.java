@@ -25,7 +25,7 @@ public class AccessInstructors {
         ArrayList<Instructor> filteredInstructor = new ArrayList<>();
 
         for (Instructor instructor : instructorList){
-            if (instructor.getFirstName().toLowerCase().contains(searchText) || instructor.getLastName().toLowerCase().contains(searchText)){
+            if (instructor.getFirstName().toLowerCase().contains(searchText.toLowerCase()) || instructor.getLastName().toLowerCase().contains(searchText.toLowerCase())){
                 filteredInstructor.add(instructor);
             }
         }
