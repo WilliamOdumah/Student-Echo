@@ -29,4 +29,14 @@ public class CoursePersistenceStub implements CoursePersistence {
     public List<Course> getCourseSequential() {
         return Collections.unmodifiableList(courses);
     }
+
+    @Override
+    public Course getCourse(String courseID) {
+        for(Course c : courses) {
+            if(c.getCourseID().equals(courseID)){
+                return c;
+            }
+        }
+        return null;
+    }
 }

@@ -12,7 +12,7 @@ public class AccessInstructors {
 	private final InstructorPersistence instructorPersistence;
 
 	public AccessInstructors() {
-		instructorPersistence = Services.getInstructorPersistence();
+		instructorPersistence = Services.getInstructorPersistence(true);
 	}
 
     public List<Instructor> getInstructors() {
@@ -30,5 +30,10 @@ public class AccessInstructors {
             }
         }
         return filteredInstructor;
+    }
+
+    // TODO
+    public Instructor getInstructor(int instructorID) {
+        return instructorPersistence.getInstructor(instructorID);
     }
 }

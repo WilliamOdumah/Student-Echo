@@ -61,8 +61,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
     public void buttonCourseOnClick(View v) {
-        Intent studentsIntent = new Intent(HomeActivity.this, CoursesActivity.class);
-        HomeActivity.this.startActivity(studentsIntent);
+        Intent courseIntent = new Intent(HomeActivity.this, CoursesActivity.class);
+        HomeActivity.this.startActivity(courseIntent);
     }
 
     public void buttonInstructorOnClick(View v) {

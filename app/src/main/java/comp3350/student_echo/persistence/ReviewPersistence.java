@@ -14,6 +14,5 @@ public interface ReviewPersistence {
     void deleteReview(Review r);
     List<CourseReview> getReviewsFor(Course c);
     List<InstructorReview> getReviewsFor(Instructor inst);
-
     boolean updateReview(Review updatedReview);
 }

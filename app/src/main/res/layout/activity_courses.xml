@@ -67,7 +67,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:gravity="center">
 
         <View
             android:id="@+id/separator"
@@ -76,7 +77,18 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="#000000" />
+
+        <Button
+            android:id="@+id/addCourse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="add Course" />
+
     </RelativeLayout>
+
+
 
 
 </LinearLayout>

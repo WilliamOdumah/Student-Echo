@@ -13,7 +13,7 @@ public class AccessCourses {
 	private List<Course> courses;
 
 	public AccessCourses() {
-		coursePersistence = Services.getCoursePersistence();
+		coursePersistence = Services.getCoursePersistence(true);
 		courses = null;
 	}
 
@@ -33,4 +33,8 @@ public class AccessCourses {
         courses = coursePersistence.getCourseSequential();
         return Collections.unmodifiableList(courses);
     }
+
+	public Course getCourse(String courseID) {
+		return coursePersistence.getCourse(courseID);
+	}
 }
