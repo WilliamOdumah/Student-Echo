@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,31 +33,6 @@ public class ViewInstructorActivity extends AppCompatActivity {
     private Instructor instructor;
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            case R.id.logout:
-                LoginManager.performLogout();
-                Intent logoutIntent= new Intent(ViewInstructorActivity.this, LoginActivity.class);
-                ViewInstructorActivity.this.startActivity(logoutIntent);
-                return true;
-            case R.id.accountSettings:
-                //to be added
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_instructor);
@@ -83,22 +57,6 @@ public class ViewInstructorActivity extends AppCompatActivity {
         reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         reviewsAdapter = new ReviewsAdapter(instructorReviews, user, instructor);
         reviewsRecyclerView.setAdapter(reviewsAdapter);
-
-        // set listeners
-        Button reviewButton = findViewById(R.id.reviewButton);
-        reviewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(user != null) {
-                    Intent intent = new Intent(ViewInstructorActivity.this, WriteReviewActivity.class);
-                    intent.putExtra("REVIEW_TYPE", instructor);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(ViewInstructorActivity.this, "Must be logged in to write review!",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
     }
 
     @Override
@@ -112,6 +70,18 @@ public class ViewInstructorActivity extends AppCompatActivity {
         reviewsRecyclerView.setAdapter(reviewsAdapter);
         displayOverallRating();
         displayDifficultyRating();
+    }
+
+    public void buttonWriteReviewOnClick(View v) {
+        // go to write review page iff user is logged in
+        if(user != null) {
+            Intent intent = new Intent(ViewInstructorActivity.this, WriteReviewActivity.class);
+            intent.putExtra("REVIEW_TYPE", instructor);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(ViewInstructorActivity.this, "Must be logged in to write review!",Toast.LENGTH_LONG).show();
+        }
     }
 
     @SuppressLint("DefaultLocale")
@@ -128,5 +98,31 @@ public class ViewInstructorActivity extends AppCompatActivity {
         double rating = AverageCalculator.calcAverageDifficultyRating(instructorReviews);
         String difficultyRating = String.format("Average Difficulty Rating: %.1f / 5.0", rating);
         difficultyRatingTV.setText(difficultyRating);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.logout:
+                LoginManager.performLogout();
+                Intent logoutIntent= new Intent(ViewInstructorActivity.this, LoginActivity.class);
+                ViewInstructorActivity.this.startActivity(logoutIntent);
+                return true;
+            case R.id.accountSettings:
+                //to be added
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

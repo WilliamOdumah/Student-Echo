@@ -67,23 +67,6 @@ public class ViewCourseActivity extends AppCompatActivity {
         reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         reviewsAdapter = new ReviewsAdapter(courseReviews, user, course);
         reviewsRecyclerView.setAdapter(reviewsAdapter);
-
-        // set listeners
-        Button reviewButton = findViewById(R.id.reviewButton);
-        reviewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // go to write review page iff user is logged in
-                if(user != null) {
-                    Intent intent = new Intent(ViewCourseActivity.this, WriteReviewActivity.class);
-                    intent.putExtra("REVIEW_TYPE", course);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(ViewCourseActivity.this, "Must be logged in to write review!",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
     }
 
     @Override
@@ -97,6 +80,18 @@ public class ViewCourseActivity extends AppCompatActivity {
         reviewsRecyclerView.setAdapter(reviewsAdapter);
         displayOverallRating();
         displayDifficultyRating();
+    }
+
+    public void buttonWriteReviewOnClick(View v) {
+        // go to write review page iff user is logged in
+        if(user != null) {
+            Intent intent = new Intent(ViewCourseActivity.this, WriteReviewActivity.class);
+            intent.putExtra("REVIEW_TYPE", course);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(ViewCourseActivity.this, "Must be logged in to write review!",Toast.LENGTH_LONG).show();
+        }
     }
 
     @SuppressLint("DefaultLocale")
