@@ -7,8 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import comp3350.student_echo.objects.reviewableItems.Course;
-import comp3350.student_echo.objects.reviews.CourseReview;
-import comp3350.student_echo.objects.reviews.Review;
+import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.StudentAccount;
 
 public class CourseReviewTest {
@@ -20,7 +19,7 @@ public class CourseReviewTest {
     public void before() {
         course = new Course("Science", "COMP3010", "Distributed Systems");
         author = new StudentAccount("kelly", "villamayor", "villamak@myumanitoba.ca");
-        courseReview = new CourseReview(course,"mid", 3, 4, author);
+        courseReview = new Review(course,"mid", 3, 4, author);
     }
 
     @Test

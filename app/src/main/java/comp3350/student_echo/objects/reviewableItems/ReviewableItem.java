@@ -5,6 +5,7 @@ public interface ReviewableItem {
     String getDepartment();
     String getPrimaryName();
     String getSecondaryName();
+    String getID();
 }
 
 

@@ -37,4 +37,6 @@ public class Instructor implements Serializable,ReviewableItem {
 	public String getDisplayInfo() {return title+" "+firstName+" "+lastName;}
 	@Override
 	public String getDepartment() {return null;}
+	@Override
+	public String getID() {return String.valueOf(instructorID);}
 }

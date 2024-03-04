@@ -1,6 +1,8 @@
 package comp3350.student_echo.objects;
 
-public class StudentAccount {
+import java.io.Serializable;
+
+public class StudentAccount implements Serializable {
     private String username;
     private String password;
     private String email;

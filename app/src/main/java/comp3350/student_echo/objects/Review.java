@@ -1,22 +1,24 @@
-package comp3350.student_echo.objects.reviews;
+package comp3350.student_echo.objects;
 
 import java.io.Serializable;
 
-import comp3350.student_echo.objects.StudentAccount;
+import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 
-public abstract class Review implements Serializable {
+public class Review implements Serializable {
+    private ReviewableItem item;
     private int uid;
     private StudentAccount author;
     private String comment;
     private int overallRating;
     private int difficultyRating;
 
-    public Review(String comment, int overallRating, int difficultyRating, StudentAccount author) {
-        this(-1, comment, overallRating, difficultyRating, author);
+    public Review(ReviewableItem item, String comment, int overallRating, int difficultyRating, StudentAccount author) {
+        this(-1, item, comment, overallRating, difficultyRating, author);
     }
 
-    public Review(int uid, String comment, int overallRating, int difficultyRating, StudentAccount author) {
+    public Review(int uid, ReviewableItem item, String comment, int overallRating, int difficultyRating, StudentAccount author) {
         this.uid = uid;
+        this.item = item;
         this.author = author;
         this.comment = comment;
         this.overallRating = overallRating;
@@ -27,6 +29,7 @@ public abstract class Review implements Serializable {
     public int getUid() {
         return uid;
     }
+    public ReviewableItem getReviewableItem(){return item;}
     public String getAuthorUsername() {
         return this.author.getUsername();
     }

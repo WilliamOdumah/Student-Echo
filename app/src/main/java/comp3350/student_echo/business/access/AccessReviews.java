@@ -5,7 +5,7 @@ import java.util.List;
 import comp3350.student_echo.application.Services;
 import comp3350.student_echo.objects.reviewableItems.Course;
 import comp3350.student_echo.objects.reviewableItems.Instructor;
-import comp3350.student_echo.objects.reviews.Review;
+import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 import comp3350.student_echo.persistence.ReviewPersistence;
 

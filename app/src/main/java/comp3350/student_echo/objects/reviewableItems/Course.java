@@ -28,4 +28,6 @@ public class Course implements Serializable,ReviewableItem {
 	public String getSecondaryName() {return courseName;}
 	@Override
 	public String getDisplayInfo() {return courseID + ": " + courseName;}
+	@Override
+	public String getID() {return courseID;}
 }

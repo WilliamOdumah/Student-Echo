@@ -20,7 +20,7 @@ import comp3350.student_echo.R;
 import comp3350.student_echo.business.access.AccessReviews;
 import comp3350.student_echo.business.AverageCalculator;
 import comp3350.student_echo.business.LoginManager;
-import comp3350.student_echo.objects.reviews.Review;
+import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 import comp3350.student_echo.objects.StudentAccount;
 import comp3350.student_echo.presentation.LoginActivity;

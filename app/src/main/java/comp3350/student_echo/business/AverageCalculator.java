@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 
 import java.util.List;
 
-import comp3350.student_echo.objects.reviews.Review;
+import comp3350.student_echo.objects.Review;
 
 public class AverageCalculator {
 

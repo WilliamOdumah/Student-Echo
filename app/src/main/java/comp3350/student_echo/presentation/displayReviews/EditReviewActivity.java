@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.access.AccessReviews;
-import comp3350.student_echo.objects.reviews.Review;
+import comp3350.student_echo.objects.Review;
 
 public class EditReviewActivity extends AppCompatActivity {
     private AccessReviews accessReviews;

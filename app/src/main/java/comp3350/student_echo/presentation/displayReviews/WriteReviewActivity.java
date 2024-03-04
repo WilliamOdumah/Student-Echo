@@ -11,11 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import comp3350.student_echo.R;
 import comp3350.student_echo.business.access.AccessReviews;
 import comp3350.student_echo.business.LoginManager;
-import comp3350.student_echo.objects.reviewableItems.Course;
-import comp3350.student_echo.objects.reviews.CourseReview;
-import comp3350.student_echo.objects.reviewableItems.Instructor;
-import comp3350.student_echo.objects.reviews.InstructorReview;
-import comp3350.student_echo.objects.reviews.Review;
+import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 import comp3350.student_echo.objects.StudentAccount;
 
@@ -57,16 +53,10 @@ public class WriteReviewActivity extends AppCompatActivity {
         int difficultyRating = (int) difficultyRatingBar.getRating();
         String comment = commentEditText.getText().toString();
 
-        // Create Review object
-        Review newReview = null;
+        // Create new review
+        Review newReview = new Review(item, comment, overallRating, difficultyRating, user);
 
-        if(item instanceof Course) {
-            newReview = new CourseReview((Course)item, comment, overallRating, difficultyRating, user);
-        } else if(item instanceof Instructor) {
-            newReview = new InstructorReview((Instructor)item, comment, overallRating, difficultyRating, user);
-        }
-
-        // notify database
+        // add to database
         accessReviews.addReview(newReview);
 
         // Return to the main activity
