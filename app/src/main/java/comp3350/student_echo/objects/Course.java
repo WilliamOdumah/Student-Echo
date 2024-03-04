@@ -2,7 +2,7 @@ package comp3350.student_echo.objects;
 
 import java.io.Serializable;
 
-public class Course implements Serializable {
+public class Course implements Serializable,ReviewableItem {
 	private final String courseID;
 	private final String department;
 	private final String courseName;
@@ -21,6 +21,11 @@ public class Course implements Serializable {
 	public String getCourseName()
 	{
 		return (courseName);
+	}
+
+	@Override
+	public String getDisplayInfo() {
+		return courseID + ": " + courseName;
 	}
 
 	public String getDepartment() {

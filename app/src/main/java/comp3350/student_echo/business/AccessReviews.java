@@ -8,6 +8,7 @@ import comp3350.student_echo.objects.CourseReview;
 import comp3350.student_echo.objects.Instructor;
 import comp3350.student_echo.objects.InstructorReview;
 import comp3350.student_echo.objects.Review;
+import comp3350.student_echo.objects.ReviewableItem;
 import comp3350.student_echo.persistence.ReviewPersistence;
 
 public class AccessReviews {
@@ -21,6 +22,11 @@ public class AccessReviews {
         reviewPersistence.addReview(r);
     }
 
+    public List<Review> getReviewsFor(ReviewableItem item) {
+        if(item instanceof Course) return getReviewsFor((Course) item);
+        else if(item instanceof Instructor) return getReviewsFor((Instructor) item);
+        return null;
+    }
     public List<Review> getReviewsFor(Course c) {
         return reviewPersistence.getReviewsFor(c);
     }

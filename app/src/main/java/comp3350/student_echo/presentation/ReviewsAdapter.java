@@ -24,8 +24,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
     private StudentAccount currentUser;
     private final ReviewModificationListener reviewModificationListener;
 
-    public ReviewsAdapter(List<Review> reviews, StudentAccount currentUser, Object type,
-                          ReviewModificationListener rml) {
+    public ReviewsAdapter(List<Review> reviews, StudentAccount currentUser, ReviewModificationListener rml) {
         this.reviews = reviews;
         this.currentUser = currentUser;
         this.reviewModificationListener = rml;

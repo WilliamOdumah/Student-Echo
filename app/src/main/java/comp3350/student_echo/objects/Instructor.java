@@ -2,7 +2,7 @@ package comp3350.student_echo.objects;
 
 import java.io.Serializable;
 
-public class Instructor implements Serializable {
+public class Instructor implements Serializable,ReviewableItem {
 	private int instructorID;
 	private String title;
 	private String firstName;
@@ -26,5 +26,15 @@ public class Instructor implements Serializable {
 
 	public boolean equals(Instructor i) {
 		return this.firstName.equals(i.firstName) && this.lastName.equals(i.lastName);
+	}
+
+	@Override
+	public String getDisplayInfo() {
+		return title + " " + firstName + " " + lastName;
+	}
+
+	@Override
+	public String getDepartment() {
+		return null;
 	}
 }
