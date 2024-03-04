@@ -8,6 +8,10 @@ public abstract class Review implements Serializable {
     private int overallRating;
     private int difficultyRating;
 
+    public Review(String comment, int overallRating, int difficultyRating, StudentAccount author) {
+        this(-1, comment, overallRating, difficultyRating, author);
+    }
+
     public Review(int uid, String comment, int overallRating, int difficultyRating, StudentAccount author) {
         this.uid = uid;
         this.author = author;
@@ -34,6 +38,7 @@ public abstract class Review implements Serializable {
     }
 
     // Setters
+    public void setUID(int id) {this.uid = id;}
     public void setComment(String newComment) {
         this.comment = newComment;
     }

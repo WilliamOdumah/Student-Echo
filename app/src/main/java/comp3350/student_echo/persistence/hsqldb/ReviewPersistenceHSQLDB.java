@@ -68,9 +68,8 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         try (final Connection c = connection()) {
             // Form query
             String tableName = (r instanceof CourseReview) ? "course_reviews" : "instructor_reviews";
-            final PreparedStatement ps = c.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?)");
+            PreparedStatement ps = c.prepareStatement("INSERT INTO "+tableName+" VALUES(DEFAULT,?,?,?,?,?)");
             int at = 1;
-            ps.setInt(at++, r.getUid());
             if(r instanceof CourseReview) ps.setString(at++,((CourseReview)r).getCourse().getCourseID());
             else ps.setInt(at++,((InstructorReview)r).getInstructor().getInstructorID());
             ps.setString(at++, r.getAuthorUsername());
@@ -78,9 +77,20 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
             ps.setInt(at++,r.getOverallRating());
             ps.setInt(at++,r.getDifficultyRating());
 
-            // execute query
+            // execute query to create Review in DB
             ps.executeUpdate();
+
+            // update uid in memory (use author and comment as identifier)
+            PreparedStatement ps2 = c.prepareStatement("SELECT uid FROM "+tableName+" WHERE username=? AND comment=?");
+            ps2.setString(1,r.getAuthorUsername());
+            ps2.setString(2,r.getComment());
+            ResultSet rs = ps2.executeQuery();
+            rs.next();
+
+            r.setUID(rs.getInt("uid"));
+
             ps.close();
+            ps2.close();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
@@ -105,8 +115,8 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     }
 
     @Override
-    public List<CourseReview> getReviewsFor(Course course) {
-        List<CourseReview> reviewList = new ArrayList<>();
+    public List<Review> getReviewsFor(Course course) {
+        List<Review> reviewList = new ArrayList<>();
         try (final Connection c = connection()) {
             PreparedStatement ps = c.prepareStatement("SELECT * FROM course_reviews cr "+
                     "JOIN accounts acc ON acc.username=cr.username "+
@@ -129,8 +139,8 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     }
 
     @Override
-    public List<InstructorReview> getReviewsFor(Instructor inst) {
-        List<InstructorReview> reviewList = new ArrayList<>();
+    public List<Review> getReviewsFor(Instructor inst) {
+        List<Review> reviewList = new ArrayList<>();
         try (final Connection c = connection()) {
             final PreparedStatement ps =  c.prepareStatement("SELECT * FROM instructor_reviews ir "+
                     "JOIN accounts acc ON acc.username=ir.username "+

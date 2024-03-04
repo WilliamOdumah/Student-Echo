@@ -48,8 +48,8 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         reviews.remove(r);
     }
 
-    public List<CourseReview> getReviewsFor(Course c) {
-        List<CourseReview> result = new ArrayList<>();
+    public List<Review> getReviewsFor(Course c) {
+        List<Review> result = new ArrayList<>();
         for (Review review : reviews) {
             if(review instanceof CourseReview) {
                 CourseReview courseReview = (CourseReview) review;
@@ -61,8 +61,8 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         return result;
     }
 
-    public List<InstructorReview> getReviewsFor(Instructor inst) {
-        List<InstructorReview> result = new ArrayList<>();
+    public List<Review> getReviewsFor(Instructor inst) {
+        List<Review> result = new ArrayList<>();
         for (Review review : reviews) {
             if(review instanceof InstructorReview) {
                 InstructorReview ir = (InstructorReview) review;

@@ -21,11 +21,11 @@ public class AccessReviews {
         reviewPersistence.addReview(r);
     }
 
-    public List<CourseReview> getReviewsFor(Course c) {
+    public List<Review> getReviewsFor(Course c) {
         return reviewPersistence.getReviewsFor(c);
     }
 
-    public List<InstructorReview> getReviewsFor(Instructor inst) {
+    public List<Review> getReviewsFor(Instructor inst) {
         return reviewPersistence.getReviewsFor(inst);
     }
 

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,17 +20,104 @@ import comp3350.student_echo.business.AccessReviews;
 import comp3350.student_echo.business.AverageCalculator;
 import comp3350.student_echo.business.LoginManager;
 import comp3350.student_echo.objects.Instructor;
-import comp3350.student_echo.objects.InstructorReview;
+import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.StudentAccount;
 
-public class ViewInstructorActivity extends AppCompatActivity {
+public class ViewInstructorActivity extends AppCompatActivity implements ReviewModificationListener {
 
     RecyclerView reviewsRecyclerView;
     private ReviewsAdapter reviewsAdapter;
     private AccessReviews accessReviews;
-    private List<InstructorReview> instructorReviews;
+    private List<Review> instructorReviews;
     private StudentAccount user;
     private Instructor instructor;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view_instructor);
+
+        Intent intent = getIntent();
+        instructor = (Instructor) intent.getSerializableExtra("Instructor");
+        accessReviews = new AccessReviews();
+        instructorReviews = accessReviews.getReviewsFor(instructor);
+        user = LoginManager.getLoggedInUser();
+
+        // display the instructor info
+        TextView instructorInfoTV = findViewById(R.id.instructorInfo);
+        String instructorInfo = "Instructor: "+instructor.getTitle()+". "+instructor.getFirstName()+" "+instructor.getLastName();
+        instructorInfoTV.setText(instructorInfo);
+
+        // display averages
+        displayOverallRating();
+        displayDifficultyRating();
+
+        // display list of reviews
+        reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
+        reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        reviewsAdapter = new ReviewsAdapter(instructorReviews, user, instructor, this);
+        reviewsRecyclerView.setAdapter(reviewsAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // build adapter with new data
+        instructorReviews = accessReviews.getReviewsFor(instructor);
+        reviewsAdapter = new ReviewsAdapter(instructorReviews, user, instructor, this);
+        reviewsRecyclerView.setAdapter(reviewsAdapter);
+
+        // update ratings
+        displayOverallRating();
+        displayDifficultyRating();
+    }
+
+    @Override
+    public void onReviewDeletion(int position) {
+        // delete in database
+        accessReviews.deleteReview(instructorReviews.get(position));
+
+        // update view
+        instructorReviews.remove(position);
+        reviewsAdapter.notifyItemRemoved(position);
+
+        // update ratings
+        displayOverallRating();
+        displayDifficultyRating();
+
+        // notify user
+        Toast.makeText(this, "Review deleted", Toast.LENGTH_SHORT).show();
+    }
+
+
+    public void buttonWriteReviewOnClick(View v) {
+        // go to write review page iff user is logged in
+        if(user != null) {
+            Intent intent = new Intent(ViewInstructorActivity.this, WriteReviewActivity.class);
+            intent.putExtra("REVIEW_TYPE", instructor);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(ViewInstructorActivity.this, "Must be logged in to write review!",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void displayOverallRating() {
+        TextView overallRatingTV = findViewById(R.id.instructorOverallRating);
+        double rating = AverageCalculator.calcAverageOverallRating(instructorReviews);
+        String overallRating = String.format("Average Overall Rating: %.1f / 5.0", rating);
+        overallRatingTV.setText(overallRating);
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void displayDifficultyRating() {
+        TextView difficultyRatingTV = findViewById(R.id.instructorDifficultyRating);
+        double rating = AverageCalculator.calcAverageDifficultyRating(instructorReviews);
+        String difficultyRating = String.format("Average Difficulty Rating: %.1f / 5.0", rating);
+        difficultyRatingTV.setText(difficultyRating);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -58,75 +144,5 @@ public class ViewInstructorActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_instructor);
 
-        Intent intent = getIntent();
-        instructor = (Instructor) intent.getSerializableExtra("Instructor");
-        accessReviews = new AccessReviews();
-        instructorReviews = accessReviews.getReviewsFor(instructor);
-        user = LoginManager.getLoggedInUser();
-
-        // display the instructor info
-        TextView instructorInfoTV = findViewById(R.id.instructorInfo);
-        String instructorInfo = "Instructor: "+instructor.getTitle()+". "+instructor.getFirstName()+" "+instructor.getLastName();
-        instructorInfoTV.setText(instructorInfo);
-
-        // display averages
-        displayOverallRating();
-        displayDifficultyRating();
-
-        // display list of reviews
-        reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
-        reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        reviewsAdapter = new ReviewsAdapter(instructorReviews, user, instructor);
-        reviewsRecyclerView.setAdapter(reviewsAdapter);
-
-        // set listeners
-        Button reviewButton = findViewById(R.id.reviewButton);
-        reviewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(user != null) {
-                    Intent intent = new Intent(ViewInstructorActivity.this, WriteReviewActivity.class);
-                    intent.putExtra("REVIEW_TYPE", instructor);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(ViewInstructorActivity.this, "Must be logged in to write review!",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // get updated reviews
-        instructorReviews = accessReviews.getReviewsFor(instructor);
-
-        // update view with current instructorReview
-        reviewsAdapter = new ReviewsAdapter(instructorReviews, user, instructor);
-        reviewsRecyclerView.setAdapter(reviewsAdapter);
-        displayOverallRating();
-        displayDifficultyRating();
-    }
-
-    @SuppressLint("DefaultLocale")
-    private void displayOverallRating() {
-        TextView overallRatingTV = findViewById(R.id.instructorOverallRating);
-        double rating = AverageCalculator.calcAverageOverallRating(instructorReviews);
-        String overallRating = String.format("Average Overall Rating: %.1f / 5.0", rating);
-        overallRatingTV.setText(overallRating);
-    }
-
-    @SuppressLint("DefaultLocale")
-    private void displayDifficultyRating() {
-        TextView difficultyRatingTV = findViewById(R.id.instructorDifficultyRating);
-        double rating = AverageCalculator.calcAverageDifficultyRating(instructorReviews);
-        String difficultyRating = String.format("Average Difficulty Rating: %.1f / 5.0", rating);
-        difficultyRatingTV.setText(difficultyRating);
-    }
 }

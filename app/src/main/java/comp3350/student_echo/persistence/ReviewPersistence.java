@@ -12,7 +12,7 @@ public interface ReviewPersistence {
 
     void addReview(Review r);
     void deleteReview(Review r);
-    List<CourseReview> getReviewsFor(Course c);
-    List<InstructorReview> getReviewsFor(Instructor inst);
+    List<Review> getReviewsFor(Course c);
+    List<Review> getReviewsFor(Instructor inst);
     boolean updateReview(Review updatedReview);
 }
