@@ -3,7 +3,7 @@ package comp3350.student_echo.tests.objects;
 import org.junit.Before;
 import org.junit.Test;
 
-import comp3350.student_echo.objects.Course;
+import comp3350.student_echo.objects.reviewableItems.Course;
 
 import static org.junit.Assert.*;
 

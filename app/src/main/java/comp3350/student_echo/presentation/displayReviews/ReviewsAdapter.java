@@ -1,4 +1,4 @@
-package comp3350.student_echo.presentation;
+package comp3350.student_echo.presentation.displayReviews;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -24,8 +24,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
     private StudentAccount currentUser;
     private final ReviewModificationListener reviewModificationListener;
 
-    public ReviewsAdapter(List<Review> reviews, StudentAccount currentUser, Object type,
-                          ReviewModificationListener rml) {
+    public ReviewsAdapter(List<Review> reviews, StudentAccount currentUser, ReviewModificationListener rml) {
         this.reviews = reviews;
         this.currentUser = currentUser;
         this.reviewModificationListener = rml;

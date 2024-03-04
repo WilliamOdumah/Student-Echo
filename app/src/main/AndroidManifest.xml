@@ -8,6 +8,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".presentation.ItemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.displayReviews.ReviewsForItemActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.SignUpActivity"
             android:label="@string/title_activity_signup">
             <meta-data
@@ -20,47 +26,23 @@
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.ViewInstructorActivity"
-            android:label="@string/title_activity_instructors"
-            android:parentActivityName=".presentation.InstructorActivity"
-             />
-        <activity
-            android:name=".presentation.ViewCourseActivity"
-            android:label="@string/title_activity_courses"
-            android:parentActivityName=".presentation.CoursesActivity"
-             />
-        <activity
             android:name=".presentation.HomeActivity"
-            android:label="@string/app_name"
             android:exported="true"
+            android:label="@string/app_name"
             android:parentActivityName=".presentation.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.InstructorActivity"
-            android:label="@string/title_activity_instructors"
-            android:parentActivityName=".presentation.HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="comp3350.student_echo.presentation.HomeActivity" />
-        </activity>
-        <activity
-            android:name=".presentation.CoursesActivity"
-            android:label="@string/title_activity_courses"
-            android:parentActivityName=".presentation.HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="comp3350.student_echo.presentation.HomeActivity" />
-        </activity>
-        <activity android:name=".presentation.WriteReviewActivity" />
-        <activity android:name=".presentation.EditReviewActivity"/>
+        <activity android:name=".presentation.displayReviews.WriteReviewActivity" />
+        <activity android:name=".presentation.displayReviews.EditReviewActivity" />
     </application>
 
 </manifest>

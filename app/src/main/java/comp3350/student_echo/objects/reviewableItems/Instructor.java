@@ -1,8 +1,8 @@
-package comp3350.student_echo.objects;
+package comp3350.student_echo.objects.reviewableItems;
 
 import java.io.Serializable;
 
-public class Instructor implements Serializable {
+public class Instructor implements Serializable,ReviewableItem {
 	private int instructorID;
 	private String title;
 	private String firstName;
@@ -27,4 +27,16 @@ public class Instructor implements Serializable {
 	public boolean equals(Instructor i) {
 		return this.firstName.equals(i.firstName) && this.lastName.equals(i.lastName);
 	}
+
+	// IMPLEMENTATION OF REVIEWABLE ITEM
+	@Override
+	public String getPrimaryName(){return firstName+" "+lastName;}
+	@Override
+	public String getSecondaryName() {return title;}
+	@Override
+	public String getDisplayInfo() {return title+" "+firstName+" "+lastName;}
+	@Override
+	public String getDepartment() {return null;}
+	@Override
+	public String getID() {return String.valueOf(instructorID);}
 }

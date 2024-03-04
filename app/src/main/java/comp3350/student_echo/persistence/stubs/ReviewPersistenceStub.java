@@ -2,12 +2,9 @@ package comp3350.student_echo.persistence.stubs;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-import comp3350.student_echo.objects.Course;
-import comp3350.student_echo.objects.CourseReview;
-import comp3350.student_echo.objects.Instructor;
-import comp3350.student_echo.objects.InstructorReview;
+import comp3350.student_echo.objects.reviewableItems.Course;
+import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.StudentAccount;
 import comp3350.student_echo.persistence.ReviewPersistence;
@@ -29,15 +26,15 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         Instructor instructor1 = new Instructor("Dr.", "Gary", "Chalmers");
         Instructor instructor2 = new Instructor("Professor", "Mary", "Bailey");
 
-        reviews.add(new CourseReview(course1, "Great introductory course!", 5, 2,fakeUser));
-        reviews.add(new CourseReview(course1, "Tough but rewarding.", 4, 3,fakeUser));
-        reviews.add(new CourseReview(course2, "BLOCKCHAINS!", 5, 5,fakeUser));
-        reviews.add(new CourseReview(course2, "Blinky blink blink", 3, 5,fakeUser));
+        reviews.add(new Review(course1, "Great introductory course!", 5, 2,fakeUser));
+        reviews.add(new Review(course1, "Tough but rewarding.", 4, 3,fakeUser));
+        reviews.add(new Review(course2, "BLOCKCHAINS!", 5, 5,fakeUser));
+        reviews.add(new Review(course2, "Blinky blink blink", 3, 5,fakeUser));
 
-        reviews.add(new InstructorReview(instructor1, "Very knowledgeable and helpful.", 5, 3,fakeUser));
-        reviews.add(new InstructorReview(instructor1, "Challenging exams, but fair.", 4, 4,fakeUser));
-        reviews.add(new InstructorReview(instructor2, "She is a great prof", 5, 3,fakeUser));
-        reviews.add(new InstructorReview(instructor2, "She gave me a 0 on my the assignment", 1, 5,fakeUser));
+        reviews.add(new Review(instructor1, "Very knowledgeable and helpful.", 5, 3,fakeUser));
+        reviews.add(new Review(instructor1, "Challenging exams, but fair.", 4, 4,fakeUser));
+        reviews.add(new Review(instructor2, "She is a great prof", 5, 3,fakeUser));
+        reviews.add(new Review(instructor2, "She gave me a 0 on my the assignment", 1, 5,fakeUser));
     }
 
     public void addReview(Review r) {
@@ -51,10 +48,10 @@ public class ReviewPersistenceStub implements ReviewPersistence {
     public List<Review> getReviewsFor(Course c) {
         List<Review> result = new ArrayList<>();
         for (Review review : reviews) {
-            if(review instanceof CourseReview) {
-                CourseReview courseReview = (CourseReview) review;
-                if (courseReview.getCourse().equals(c)) {
-                    result.add(courseReview);
+            if(review.getReviewableItem() instanceof Course) {
+                Course courseOfReview = (Course) review.getReviewableItem();
+                if (courseOfReview.equals(c)) {
+                    result.add(review);
                 }
             }
         }
@@ -64,10 +61,10 @@ public class ReviewPersistenceStub implements ReviewPersistence {
     public List<Review> getReviewsFor(Instructor inst) {
         List<Review> result = new ArrayList<>();
         for (Review review : reviews) {
-            if(review instanceof InstructorReview) {
-                InstructorReview ir = (InstructorReview) review;
-                if(ir.getInstructor().equals(inst)) {
-                    result.add(ir);
+            if(review.getReviewableItem() instanceof Instructor) {
+                Instructor instructorOfReview = (Instructor) review.getReviewableItem();
+                if(instructorOfReview.equals(inst)) {
+                    result.add(review);
                 }
             }
         }

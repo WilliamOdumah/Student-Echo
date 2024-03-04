@@ -1,4 +1,4 @@
-package comp3350.student_echo.business;
+package comp3350.student_echo.business.access;
 
 import java.util.Collections;
 import java.util.List;

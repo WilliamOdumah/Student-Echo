@@ -1,14 +1,16 @@
-package comp3350.student_echo.business;
+package comp3350.student_echo.business.access;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import comp3350.student_echo.application.Services;
-import comp3350.student_echo.objects.Course;
+import comp3350.student_echo.objects.reviewableItems.Course;
+import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 import comp3350.student_echo.persistence.CoursePersistence;
 
-public class AccessCourses {
+public class AccessCourses implements AccessReviewableItems {
 	private final CoursePersistence coursePersistence;
 	private List<Course> courses;
 
@@ -37,4 +39,17 @@ public class AccessCourses {
 	public Course getCourse(String courseID) {
 		return coursePersistence.getCourse(courseID);
 	}
+
+	@Override
+	public List<ReviewableItem> getItems() {
+		return getCourses().stream().map(course -> (ReviewableItem)course).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<ReviewableItem> filter(String input, List<ReviewableItem> items) {
+		List<Course> courseItem = items.stream().map(item ->(Course)item).collect(Collectors.toList());
+		List<Course> filteredCourses = filterCourses(input, courseItem);
+		return filteredCourses.stream().map(course -> (ReviewableItem)course).collect(Collectors.toList());
+	}
 }
+

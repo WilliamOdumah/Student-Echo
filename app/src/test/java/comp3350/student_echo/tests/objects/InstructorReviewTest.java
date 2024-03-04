@@ -6,8 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import comp3350.student_echo.objects.Instructor;
-import comp3350.student_echo.objects.InstructorReview;
+import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.StudentAccount;
 
@@ -20,7 +19,7 @@ public class InstructorReviewTest {
     public void before() {
         instructor = new Instructor("Internet Friend", "Rob", "Guderian");
         author = new StudentAccount("kelly", "villamayor", "villamak@myumanitoba.ca");
-        instructorReview = new InstructorReview(instructor, "a very good farmer", 4, 3, author);
+        instructorReview = new Review(instructor, "a very good farmer", 4, 3, author);
     }
 
     @Test

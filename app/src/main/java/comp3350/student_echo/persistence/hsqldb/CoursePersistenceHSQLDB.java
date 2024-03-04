@@ -5,14 +5,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
 import android.util.Log;
 
-import comp3350.student_echo.objects.Course;
+import comp3350.student_echo.objects.reviewableItems.Course;
 import comp3350.student_echo.persistence.CoursePersistence;
 
 public class CoursePersistenceHSQLDB implements CoursePersistence {

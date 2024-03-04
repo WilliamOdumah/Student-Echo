@@ -2,8 +2,8 @@ package comp3350.student_echo.tests.business;
 
 import org.junit.Test;
 
-import comp3350.student_echo.business.AccessInstructors;
-import comp3350.student_echo.objects.Instructor;
+import comp3350.student_echo.business.access.AccessInstructors;
+import comp3350.student_echo.objects.reviewableItems.Instructor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

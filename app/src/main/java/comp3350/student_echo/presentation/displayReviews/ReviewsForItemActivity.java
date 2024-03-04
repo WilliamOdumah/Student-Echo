@@ -1,4 +1,4 @@
-package comp3350.student_echo.presentation;
+package comp3350.student_echo.presentation.displayReviews;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,44 +13,46 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import comp3350.student_echo.R;
-import comp3350.student_echo.business.AccessReviews;
+import comp3350.student_echo.business.access.AccessReviews;
 import comp3350.student_echo.business.AverageCalculator;
 import comp3350.student_echo.business.LoginManager;
-import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.Review;
+import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 import comp3350.student_echo.objects.StudentAccount;
+import comp3350.student_echo.presentation.LoginActivity;
 
-public class ViewCourseActivity extends AppCompatActivity implements ReviewModificationListener {
+public class ReviewsForItemActivity extends AppCompatActivity implements ReviewModificationListener {
     private RecyclerView reviewsRecyclerView;
     private ReviewsAdapter reviewsAdapter;
     private AccessReviews accessReviews;
-    private List<Review> courseReviews;
+    private List<Review> reviewList;
     private StudentAccount user;
-    private Course course;
+    private ReviewableItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_course);
+        setContentView(R.layout.activity_reviews_for_item);
 
         Intent intent = getIntent();
-        course = (Course) intent.getSerializableExtra("Course");
+        item = (ReviewableItem) intent.getSerializableExtra("Item");
         accessReviews = new AccessReviews();
-        courseReviews = accessReviews.getReviewsFor(course);
+        reviewList = accessReviews.getReviewsFor(item);
         user = LoginManager.getLoggedInUser();
 
-        // display the course info
-        TextView courseInfoTV = findViewById(R.id.courseInfo);
-        String courseInfo = course.getCourseID() + ": " + course.getCourseName();
-        courseInfoTV.setText(courseInfo);
+        // display info
+        TextView itemInfoTV = findViewById(R.id.itemInfo);
+        String itemInfo = item.getDisplayInfo();
+        itemInfoTV.setText(itemInfo);
 
         // display department
-        TextView depTV = findViewById(R.id.courseDepartment);
-        String courseDept = "Department: " + course.getDepartment();
-        depTV.setText(courseDept);
+        TextView depTV = findViewById(R.id.department);
+        String department = "Department: " + item.getDepartment();
+        depTV.setText(department);
 
         // display averages
         displayOverallRating();
@@ -59,7 +61,7 @@ public class ViewCourseActivity extends AppCompatActivity implements ReviewModif
         // display list of reviews via adapter
         reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
         reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        reviewsAdapter = new ReviewsAdapter(courseReviews, user, course, this);
+        reviewsAdapter = new ReviewsAdapter(reviewList, user, this);
         reviewsRecyclerView.setAdapter(reviewsAdapter);
     }
 
@@ -68,8 +70,8 @@ public class ViewCourseActivity extends AppCompatActivity implements ReviewModif
         super.onResume();
 
         // build adapter with new data
-        courseReviews = accessReviews.getReviewsFor(course);
-        reviewsAdapter = new ReviewsAdapter(courseReviews, user, course, this);
+        reviewList = accessReviews.getReviewsFor(item);
+        reviewsAdapter = new ReviewsAdapter(reviewList, user,this);
         reviewsRecyclerView.setAdapter(reviewsAdapter);
 
         // update ratings
@@ -80,10 +82,10 @@ public class ViewCourseActivity extends AppCompatActivity implements ReviewModif
     @Override
     public void onReviewDeletion(int position) {
         // delete in database
-        accessReviews.deleteReview(courseReviews.get(position));
+        accessReviews.deleteReview(reviewList.get(position));
 
         // update view
-        courseReviews.remove(position);
+        reviewList.remove(position);
         reviewsAdapter.notifyItemRemoved(position);
 
         // update ratings
@@ -97,19 +99,19 @@ public class ViewCourseActivity extends AppCompatActivity implements ReviewModif
     public void buttonWriteReviewOnClick(View v) {
         // go to write review page iff user is logged in
         if(user != null) {
-            Intent intent = new Intent(ViewCourseActivity.this, WriteReviewActivity.class);
-            intent.putExtra("REVIEW_TYPE", course);
+            Intent intent = new Intent(ReviewsForItemActivity.this, WriteReviewActivity.class);
+            intent.putExtra("Item", (Serializable) item);
             startActivity(intent);
         }
         else {
-            Toast.makeText(ViewCourseActivity.this, "Must be logged in to write review!",Toast.LENGTH_LONG).show();
+            Toast.makeText(ReviewsForItemActivity.this, "Must be logged in to write review!",Toast.LENGTH_LONG).show();
         }
     }
 
     @SuppressLint("DefaultLocale")
     private void displayOverallRating() {
         TextView overallRatingTV = findViewById(R.id.courseOverallRating);
-        double rating = AverageCalculator.calcAverageOverallRating(courseReviews);
+        double rating = AverageCalculator.calcAverageOverallRating(reviewList);
         String overallRating = String.format("Average Overall Rating: %.1f / 5.0", rating);
         overallRatingTV.setText(overallRating);
     }
@@ -117,7 +119,7 @@ public class ViewCourseActivity extends AppCompatActivity implements ReviewModif
     @SuppressLint("DefaultLocale")
     private void displayDifficultyRating() {
         TextView difficultyRatingTV = findViewById(R.id.courseDifficultyRating);
-        double rating = AverageCalculator.calcAverageDifficultyRating(courseReviews);
+        double rating = AverageCalculator.calcAverageDifficultyRating(reviewList);
         String difficultyRating = String.format("Average Difficulty Rating: %.1f / 5.0", rating);
         difficultyRatingTV.setText(difficultyRating);
     }
@@ -136,8 +138,8 @@ public class ViewCourseActivity extends AppCompatActivity implements ReviewModif
                 return true;
             case R.id.logout:
                 LoginManager.performLogout();
-                Intent logoutIntent= new Intent(ViewCourseActivity.this, LoginActivity.class);
-                ViewCourseActivity.this.startActivity(logoutIntent);
+                Intent logoutIntent= new Intent(ReviewsForItemActivity.this, LoginActivity.class);
+                ReviewsForItemActivity.this.startActivity(logoutIntent);
                 return true;
             case R.id.accountSettings:
                 //to be added
@@ -146,7 +148,4 @@ public class ViewCourseActivity extends AppCompatActivity implements ReviewModif
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-
 }

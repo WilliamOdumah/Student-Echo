@@ -49,7 +49,6 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     public void onBackPressed(){
         LoginManager.performLogout();
@@ -58,17 +57,14 @@ public class HomeActivity extends AppCompatActivity {
         HomeActivity.this.startActivity(logoutIntent);
         finish();
     }
-
-
     public void buttonCourseOnClick(View v) {
-        Intent courseIntent = new Intent(HomeActivity.this, CoursesActivity.class);
+        Intent courseIntent = new Intent(HomeActivity.this, ItemActivity.class);
+        courseIntent.putExtra("ACCESS", "Course");
         HomeActivity.this.startActivity(courseIntent);
     }
-
     public void buttonInstructorOnClick(View v) {
-        Intent instructorIntent = new Intent(HomeActivity.this, InstructorActivity.class);
+        Intent instructorIntent = new Intent(HomeActivity.this, ItemActivity.class);
+        instructorIntent.putExtra("ACCESS", "Instructor");
         HomeActivity.this.startActivity(instructorIntent);
     }
-
-
 }

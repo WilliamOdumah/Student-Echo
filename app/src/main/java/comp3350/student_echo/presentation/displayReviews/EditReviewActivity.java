@@ -1,4 +1,4 @@
-package comp3350.student_echo.presentation;
+package comp3350.student_echo.presentation.displayReviews;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.widget.RatingBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import comp3350.student_echo.R;
-import comp3350.student_echo.business.AccessReviews;
+import comp3350.student_echo.business.access.AccessReviews;
 import comp3350.student_echo.objects.Review;
 
 public class EditReviewActivity extends AppCompatActivity {
