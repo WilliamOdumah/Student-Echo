@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -43,7 +42,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         displayReview(holder, reviews.get(position));
         holder.editIcon.setOnClickListener(v -> editReviewAction(holder, v));
-        holder.deleteIcon.setOnClickListener(v -> deleteReviewRequest(holder, v));
+        holder.deleteIcon.setOnClickListener(v -> deleteReviewAction(holder, v));
     }
 
     @Override
@@ -77,7 +76,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         ((Activity) v.getContext()).startActivityForResult(editIntent, 0);
     }
 
-    private void deleteReviewRequest(ViewHolder holder, View v) {
+    private void deleteReviewAction(ViewHolder holder, View v) {
         // Get the position of the clicked item
         int deletePosition = holder.getAdapterPosition();
         if (deletePosition != RecyclerView.NO_POSITION) {
@@ -88,9 +87,6 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                     .setPositiveButton("Yes", (dialog, which) -> {
                         // Notify listener of the item removal
                         reviewModificationListener.onReviewDeletion(deletePosition);
-                        // remove locally from list
-                        reviews.remove(deletePosition);
-                        notifyItemRemoved(deletePosition);
                     })
                     .setNegativeButton("No", null)
                     .show();

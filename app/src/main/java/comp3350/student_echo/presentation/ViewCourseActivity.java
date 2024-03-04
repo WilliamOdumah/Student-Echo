@@ -20,7 +20,6 @@ import comp3350.student_echo.business.AccessReviews;
 import comp3350.student_echo.business.AverageCalculator;
 import comp3350.student_echo.business.LoginManager;
 import comp3350.student_echo.objects.Course;
-import comp3350.student_echo.objects.CourseReview;
 import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.StudentAccount;
 
@@ -32,11 +31,6 @@ public class ViewCourseActivity extends AppCompatActivity implements ReviewModif
     private StudentAccount user;
     private Course course;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,18 +63,6 @@ public class ViewCourseActivity extends AppCompatActivity implements ReviewModif
         reviewsRecyclerView.setAdapter(reviewsAdapter);
     }
 
-    public void buttonWriteReviewOnClick(View v) {
-        // go to write review page iff user is logged in
-        if(user != null) {
-            Intent intent = new Intent(ViewCourseActivity.this, WriteReviewActivity.class);
-            intent.putExtra("REVIEW_TYPE", course);
-            startActivity(intent);
-        }
-        else {
-            Toast.makeText(ViewCourseActivity.this, "Must be logged in to write review!",Toast.LENGTH_LONG).show();
-        }
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -100,12 +82,28 @@ public class ViewCourseActivity extends AppCompatActivity implements ReviewModif
         // delete in database
         accessReviews.deleteReview(courseReviews.get(position));
 
+        // update view
+        courseReviews.remove(position);
+        reviewsAdapter.notifyItemRemoved(position);
+
         // update ratings
         displayOverallRating();
         displayDifficultyRating();
 
         // notify user
         Toast.makeText(this, "Review deleted", Toast.LENGTH_SHORT).show();
+    }
+
+    public void buttonWriteReviewOnClick(View v) {
+        // go to write review page iff user is logged in
+        if(user != null) {
+            Intent intent = new Intent(ViewCourseActivity.this, WriteReviewActivity.class);
+            intent.putExtra("REVIEW_TYPE", course);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(ViewCourseActivity.this, "Must be logged in to write review!",Toast.LENGTH_LONG).show();
+        }
     }
 
     @SuppressLint("DefaultLocale")
@@ -124,6 +122,11 @@ public class ViewCourseActivity extends AppCompatActivity implements ReviewModif
         difficultyRatingTV.setText(difficultyRating);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
@@ -143,6 +146,7 @@ public class ViewCourseActivity extends AppCompatActivity implements ReviewModif
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
 
 }

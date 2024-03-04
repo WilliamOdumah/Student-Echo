@@ -62,15 +62,34 @@ public class ViewInstructorActivity extends AppCompatActivity implements ReviewM
     @Override
     protected void onResume() {
         super.onResume();
-        // get updated reviews
-        instructorReviews = accessReviews.getReviewsFor(instructor);
 
-        // update view with current instructorReview
+        // build adapter with new data
+        instructorReviews = accessReviews.getReviewsFor(instructor);
         reviewsAdapter = new ReviewsAdapter(instructorReviews, user, instructor, this);
         reviewsRecyclerView.setAdapter(reviewsAdapter);
+
+        // update ratings
         displayOverallRating();
         displayDifficultyRating();
     }
+
+    @Override
+    public void onReviewDeletion(int position) {
+        // delete in database
+        accessReviews.deleteReview(instructorReviews.get(position));
+
+        // update view
+        instructorReviews.remove(position);
+        reviewsAdapter.notifyItemRemoved(position);
+
+        // update ratings
+        displayOverallRating();
+        displayDifficultyRating();
+
+        // notify user
+        Toast.makeText(this, "Review deleted", Toast.LENGTH_SHORT).show();
+    }
+
 
     public void buttonWriteReviewOnClick(View v) {
         // go to write review page iff user is logged in
@@ -126,9 +145,4 @@ public class ViewInstructorActivity extends AppCompatActivity implements ReviewM
         }
     }
 
-
-    @Override
-    public void onReviewDeletion(int position) {
-
-    }
 }
