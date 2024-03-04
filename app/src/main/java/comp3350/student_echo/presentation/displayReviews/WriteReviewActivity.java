@@ -1,4 +1,4 @@
-package comp3350.student_echo.presentation;
+package comp3350.student_echo.presentation.displayReviews;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,14 +9,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import comp3350.student_echo.R;
-import comp3350.student_echo.business.AccessReviews;
+import comp3350.student_echo.business.access.AccessReviews;
 import comp3350.student_echo.business.LoginManager;
-import comp3350.student_echo.objects.Course;
-import comp3350.student_echo.objects.CourseReview;
-import comp3350.student_echo.objects.Instructor;
-import comp3350.student_echo.objects.InstructorReview;
-import comp3350.student_echo.objects.Review;
-import comp3350.student_echo.objects.ReviewableItem;
+import comp3350.student_echo.objects.reviewableItems.Course;
+import comp3350.student_echo.objects.reviews.CourseReview;
+import comp3350.student_echo.objects.reviewableItems.Instructor;
+import comp3350.student_echo.objects.reviews.InstructorReview;
+import comp3350.student_echo.objects.reviews.Review;
+import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 import comp3350.student_echo.objects.StudentAccount;
 
 public class WriteReviewActivity extends AppCompatActivity {

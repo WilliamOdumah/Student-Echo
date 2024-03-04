@@ -1,4 +1,7 @@
-package comp3350.student_echo.objects;
+package comp3350.student_echo.objects.reviews;
+
+import comp3350.student_echo.objects.reviewableItems.Instructor;
+import comp3350.student_echo.objects.StudentAccount;
 
 public class InstructorReview extends Review {
     private Instructor instructor;

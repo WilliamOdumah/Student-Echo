@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.ArrayList;
 import android.util.Log; // TODO: IS IT OK TO HAVE ANDROID LOG HERE??
 
-import comp3350.student_echo.objects.Course;
-import comp3350.student_echo.objects.Instructor;
+import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.persistence.InstructorPersistence;
 
 public class InstructorPersistenceHSQLDB implements InstructorPersistence {

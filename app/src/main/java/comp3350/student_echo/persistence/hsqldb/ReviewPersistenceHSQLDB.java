@@ -10,14 +10,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import comp3350.student_echo.business.AccessAccounts;
-import comp3350.student_echo.business.AccessCourses;
-import comp3350.student_echo.business.AccessInstructors;
-import comp3350.student_echo.objects.Course;
-import comp3350.student_echo.objects.CourseReview;
-import comp3350.student_echo.objects.Instructor;
-import comp3350.student_echo.objects.InstructorReview;
-import comp3350.student_echo.objects.Review;
+import comp3350.student_echo.business.access.AccessAccounts;
+import comp3350.student_echo.business.access.AccessCourses;
+import comp3350.student_echo.business.access.AccessInstructors;
+import comp3350.student_echo.objects.reviewableItems.Course;
+import comp3350.student_echo.objects.reviews.CourseReview;
+import comp3350.student_echo.objects.reviewableItems.Instructor;
+import comp3350.student_echo.objects.reviews.InstructorReview;
+import comp3350.student_echo.objects.reviews.Review;
 import comp3350.student_echo.objects.StudentAccount;
 import comp3350.student_echo.persistence.ReviewPersistence;
 

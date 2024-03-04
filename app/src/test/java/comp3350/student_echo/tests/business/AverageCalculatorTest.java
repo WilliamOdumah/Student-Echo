@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.student_echo.business.AverageCalculator;
-import comp3350.student_echo.objects.CourseReview;
-import comp3350.student_echo.objects.InstructorReview;
+import comp3350.student_echo.objects.reviews.CourseReview;
+import comp3350.student_echo.objects.reviews.InstructorReview;
 
 public class AverageCalculatorTest {
     List<CourseReview> courseReviews;

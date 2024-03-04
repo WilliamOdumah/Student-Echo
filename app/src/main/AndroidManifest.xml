@@ -11,7 +11,7 @@
             android:name=".presentation.ItemActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ReviewsForItemActivity"
+            android:name=".presentation.displayReviews.ReviewsForItemActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.SignUpActivity"
@@ -41,8 +41,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.WriteReviewActivity" />
-        <activity android:name=".presentation.EditReviewActivity" />
+        <activity android:name=".presentation.displayReviews.WriteReviewActivity" />
+        <activity android:name=".presentation.displayReviews.EditReviewActivity" />
     </application>
 
 </manifest>

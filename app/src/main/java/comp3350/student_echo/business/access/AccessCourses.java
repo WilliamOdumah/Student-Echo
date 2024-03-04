@@ -1,4 +1,4 @@
-package comp3350.student_echo.business;
+package comp3350.student_echo.business.access;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import comp3350.student_echo.application.Services;
-import comp3350.student_echo.objects.Course;
-import comp3350.student_echo.objects.ReviewableItem;
+import comp3350.student_echo.objects.reviewableItems.Course;
+import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 import comp3350.student_echo.persistence.CoursePersistence;
 
 public class AccessCourses implements AccessReviewableItems {

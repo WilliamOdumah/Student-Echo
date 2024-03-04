@@ -1,4 +1,4 @@
-package comp3350.student_echo.objects;
+package comp3350.student_echo.objects.reviewableItems;
 
 import java.io.Serializable;
 

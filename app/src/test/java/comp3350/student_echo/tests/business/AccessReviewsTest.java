@@ -2,17 +2,9 @@ package comp3350.student_echo.tests.business;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
-import comp3350.student_echo.business.AccessReviews;
-import comp3350.student_echo.objects.Course;
-import comp3350.student_echo.objects.CourseReview;
-import comp3350.student_echo.objects.Instructor;
-import comp3350.student_echo.objects.InstructorReview;
-import comp3350.student_echo.objects.Review;
+import comp3350.student_echo.business.access.AccessReviews;
 
 
 public class AccessReviewsTest {

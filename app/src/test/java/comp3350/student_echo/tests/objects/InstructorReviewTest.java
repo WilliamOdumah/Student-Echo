@@ -6,9 +6,9 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import comp3350.student_echo.objects.Instructor;
-import comp3350.student_echo.objects.InstructorReview;
-import comp3350.student_echo.objects.Review;
+import comp3350.student_echo.objects.reviewableItems.Instructor;
+import comp3350.student_echo.objects.reviews.InstructorReview;
+import comp3350.student_echo.objects.reviews.Review;
 import comp3350.student_echo.objects.StudentAccount;
 
 public class InstructorReviewTest {

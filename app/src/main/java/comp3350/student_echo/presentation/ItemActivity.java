@@ -20,13 +20,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import comp3350.student_echo.R;
-import comp3350.student_echo.business.AccessCourses;
-import comp3350.student_echo.business.AccessInstructors;
-import comp3350.student_echo.business.AccessReviewableItems;
+import comp3350.student_echo.business.access.AccessCourses;
+import comp3350.student_echo.business.access.AccessInstructors;
+import comp3350.student_echo.business.access.AccessReviewableItems;
 import comp3350.student_echo.business.LoginManager;
-import comp3350.student_echo.objects.Course;
-import comp3350.student_echo.objects.Instructor;
-import comp3350.student_echo.objects.ReviewableItem;
+import comp3350.student_echo.objects.reviewableItems.Course;
+import comp3350.student_echo.objects.reviewableItems.Instructor;
+import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
+import comp3350.student_echo.presentation.displayReviews.ReviewsForItemActivity;
 
 public class ItemActivity extends AppCompatActivity {
 
@@ -100,7 +101,6 @@ public class ItemActivity extends AppCompatActivity {
         }
         return null;
     }
-
     private ArrayAdapter<ReviewableItem> buildCourseAdapter(List<ReviewableItem> list) {
         return new ArrayAdapter<ReviewableItem>(this, android.R.layout.simple_list_item_activated_2,
                 android.R.id.text1, list) {
