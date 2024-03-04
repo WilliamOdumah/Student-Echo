@@ -1,9 +1,7 @@
 package comp3350.student_echo.presentation;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
@@ -26,11 +24,15 @@ public class WriteReviewActivity extends AppCompatActivity {
     private Course course;
     private Instructor instructor;
     private boolean isCourse;
+    private RatingBar overallRatingBar;
+    private RatingBar difficultyRatingBar;
+    private EditText commentEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_form);
+
         accessReviews = new AccessReviews();
 
         // First must ensure user is logged in
@@ -51,34 +53,27 @@ public class WriteReviewActivity extends AppCompatActivity {
         }
 
         // link to view variables
-        RatingBar overallRatingBar = findViewById(R.id.overallRatingBar);
-        RatingBar difficultyRatingBar = findViewById(R.id.difficultyRatingBar);
-        EditText commentEditText = findViewById(R.id.commentEditText);
-        Button submitReviewButton = findViewById(R.id.submitReviewButton);
+        overallRatingBar = findViewById(R.id.overallRatingBar);
+        difficultyRatingBar = findViewById(R.id.difficultyRatingBar);
+        commentEditText = findViewById(R.id.commentEditText);
 
-        // set listener
-        submitReviewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Get values from form
-                int overallRating = (int) overallRatingBar.getRating();
-                int difficultyRating = (int) difficultyRatingBar.getRating();
-                String comment = commentEditText.getText().toString();
+    }
+    public void buttonSubmitReviewOnClick(View view) {
+        // Get values from form
+        int overallRating = (int) overallRatingBar.getRating();
+        int difficultyRating = (int) difficultyRatingBar.getRating();
+        String comment = commentEditText.getText().toString();
 
-                // Create Review object and save to database
-                Review newReview;
-                if (isCourse){
-                    newReview = new CourseReview(course, comment, overallRating, difficultyRating, user);
-                }
-                else {
-                    newReview = new InstructorReview(instructor, comment, overallRating, difficultyRating, user);
-                }
-                accessReviews.addReview(newReview);
+        // Create Review object
+        Review newReview;
+        if (isCourse) newReview = new CourseReview(course, comment, overallRating, difficultyRating, user);
+        else newReview = new InstructorReview(instructor, comment, overallRating, difficultyRating, user);
 
-                // Return to the main activity
-                finish();
-            }
-        });
+        // notify database
+        accessReviews.addReview(newReview);
+
+        // Return to the main activity
+        finish();
     }
 }
 

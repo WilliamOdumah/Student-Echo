@@ -105,8 +105,8 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     }
 
     @Override
-    public List<CourseReview> getReviewsFor(Course course) {
-        List<CourseReview> reviewList = new ArrayList<>();
+    public List<Review> getReviewsFor(Course course) {
+        List<Review> reviewList = new ArrayList<>();
         try (final Connection c = connection()) {
             PreparedStatement ps = c.prepareStatement("SELECT * FROM course_reviews cr "+
                     "JOIN accounts acc ON acc.username=cr.username "+
@@ -129,8 +129,8 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     }
 
     @Override
-    public List<InstructorReview> getReviewsFor(Instructor inst) {
-        List<InstructorReview> reviewList = new ArrayList<>();
+    public List<Review> getReviewsFor(Instructor inst) {
+        List<Review> reviewList = new ArrayList<>();
         try (final Connection c = connection()) {
             final PreparedStatement ps =  c.prepareStatement("SELECT * FROM instructor_reviews ir "+
                     "JOIN accounts acc ON acc.username=ir.username "+

@@ -20,15 +20,15 @@ import comp3350.student_echo.business.AccessReviews;
 import comp3350.student_echo.business.AverageCalculator;
 import comp3350.student_echo.business.LoginManager;
 import comp3350.student_echo.objects.Instructor;
-import comp3350.student_echo.objects.InstructorReview;
+import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.StudentAccount;
 
-public class ViewInstructorActivity extends AppCompatActivity {
+public class ViewInstructorActivity extends AppCompatActivity implements ReviewModificationListener {
 
     RecyclerView reviewsRecyclerView;
     private ReviewsAdapter reviewsAdapter;
     private AccessReviews accessReviews;
-    private List<InstructorReview> instructorReviews;
+    private List<Review> instructorReviews;
     private StudentAccount user;
     private Instructor instructor;
 
@@ -55,7 +55,7 @@ public class ViewInstructorActivity extends AppCompatActivity {
         // display list of reviews
         reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
         reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        reviewsAdapter = new ReviewsAdapter(instructorReviews, user, instructor);
+        reviewsAdapter = new ReviewsAdapter(instructorReviews, user, instructor, this);
         reviewsRecyclerView.setAdapter(reviewsAdapter);
     }
 
@@ -66,7 +66,7 @@ public class ViewInstructorActivity extends AppCompatActivity {
         instructorReviews = accessReviews.getReviewsFor(instructor);
 
         // update view with current instructorReview
-        reviewsAdapter = new ReviewsAdapter(instructorReviews, user, instructor);
+        reviewsAdapter = new ReviewsAdapter(instructorReviews, user, instructor, this);
         reviewsRecyclerView.setAdapter(reviewsAdapter);
         displayOverallRating();
         displayDifficultyRating();
@@ -124,5 +124,11 @@ public class ViewInstructorActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    @Override
+    public void onReviewDeletion(int position) {
+
     }
 }

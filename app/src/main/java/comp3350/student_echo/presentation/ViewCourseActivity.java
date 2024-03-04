@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,13 +21,14 @@ import comp3350.student_echo.business.AverageCalculator;
 import comp3350.student_echo.business.LoginManager;
 import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.CourseReview;
+import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.StudentAccount;
 
-public class ViewCourseActivity extends AppCompatActivity {
-    RecyclerView reviewsRecyclerView;
+public class ViewCourseActivity extends AppCompatActivity implements ReviewModificationListener {
+    private RecyclerView reviewsRecyclerView;
     private ReviewsAdapter reviewsAdapter;
     private AccessReviews accessReviews;
-    private List<CourseReview> courseReviews;
+    private List<Review> courseReviews;
     private StudentAccount user;
     private Course course;
 
@@ -65,21 +65,8 @@ public class ViewCourseActivity extends AppCompatActivity {
         // display list of reviews via adapter
         reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
         reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        reviewsAdapter = new ReviewsAdapter(courseReviews, user, course);
+        reviewsAdapter = new ReviewsAdapter(courseReviews, user, course, this);
         reviewsRecyclerView.setAdapter(reviewsAdapter);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // get updated reviews
-        courseReviews = accessReviews.getReviewsFor(course);
-
-        // update view with current courseReviews
-        reviewsAdapter = new ReviewsAdapter(courseReviews, user, course);
-        reviewsRecyclerView.setAdapter(reviewsAdapter);
-        displayOverallRating();
-        displayDifficultyRating();
     }
 
     public void buttonWriteReviewOnClick(View v) {
@@ -92,6 +79,33 @@ public class ViewCourseActivity extends AppCompatActivity {
         else {
             Toast.makeText(ViewCourseActivity.this, "Must be logged in to write review!",Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // build adapter with new data
+        courseReviews = accessReviews.getReviewsFor(course);
+        reviewsAdapter = new ReviewsAdapter(courseReviews, user, course, this);
+        reviewsRecyclerView.setAdapter(reviewsAdapter);
+
+        // update ratings
+        displayOverallRating();
+        displayDifficultyRating();
+    }
+
+    @Override
+    public void onReviewDeletion(int position) {
+        // delete in database
+        accessReviews.deleteReview(courseReviews.get(position));
+
+        // update ratings
+        displayOverallRating();
+        displayDifficultyRating();
+
+        // notify user
+        Toast.makeText(this, "Review deleted", Toast.LENGTH_SHORT).show();
     }
 
     @SuppressLint("DefaultLocale")
@@ -129,4 +143,6 @@ public class ViewCourseActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 }
