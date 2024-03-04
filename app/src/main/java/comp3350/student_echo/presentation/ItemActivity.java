@@ -24,8 +24,6 @@ import comp3350.student_echo.business.access.AccessCourses;
 import comp3350.student_echo.business.access.AccessInstructors;
 import comp3350.student_echo.business.access.AccessReviewableItems;
 import comp3350.student_echo.business.LoginManager;
-import comp3350.student_echo.objects.reviewableItems.Course;
-import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 import comp3350.student_echo.presentation.displayReviews.ReviewsForItemActivity;
 
@@ -33,29 +31,34 @@ public class ItemActivity extends AppCompatActivity {
 
     private AccessReviewableItems accessReviewableItems;
     private List<ReviewableItem> itemList;
-    private String type;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
 
-        Intent intent = getIntent();
-        type = intent.getStringExtra("Type");
-        if(type.equals("Course")) {
-            accessReviewableItems = new AccessCourses();
-        } else if(type.equals("Instructor")) {
-            accessReviewableItems = new AccessInstructors();
+        // obtain type from parent
+        // NOTE: we could have used factory design pattern here to make code more extendable,
+        //       but because we only have 2 types it was not worth the additional complexity.
+        String type = getIntent().getStringExtra("ACCESS");
+        switch(type) {
+            case "Course":
+                accessReviewableItems = new AccessCourses();
+                break;
+            case "Instructor":
+                accessReviewableItems = new AccessInstructors();
+                break;
+            default:
+                throw new IllegalArgumentException();
         }
-
         itemList = accessReviewableItems.getItems();
 
+        // set interactive functionality
+        setListClickAction();
+        setSearchAction();;
+    }
+
+    private void setListClickAction() {
         // obtain listView
         final ListView listView = (ListView) findViewById(R.id.listItems);
 
@@ -74,9 +77,12 @@ public class ItemActivity extends AppCompatActivity {
                 startActivity(viewReviewsIntent);
             }
         });
+    }
 
+    private void setSearchAction() {
         // set addTextChangedListener for search bar
         EditText courseSearchBar = (EditText) findViewById(R.id.enter_search);
+        ListView listView = (ListView) findViewById(R.id.listItems);
         courseSearchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -94,14 +100,6 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     private ArrayAdapter<ReviewableItem> buildAdapter(List<ReviewableItem> list) {
-        if(type.equals("Course")) {
-            return buildCourseAdapter(list);
-        } else if(type.equals("Instructor")) {
-            return buildInstructorAdapter(list);
-        }
-        return null;
-    }
-    private ArrayAdapter<ReviewableItem> buildCourseAdapter(List<ReviewableItem> list) {
         return new ArrayAdapter<ReviewableItem>(this, android.R.layout.simple_list_item_activated_2,
                 android.R.id.text1, list) {
             @Override
@@ -111,34 +109,21 @@ public class ItemActivity extends AppCompatActivity {
                 TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
-                Course c = (Course) list.get(position);
+                ReviewableItem item = list.get(position);
 
-                text1.setText(c.getCourseID());
-                text2.setText(c.getCourseName());
-
-                return view;
-            }
-        };
-    }
-    private ArrayAdapter<ReviewableItem> buildInstructorAdapter(List<ReviewableItem> list) {
-        return new ArrayAdapter<ReviewableItem>(this,
-                android.R.layout.simple_list_item_activated_2, android.R.id.text1, list) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-
-                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-
-                Instructor instructor = (Instructor) list.get(position);
-                text1.setText(instructor.getFirstName() + " " + instructor.getLastName());
-                text2.setText(instructor.getTitle());
+                text1.setText(item.getPrimaryName());
+                text2.setText(item.getSecondaryName());
 
                 return view;
             }
         };
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {

@@ -28,13 +28,13 @@ public class Instructor implements Serializable,ReviewableItem {
 		return this.firstName.equals(i.firstName) && this.lastName.equals(i.lastName);
 	}
 
+	// IMPLEMENTATION OF REVIEWABLE ITEM
 	@Override
-	public String getDisplayInfo() {
-		return title + " " + firstName + " " + lastName;
-	}
-
+	public String getPrimaryName(){return firstName+" "+lastName;}
 	@Override
-	public String getDepartment() {
-		return null;
-	}
+	public String getSecondaryName() {return title;}
+	@Override
+	public String getDisplayInfo() {return title+" "+firstName+" "+lastName;}
+	@Override
+	public String getDepartment() {return null;}
 }

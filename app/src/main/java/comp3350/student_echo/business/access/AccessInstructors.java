@@ -1,5 +1,6 @@
 package comp3350.student_echo.business.access;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,7 +11,7 @@ import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 import comp3350.student_echo.persistence.InstructorPersistence;
 
-public class AccessInstructors implements AccessReviewableItems {
+public class AccessInstructors implements AccessReviewableItems, Serializable {
 	private final InstructorPersistence instructorPersistence;
 
 	public AccessInstructors() {
