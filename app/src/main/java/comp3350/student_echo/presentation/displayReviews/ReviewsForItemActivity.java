@@ -36,7 +36,7 @@ public class ReviewsForItemActivity extends AppCompatActivity implements ReviewM
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review_for_item);
+        setContentView(R.layout.activity_reviews_for_item);
 
         Intent intent = getIntent();
         item = (ReviewableItem) intent.getSerializableExtra("Item");
