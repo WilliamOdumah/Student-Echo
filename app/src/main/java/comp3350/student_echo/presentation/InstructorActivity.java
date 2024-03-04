@@ -27,8 +27,6 @@ public class InstructorActivity extends AppCompatActivity {
 
     private AccessInstructors accessInstructors;
     private List<Instructor> instructorList;
-    private ArrayAdapter<Instructor> adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +40,7 @@ public class InstructorActivity extends AppCompatActivity {
         final ListView listView = (ListView) findViewById(R.id.listInstructor);
 
         // set adapter for listView
-        adapter = buildInstructorAdapter(instructorList);
+        ArrayAdapter<Instructor> adapter = buildInstructorAdapter(instructorList);
         listView.setAdapter(adapter);
 
         // set listener
