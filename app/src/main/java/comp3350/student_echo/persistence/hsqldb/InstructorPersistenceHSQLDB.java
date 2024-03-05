@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.ArrayList;
 import android.util.Log; // TODO: IS IT OK TO HAVE ANDROID LOG HERE??
 
-import comp3350.student_echo.objects.Course;
-import comp3350.student_echo.objects.Instructor;
+import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.persistence.InstructorPersistence;
 
 public class InstructorPersistenceHSQLDB implements InstructorPersistence {
@@ -26,11 +25,11 @@ public class InstructorPersistenceHSQLDB implements InstructorPersistence {
     }
 
     private Instructor fromResultSet(final ResultSet rs) throws SQLException {
-        final int instructorID = rs.getInt("instructorID");
+        final int id = rs.getInt("id");
         final String title = rs.getString("title");
         final String firstName = rs.getString("firstName");
         final String lastName = rs.getString("lastName");
-        return new Instructor(instructorID, title, firstName, lastName);
+        return new Instructor(id, title, firstName, lastName);
     }
 
     @Override
@@ -59,7 +58,7 @@ public class InstructorPersistenceHSQLDB implements InstructorPersistence {
     public Instructor getInstructor(int instructorID) {
         try (final Connection c = connection()) {
             // form query
-            final PreparedStatement ps = c.prepareStatement("SELECT * FROM instructors WHERE instructors.instructorid=?");
+            final PreparedStatement ps = c.prepareStatement("SELECT * FROM instructors WHERE instructors.id=?");
             ps.setInt(1, instructorID);
 
             // execute

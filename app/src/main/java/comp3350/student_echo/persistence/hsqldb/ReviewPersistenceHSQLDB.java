@@ -7,16 +7,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
-import comp3350.student_echo.business.AccessAccounts;
-import comp3350.student_echo.business.AccessCourses;
-import comp3350.student_echo.business.AccessInstructors;
-import comp3350.student_echo.objects.Course;
-import comp3350.student_echo.objects.CourseReview;
-import comp3350.student_echo.objects.Instructor;
-import comp3350.student_echo.objects.InstructorReview;
+import comp3350.student_echo.business.access.AccessAccounts;
+import comp3350.student_echo.business.access.AccessCourses;
+import comp3350.student_echo.business.access.AccessInstructors;
+import comp3350.student_echo.objects.reviewableItems.Course;
+import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
+import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.StudentAccount;
 import comp3350.student_echo.persistence.ReviewPersistence;
@@ -38,49 +38,34 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-    private CourseReview fromResultSetCR(final ResultSet rs) throws SQLException {
-        final int reviewID = rs.getInt("uid");
-        final String courseID = rs.getString("courseID");
-        final String username = rs.getString("username");
-        final String comment = rs.getString("comment");
-        final int overallRating = rs.getInt("overall_rating");
-        final int difficultyRating = rs.getInt("difficulty_rating");
-
-        Course course = accessCourses.getCourse(courseID);
-        StudentAccount sa = accessAccounts.getAccount(username);
-        return new CourseReview(reviewID, course, comment, overallRating, difficultyRating, sa);
-    }
-    private InstructorReview fromResultSetIR(final ResultSet rs) throws SQLException {
-        final int reviewID = rs.getInt("uid");
-        final int instructorID = rs.getInt("instructorID");
-        final String username = rs.getString("username");
-        final String comment = rs.getString("comment");
-        final int overallRating = rs.getInt("overall_rating");
-        final int difficultyRating = rs.getInt("difficulty_rating");
-
-        Instructor instructor = accessInstructors.getInstructor(instructorID);
-        StudentAccount sa = accessAccounts.getAccount(username);
-        return new InstructorReview(reviewID, instructor, comment, overallRating, difficultyRating, sa);
-    }
-
     @Override
     public void addReview(Review r) {
         try (final Connection c = connection()) {
+
             // Form query
-            String tableName = (r instanceof CourseReview) ? "course_reviews" : "instructor_reviews";
-            final PreparedStatement ps = c.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?)");
+            String tableName = getTableName(r);
+            PreparedStatement ps = c.prepareStatement("INSERT INTO "+tableName+" VALUES(DEFAULT,?,?,?,?,?)");
             int at = 1;
-            ps.setInt(at++, r.getUid());
-            if(r instanceof CourseReview) ps.setString(at++,((CourseReview)r).getCourse().getCourseID());
-            else ps.setInt(at++,((InstructorReview)r).getInstructor().getInstructorID());
+            ps.setString(at++, r.getReviewableItem().getID());
             ps.setString(at++, r.getAuthorUsername());
             ps.setString(at++, r.getComment());
             ps.setInt(at++,r.getOverallRating());
             ps.setInt(at++,r.getDifficultyRating());
 
-            // execute query
+            // execute query to create Review in DB
             ps.executeUpdate();
+
+            // update uid in memory (use author and comment as identifier)
+            PreparedStatement ps2 = c.prepareStatement("SELECT uid FROM "+tableName+" WHERE username=? AND comment=?");
+            ps2.setString(1,r.getAuthorUsername());
+            ps2.setString(2,r.getComment());
+            ResultSet rs = ps2.executeQuery();
+            rs.next();
+
+            r.setUID(rs.getInt("uid"));
+
             ps.close();
+            ps2.close();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
@@ -91,7 +76,7 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     public void deleteReview(Review r) {
         try (final Connection c = connection()) {
             // Form query
-            String tableName = (r instanceof CourseReview) ? "course_reviews" : "instructor_reviews";
+            String tableName = getTableName(r);
             final PreparedStatement ps = c.prepareStatement("DELETE FROM "+tableName+" r WHERE r.uid=?");
             ps.setInt(1,r.getUid());
 
@@ -105,17 +90,20 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     }
 
     @Override
-    public List<CourseReview> getReviewsFor(Course course) {
-        List<CourseReview> reviewList = new ArrayList<>();
+    public List<Review> getReviewsFor(Course course) {
+        List<Review> reviewList = new ArrayList<>();
         try (final Connection c = connection()) {
+            // form query
             PreparedStatement ps = c.prepareStatement("SELECT * FROM course_reviews cr "+
                     "JOIN accounts acc ON acc.username=cr.username "+
                     "where cr.courseID=?");
             ps.setString(1,course.getCourseID());
+
+            // build result into memory
             final ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                final CourseReview cr = fromResultSetCR(rs);
-                reviewList.add(cr);
+                Review review = buildReviewWithCourse(rs);
+                reviewList.add(review);
             }
             rs.close();
             ps.close();
@@ -129,17 +117,20 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     }
 
     @Override
-    public List<InstructorReview> getReviewsFor(Instructor inst) {
-        List<InstructorReview> reviewList = new ArrayList<>();
+    public List<Review> getReviewsFor(Instructor inst) {
+        List<Review> reviewList = new ArrayList<>();
         try (final Connection c = connection()) {
+            // form query
             final PreparedStatement ps =  c.prepareStatement("SELECT * FROM instructor_reviews ir "+
                     "JOIN accounts acc ON acc.username=ir.username "+
                     "where ir.instructorID=?");
             ps.setInt(1,inst.getInstructorID());
+
+            // build result into memory
             final ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                final InstructorReview ir = fromResultSetIR(rs);
-                reviewList.add(ir);
+                Review review = buildReviewWithInstructor(rs);
+                reviewList.add(review);
             }
             rs.close();
             ps.close();
@@ -156,14 +147,13 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     public boolean updateReview(Review r) {
         try (final Connection c = connection()) {
             // Form query
-            String tableName = (r instanceof CourseReview) ? "course_reviews" : "instructor_reviews";
+            String tableName = getTableName(r);
             final PreparedStatement ps = c.prepareStatement("UPDATE "+tableName+" "+
                     "SET comment=?,overall_rating=?,difficulty_rating=? "+
                     "WHERE uid=?");
             ps.setString(1,r.getComment());
             ps.setInt(2,r.getOverallRating());
             ps.setInt(3,r.getDifficultyRating());
-            System.out.println("THIS IS THE reviewID we want=" + r.getUid());
             ps.setInt(4,r.getUid());
 
             // execute query
@@ -174,5 +164,67 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public boolean addLike(Review r, StudentAccount sa) {
+        try (final Connection c = connection()){
+            // Form query
+            String tableName = getTableName(r, sa);
+            final PreparedStatement ps = c.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?)");
+            ps.setString(1, sa.getUsername());    // username
+            ps.setInt(2, r.getUid());             // review id
+
+            // execute query
+            ps.executeUpdate();
+            ps.close();
+
+            // passing means like successfully added
+            return true;
+        } catch(SQLIntegrityConstraintViolationException e) {
+            // this exception means like already added
+            return false;
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private Review buildReviewWithCourse(final ResultSet rs) throws SQLException {
+        final int reviewID = rs.getInt("uid");
+        final String courseID = rs.getString("courseID");
+        final String username = rs.getString("username");
+        final String comment = rs.getString("comment");
+        final int overallRating = rs.getInt("overall_rating");
+        final int difficultyRating = rs.getInt("difficulty_rating");
+
+        Course course = accessCourses.getCourse(courseID);
+        StudentAccount author = accessAccounts.getAccount(username);
+        return new Review(reviewID, course, comment, overallRating, difficultyRating, author);
+    }
+    private Review buildReviewWithInstructor(final ResultSet rs) throws SQLException {
+        final int reviewID = rs.getInt("uid");
+        final int instructorID = rs.getInt("instructorID");
+        final String username = rs.getString("username");
+        final String comment = rs.getString("comment");
+        final int overallRating = rs.getInt("overall_rating");
+        final int difficultyRating = rs.getInt("difficulty_rating");
+
+        Instructor instructor = accessInstructors.getInstructor(instructorID);
+        StudentAccount author = accessAccounts.getAccount(username);
+        return new Review(reviewID, instructor, comment, overallRating, difficultyRating, author);
+    }
+    private String getTableName(Review r) {
+        ReviewableItem item = r.getReviewableItem();
+        if(item instanceof Course) return "course_reviews";
+        if(item instanceof Instructor) return "instructor_reviews";
+        return null;
+    }
+    private String getTableName(Review r, StudentAccount sa) {
+        ReviewableItem item = r.getReviewableItem();
+        if(item instanceof Course) return "likes_course_review";
+        if(item instanceof Instructor) return "likes_instructor_review";
+        return null;
     }
 }
