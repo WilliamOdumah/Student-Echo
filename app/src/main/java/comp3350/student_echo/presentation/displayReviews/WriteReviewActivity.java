@@ -1,14 +1,22 @@
 package comp3350.student_echo.presentation.displayReviews;
 
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import comp3350.student_echo.R;
+import comp3350.student_echo.business.Exceptions.InvalidReviewCommentException;
+import comp3350.student_echo.business.ReviewValidator;
 import comp3350.student_echo.business.access.AccessReviews;
 import comp3350.student_echo.business.LoginManager;
 import comp3350.student_echo.objects.Review;
@@ -54,12 +62,22 @@ public class WriteReviewActivity extends AppCompatActivity {
         String comment = commentEditText.getText().toString();
 
         // Create new review
+        try{
+            ReviewValidator.validateComment(comment, getAssets());
+        } catch(InvalidReviewCommentException e) {
+            // show why invalid
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            return;
+        } catch(IOException e) {
+            // indicate validator could not be initialized
+            Toast.makeText(this, "Unable to verify comment safety. Please try again later.", Toast.LENGTH_LONG).show();
+            System.out.println(e);
+            return;
+        }
+
         Review newReview = new Review(item, comment, overallRating, difficultyRating, user);
-
-        // add to database
         accessReviews.addReview(newReview);
-
-        // Return to the main activity
+        // Return to the prev activity
         finish();
     }
 }
