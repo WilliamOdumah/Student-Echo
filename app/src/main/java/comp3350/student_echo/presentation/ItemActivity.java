@@ -105,7 +105,7 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     public void buttonAddItemOnClick(View v) {
-        // go to add item page passing type
+        // go to new page to add (can do addCourse + addInstructor, or a general addItem page)
         // Note: since entering new page, let that page deal with
         // calling access to update the DB.
     }
