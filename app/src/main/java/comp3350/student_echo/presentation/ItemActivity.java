@@ -36,7 +36,7 @@ public class ItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // obtain type from parent
         // NOTE: we could have used factory design pattern here to make code more extendable,
         //       but because we only have 2 types it was not worth the additional complexity.
