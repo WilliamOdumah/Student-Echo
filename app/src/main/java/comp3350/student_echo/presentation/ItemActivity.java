@@ -40,7 +40,7 @@ public class ItemActivity extends AppCompatActivity {
         // obtain type from parent
         // NOTE: we could have used factory design pattern here to make code more extendable,
         //       but because we only have 2 types it was not worth the additional complexity.
-        String type = getIntent().getStringExtra("ACCESS");
+        String type = getIntent().getStringExtra("Type");
         switch(type) {
             case "Course":
                 accessReviewableItems = new AccessCourses();
@@ -55,7 +55,12 @@ public class ItemActivity extends AppCompatActivity {
 
         // set interactive functionality
         setListClickAction();
-        setSearchAction();;
+        setSearchAction();
+
+        // display type in add button
+        TextView tv = (TextView) findViewById(R.id.addItem);
+        String buttonText = "Add New " + type;
+        tv.setText(buttonText);
     }
 
     private void setListClickAction() {
@@ -97,6 +102,12 @@ public class ItemActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {}
         });
+    }
+
+    public void buttonAddItemOnClick(View v) {
+        // go to add item page passing type
+        // Note: since entering new page, let that page deal with
+        // calling access to update the DB.
     }
 
     private ArrayAdapter<ReviewableItem> buildAdapter(List<ReviewableItem> list) {
@@ -143,5 +154,4 @@ public class ItemActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }

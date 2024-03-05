@@ -79,12 +79,13 @@
             android:background="#000000" />
 
         <Button
-            android:id="@+id/addCourse"
+            android:id="@+id/addItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:text="add Course" />
+            android:onClick="buttonAddItemOnClick"
+            android:text="Add Item" />
 
     </RelativeLayout>
 
