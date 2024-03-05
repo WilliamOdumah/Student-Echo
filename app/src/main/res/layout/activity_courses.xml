@@ -84,7 +84,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:text="add Course" />
+            android:onClick="buttonAddCourseOnClick"
+            android:text="add new Course" />
 
     </RelativeLayout>
 

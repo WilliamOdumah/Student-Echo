@@ -118,12 +118,8 @@ public class CoursesActivity extends AppCompatActivity {
         }
     }
 
-
-
-
-
-//    public void buttonAddCourseOnClick(View v){
-//        Intent newCourseIntent = new Intent(CoursesActivity.this, NewCourseActivity.class);
-//        HomeActivity.this.startActivity(newCourseIntent);
-//    }
+    public void buttonAddCourseOnClick(View v){
+        Intent newCourseIntent = new Intent(CoursesActivity.this, AddCourseActivity.class);
+        CoursesActivity.this.startActivity(newCourseIntent);
+    }
 }

@@ -73,6 +73,18 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
     // TODO
     @Override
     public void updateAccount(StudentAccount currentStudent) {
+        try (final Connection c = connection()) {
+            final PreparedStatement st = c.prepareStatement("UPDATE ACCOUNTS SET username = ?, password = ? WHERE email = ?");
+            st.setString(1, currentStudent.getUsername());
+            st.setString(2, currentStudent.getPassword());
+            st.setString(3, currentStudent.getEmail());
+            st.executeUpdate();
+
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
 
     }
+
 }
