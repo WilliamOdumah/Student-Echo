@@ -10,6 +10,8 @@
         <activity
             android:name=".presentation.ItemActivity"
             android:exported="false" />
+        <activity android:name=".presentation.AddCourseActivity"
+            android:exported="false"/>
         <activity
             android:name=".presentation.displayReviews.ReviewsForItemActivity"
             android:exported="false" />
@@ -41,6 +43,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".presentation.displayReviews.WriteReviewActivity" />
         <activity android:name=".presentation.displayReviews.EditReviewActivity" />
     </application>

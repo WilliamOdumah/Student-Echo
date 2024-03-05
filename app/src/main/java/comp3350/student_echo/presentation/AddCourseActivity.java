@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import comp3350.student_echo.R;
 //import comp3350.student_echo.business.AddCourseManager;
-import comp3350.student_echo.objects.Course;
+import comp3350.student_echo.objects.reviewableItems.Course;
 
 public class AddCourseActivity extends AppCompatActivity {
 
@@ -27,7 +27,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
     public void buttonCreateNewCourse(View view) {
 
-        Intent addCourse = new Intent(AddCourseActivity.this, CoursesActivity.class);
+        Intent addCourse = new Intent(AddCourseActivity.this, ItemActivity.class);
         EditText ID = (EditText) findViewById(R.id.courseID);
         EditText name = (EditText) findViewById(R.id.courseName);
         EditText c_department = (EditText) findViewById(R.id.department);

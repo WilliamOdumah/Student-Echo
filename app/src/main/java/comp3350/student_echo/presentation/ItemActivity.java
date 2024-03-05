@@ -108,6 +108,9 @@ public class ItemActivity extends AppCompatActivity {
         // go to new page to add (can do addCourse + addInstructor, or a general addItem page)
         // Note: since entering new page, let that page deal with
         // calling access to update the DB.
+        Intent newCourseIntent = new Intent(ItemActivity.this, AddCourseActivity.class);
+        ItemActivity.this.startActivity(newCourseIntent);
+
     }
 
     private ArrayAdapter<ReviewableItem> buildAdapter(List<ReviewableItem> list) {

@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import comp3350.student_echo.objects.Course;
+import comp3350.student_echo.business.access.AccessCourses;
+import comp3350.student_echo.objects.reviewableItems.Course;
 import comp3350.student_echo.objects.Department;
 
 public class AddCourseManager {
