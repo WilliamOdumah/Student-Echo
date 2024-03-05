@@ -57,7 +57,7 @@ public class DepartmentPersistenceHSQLDB implements DepartmentPersistence {
     public Department getDepartment(String departmentName) {
         try (final Connection c = connection()) {
             // form query
-            final PreparedStatement ps = c.prepareStatement("SELECT * FROM Departments WHERE departmentname=?");
+            final PreparedStatement ps = c.prepareStatement("SELECT * FROM DEPARTMENTS WHERE departments.departmentname=?");
             ps.setString(1, departmentName);
 
             // execute
