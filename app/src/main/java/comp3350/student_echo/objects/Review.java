@@ -12,11 +12,14 @@ public class Review implements Serializable {
     private int overallRating;
     private int difficultyRating;
 
+    // constructor for new Review creation
     public Review(ReviewableItem item, String comment, int overallRating, int difficultyRating, StudentAccount author) {
         this(-1, item, comment, overallRating, difficultyRating, author);
     }
 
-    public Review(int uid, ReviewableItem item, String comment, int overallRating, int difficultyRating, StudentAccount author) {
+    // constructor for building Review from Persistence
+    public Review(int uid, ReviewableItem item, String comment, int overallRating, int difficultyRating,
+                  StudentAccount author) {
         this.uid = uid;
         this.item = item;
         this.author = author;
@@ -54,6 +57,7 @@ public class Review implements Serializable {
     public void setDifficultyRating(int rating) {
         this.difficultyRating = rating;
     }
+
 }
 
 

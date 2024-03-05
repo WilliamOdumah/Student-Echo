@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,14 @@ import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.StudentAccount;
 import comp3350.student_echo.persistence.ReviewPersistence;
+
+
+// A review in the database will now have field for LikedBy
+// This will be a list of Student Accounts
+// Many - Many relationship:
+//      student may like many reviews
+//      review may be liked by many students
+// --> need Likes table
 
 public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     private final String dbPath;
@@ -165,6 +174,31 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         return false;
     }
 
+    @Override
+    public boolean addLike(Review r, StudentAccount sa) {
+        try (final Connection c = connection()){
+            // Form query
+            String tableName = getTableName(r, sa);
+            final PreparedStatement ps = c.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?)");
+            ps.setString(1, sa.getUsername());    // username
+            ps.setInt(2, r.getUid());             // review id
+
+            // execute query
+            ps.executeUpdate();
+            ps.close();
+
+            // passing means like successfully added
+            return true;
+        } catch(SQLIntegrityConstraintViolationException e) {
+            // this exception means like already added
+            return false;
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private Review buildReviewWithCourse(final ResultSet rs) throws SQLException {
         final int reviewID = rs.getInt("uid");
         final String courseID = rs.getString("courseID");
@@ -193,6 +227,12 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         ReviewableItem item = r.getReviewableItem();
         if(item instanceof Course) return "course_reviews";
         if(item instanceof Instructor) return "instructor_reviews";
+        return null;
+    }
+    private String getTableName(Review r, StudentAccount sa) {
+        ReviewableItem item = r.getReviewableItem();
+        if(item instanceof Course) return "likes_course_review";
+        if(item instanceof Instructor) return "likes_instructor_review";
         return null;
     }
 }

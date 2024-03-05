@@ -1,7 +1,11 @@
 package comp3350.student_echo.persistence.stubs;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import comp3350.student_echo.objects.reviewableItems.Course;
 import comp3350.student_echo.objects.reviewableItems.Instructor;
@@ -12,9 +16,11 @@ import comp3350.student_echo.persistence.ReviewPersistence;
 
 public class ReviewPersistenceStub implements ReviewPersistence {
     private final List<Review> reviews;
+    private final Map<Review, Set<StudentAccount>> reviewLikedBy;
 
     public ReviewPersistenceStub() {
         reviews = new ArrayList<>();
+        reviewLikedBy = new HashMap<>();
         populateStub();
     }
 
@@ -37,14 +43,17 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         reviews.add(new Review(instructor2, "She gave me a 0 on my the assignment", 1, 5,fakeUser));
     }
 
+    @Override
     public void addReview(Review r) {
         reviews.add(r);
     }
 
+    @Override
     public void deleteReview(Review r) {
         reviews.remove(r);
     }
 
+    @Override
     public List<Review> getReviewsFor(Course c) {
         List<Review> result = new ArrayList<>();
         for (Review review : reviews) {
@@ -58,6 +67,7 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         return result;
     }
 
+    @Override
     public List<Review> getReviewsFor(Instructor inst) {
         List<Review> result = new ArrayList<>();
         for (Review review : reviews) {
@@ -71,6 +81,7 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         return result;
     }
 
+    @Override
     public boolean updateReview(Review r){
         int index = findReviewIndexById(r.getUid());
         if (index != -1) {
@@ -78,6 +89,13 @@ public class ReviewPersistenceStub implements ReviewPersistence {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean addLike(Review r, StudentAccount sa) {
+        reviewLikedBy.putIfAbsent(r, new HashSet<>());
+        Set<StudentAccount> likeSet = reviewLikedBy.get(r);
+        return likeSet.add(sa);
     }
 
     private int findReviewIndexById(int reviewId) {
