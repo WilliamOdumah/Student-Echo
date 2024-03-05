@@ -21,14 +21,6 @@ import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.StudentAccount;
 import comp3350.student_echo.persistence.ReviewPersistence;
 
-
-// A review in the database will now have field for LikedBy
-// This will be a list of Student Accounts
-// Many - Many relationship:
-//      student may like many reviews
-//      review may be liked by many students
-// --> need Likes table
-
 public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     private final String dbPath;
     private final AccessCourses accessCourses;
