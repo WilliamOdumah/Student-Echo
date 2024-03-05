@@ -58,9 +58,9 @@ public class ItemActivity extends AppCompatActivity {
         setSearchAction();
 
         // display type in add button
-        TextView tv = (TextView) findViewById(R.id.addItem);
+        TextView buttonTV = (TextView) findViewById(R.id.addItem);
         String buttonText = "Add New " + type;
-        tv.setText(buttonText);
+        buttonTV.setText(buttonText);
     }
 
     private void setListClickAction() {
