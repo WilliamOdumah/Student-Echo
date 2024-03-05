@@ -1,6 +1,12 @@
 package comp3350.student_echo.objects;
 
 import java.io.Serializable;
+
+import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
+
+public class Review implements Serializable {
+    private ReviewableItem item;
+    private int uid;
 import java.util.UUID;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +25,16 @@ public abstract class Review implements Serializable {
     public Review(){}
     public Review(String comment, int overallRating, int difficultyRating, StudentAccount author) {
         this.uid = UUID.randomUUID();
+    // constructor for new Review creation
+    public Review(ReviewableItem item, String comment, int overallRating, int difficultyRating, StudentAccount author) {
+        this(-1, item, comment, overallRating, difficultyRating, author);
+    }
+
+    // constructor for building Review from Persistence
+    public Review(int uid, ReviewableItem item, String comment, int overallRating, int difficultyRating,
+                  StudentAccount author) {
+        this.uid = uid;
+        this.item = item;
         this.author = author;
         this.comment = comment;
         this.overallRating = overallRating;
@@ -28,9 +44,10 @@ public abstract class Review implements Serializable {
     }
 
     // Getters
-    public UUID getUid() {
+    public int getUid() {
         return uid;
     }
+    public ReviewableItem getReviewableItem(){return item;}
     public String getAuthorUsername() {
         return this.author.getUsername();
     }
@@ -59,6 +76,7 @@ public abstract class Review implements Serializable {
 
 
     // Setters
+    public void setUID(int id) {this.uid = id;}
     public void setComment(String newComment) {
         this.comment = newComment;
     }

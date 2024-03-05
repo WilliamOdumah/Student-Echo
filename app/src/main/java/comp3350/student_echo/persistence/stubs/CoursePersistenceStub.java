@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import comp3350.student_echo.objects.Course;
+import comp3350.student_echo.objects.reviewableItems.Course;
 import comp3350.student_echo.persistence.CoursePersistence;
 
 public class CoursePersistenceStub implements CoursePersistence {
@@ -28,5 +28,15 @@ public class CoursePersistenceStub implements CoursePersistence {
     @Override
     public List<Course> getCourseSequential() {
         return Collections.unmodifiableList(courses);
+    }
+
+    @Override
+    public Course getCourse(String courseID) {
+        for(Course c : courses) {
+            if(c.getCourseID().equals(courseID)){
+                return c;
+            }
+        }
+        return null;
     }
 }

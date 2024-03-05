@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import comp3350.student_echo.business.AccessAccounts;
+import comp3350.student_echo.business.access.AccessAccounts;
 import comp3350.student_echo.objects.StudentAccount;
 
 public class AccessAccountsTest {

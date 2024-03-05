@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import comp3350.student_echo.objects.Instructor;
+import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.persistence.InstructorPersistence;
 
 public class InstructorPersistenceStub implements InstructorPersistence {
@@ -25,5 +25,15 @@ public class InstructorPersistenceStub implements InstructorPersistence {
     @Override
     public List<Instructor> getInstructorSequential() {
         return Collections.unmodifiableList(instructors);
+    }
+
+    @Override
+    public Instructor getInstructor(int instructorID) {
+        for(Instructor i : instructors) {
+            if(i.getInstructorID() == instructorID){
+                return i;
+            }
+        }
+        return null;
     }
 }

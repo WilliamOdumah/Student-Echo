@@ -1,4 +1,4 @@
-package comp3350.student_echo.business;
+package comp3350.student_echo.business.access;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,9 +12,8 @@ public class AccessAccounts {
 
     private final AccountPersistence accountPersistence;
 
-    public AccessAccounts()
-    {
-        accountPersistence = Services.getAccountPersistence();
+    public AccessAccounts() {
+        accountPersistence = Services.getAccountPersistence(true);
     }
 
     public void addAccount(StudentAccount toAdd){

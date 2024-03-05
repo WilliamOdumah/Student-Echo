@@ -15,6 +15,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_home);
     }
 
@@ -49,7 +50,6 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     public void onBackPressed(){
         LoginManager.performLogout();
@@ -58,17 +58,14 @@ public class HomeActivity extends AppCompatActivity {
         HomeActivity.this.startActivity(logoutIntent);
         finish();
     }
-
-
     public void buttonCourseOnClick(View v) {
-        Intent studentsIntent = new Intent(HomeActivity.this, CoursesActivity.class);
-        HomeActivity.this.startActivity(studentsIntent);
+        Intent courseIntent = new Intent(HomeActivity.this, ItemActivity.class);
+        courseIntent.putExtra("Type", "Course");
+        HomeActivity.this.startActivity(courseIntent);
     }
-
     public void buttonInstructorOnClick(View v) {
-        Intent instructorIntent = new Intent(HomeActivity.this, InstructorActivity.class);
+        Intent instructorIntent = new Intent(HomeActivity.this, ItemActivity.class);
+        instructorIntent.putExtra("Type", "Instructor");
         HomeActivity.this.startActivity(instructorIntent);
     }
-
-
 }

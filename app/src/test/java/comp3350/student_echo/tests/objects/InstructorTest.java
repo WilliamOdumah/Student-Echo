@@ -2,7 +2,7 @@ package comp3350.student_echo.tests.objects;
 
 import org.junit.Test;
 
-import comp3350.student_echo.objects.Instructor;
+import comp3350.student_echo.objects.reviewableItems.Instructor;
 import static org.junit.Assert.*;
 
 public class InstructorTest {
