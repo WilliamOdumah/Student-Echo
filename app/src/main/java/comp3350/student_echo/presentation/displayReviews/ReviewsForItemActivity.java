@@ -37,7 +37,7 @@ public class ReviewsForItemActivity extends AppCompatActivity implements ReviewM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reviews_for_item);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         item = (ReviewableItem) intent.getSerializableExtra("Item");
         accessReviews = new AccessReviews();
