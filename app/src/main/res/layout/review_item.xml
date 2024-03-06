@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:layout_marginLeft="4dp"/>
+                android:layout_marginLeft="10dp"/>
 
             <ImageView
                 android:id="@+id/btnLike"
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:layout_marginLeft="4dp"/>
+                android:layout_marginLeft="10dp"/>
 
             <ImageView
                 android:id="@+id/btnDislike"

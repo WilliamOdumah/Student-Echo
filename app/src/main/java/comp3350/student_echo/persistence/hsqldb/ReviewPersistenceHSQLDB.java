@@ -167,13 +167,14 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     }
 
     @Override
-    public boolean addLike(Review r, StudentAccount sa) {
+    public boolean addInteraction(Review r, StudentAccount sa, int state) {
         try (final Connection c = connection()){
             // Form query
             String tableName = getTableName(r, sa);
             final PreparedStatement ps = c.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?)");
             ps.setString(1, sa.getUsername());    // username
             ps.setInt(2, r.getUid());             // review id
+            ps.setInt(3, state);                  // state
 
             // execute query
             ps.executeUpdate();
@@ -190,6 +191,60 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         }
         return false;
     }
+
+    public boolean addOrUpdateInteraction(Review r, StudentAccount sa, int newState) {
+        try (final Connection c = connection()) {
+            Integer currentState = getInteractionState(r, sa);
+            String tableName =  getTableName(r, sa);
+            String query;
+            if (currentState == null) { // New interaction
+                query = "INSERT INTO " + tableName + " (USERNAME, REVIEW_ID, STATE) VALUES (?, ?, ?)";
+            } else { // Update existing interaction
+                query = "UPDATE " + tableName + " SET STATE = ? WHERE USERNAME = ? AND REVIEW_ID = ?";
+            }
+            final PreparedStatement ps = c.prepareStatement(query);
+            if (currentState == null) {
+                ps.setString(1, sa.getUsername());
+                ps.setInt(2, r.getUid());
+                ps.setInt(3, newState);
+            } else {
+                ps.setInt(1, newState);
+                ps.setString(2, sa.getUsername());
+                ps.setInt(3, r.getUid());
+            }
+            // Execute the update or insert
+            ps.executeUpdate();
+            ps.close();
+            return true;
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    public Integer getInteractionState(Review r, StudentAccount sa) {
+        Integer state = null;
+        try (final Connection c = connection()) {
+            String tableName = getTableName(r, sa);
+            final PreparedStatement ps = c.prepareStatement("SELECT state FROM " + tableName + " WHERE USERNAME = ? AND REVIEW_ID = ?");
+            ps.setString(1, sa.getUsername());
+            ps.setInt(2, r.getUid());
+
+            final ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                state = rs.getInt("state");
+            }
+            rs.close();
+            ps.close();
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+        return state;
+    }
+
 
     private Review buildReviewWithCourse(final ResultSet rs) throws SQLException {
         final int reviewID = rs.getInt("uid");
@@ -223,8 +278,8 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     }
     private String getTableName(Review r, StudentAccount sa) {
         ReviewableItem item = r.getReviewableItem();
-        if(item instanceof Course) return "likes_course_review";
-        if(item instanceof Instructor) return "likes_instructor_review";
+        if(item instanceof Course) return "interactions_course_review";
+        if(item instanceof Instructor) return "interactions_instructor_review";
         return null;
     }
 }

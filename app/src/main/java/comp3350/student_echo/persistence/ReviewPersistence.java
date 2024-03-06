@@ -14,5 +14,7 @@ public interface ReviewPersistence {
     List<Review> getReviewsFor(Course c);
     List<Review> getReviewsFor(Instructor inst);
     boolean updateReview(Review updatedReview);
-    boolean addLike(Review r, StudentAccount sa);
+    boolean addInteraction(Review r, StudentAccount sa, int state);
+    boolean addOrUpdateInteraction(Review r, StudentAccount sa, int newState);
+    Integer getInteractionState(Review r, StudentAccount sa);
 }

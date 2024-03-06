@@ -16,25 +16,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import comp3350.student_echo.R;
+import comp3350.student_echo.business.access.AccessReviews;
 import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.StudentAccount;
 
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHolder> {
     private List<Review> reviews;
     private StudentAccount currentUser;
+    private AccessReviews accessReviews;
     private final ReviewModificationListener reviewModificationListener;
 
-    public ReviewsAdapter(List<Review> reviews, StudentAccount currentUser, ReviewModificationListener rml) {
+    public ReviewsAdapter(List<Review> reviews, StudentAccount currentUser, ReviewModificationListener rml, AccessReviews accessReviews) {
         this.reviews = reviews;
         this.currentUser = currentUser;
         this.reviewModificationListener = rml;
+        this.accessReviews = accessReviews;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.review_item, parent, false);
-        return new ViewHolder(view, this, reviews); // Pass the adapter and reviews to the ViewHolder
+        return new ViewHolder(view, this, reviews, accessReviews); // Pass the adapter and reviews to the ViewHolder
     }
 
     @Override
@@ -103,12 +106,12 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         public ImageView deleteIcon;
         public ImageView btnLike, btnDislike;
         public TextView txtLikeCount, txtDislikeCount;
-        private List<? extends Review> reviews; // Add this lin
+        private List<? extends Review> reviews;
 
         // Add a reference to the adapter
         private final ReviewsAdapter adapter;
 
-        public ViewHolder(View itemView, ReviewsAdapter adapter, List<? extends Review> reviews) {
+        public ViewHolder(View itemView, ReviewsAdapter adapter, List<? extends Review> reviews, AccessReviews accessReviews) {
             super(itemView);
             reviewCommentTextView = itemView.findViewById(R.id.reviewCommentTextView);
             reviewRatingBar = itemView.findViewById(R.id.reviewRatingBar);
@@ -123,15 +126,44 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
             this.adapter = adapter;
             this.reviews = reviews; // Set the reviews
 
+//            btnLike.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int position = getAdapterPosition();
+//                    if (position != RecyclerView.NO_POSITION) {
+//                        Review review = reviews.get(position);
+//                        review.setLikes(review.getLikes() + 1);
+//                        btnLike.setImageResource(R.drawable.ic_like_filled); //change color of button after its clicked
+//                        txtLikeCount.setText(String.valueOf(review.getLikes()));
+//                        adapter.notifyItemChanged(position);
+//                    }
+//                }
+//            });
+
             btnLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Review review = reviews.get(position);
-                        review.setLikes(review.getLikes() + 1);
-                        btnLike.setImageResource(R.drawable.ic_like_filled); //change color of button after its clicked
-                        txtLikeCount.setText(String.valueOf(review.getLikes()));
+                        StudentAccount user = adapter.currentUser;
+                        Integer currentState = accessReviews.getInteractionState(review, user);
+
+                        if (currentState == null || currentState == 0) {
+                            // User has not interacted or neutral, so this is a like action.
+                            accessReviews.addOrUpdateInteraction(review, user, 1); // Update state to like
+                            review.setLikes(review.getLikes() + 1);
+                        } else if (currentState == 1) {
+                            // User is unliking the review
+                            accessReviews.addOrUpdateInteraction(review, user, 0); // Reset to neutral
+                            review.setLikes(review.getLikes() - 1);
+                        } else if (currentState == -1) {
+                            // Switching from dislike to like
+                            accessReviews.addOrUpdateInteraction(review, user, 1); // Update state to like
+                            review.setLikes(review.getLikes() + 1);
+                            review.setDislikes(review.getDislikes() - 1); // Adjust dislike count
+                        }
+
                         adapter.notifyItemChanged(position);
                     }
                 }
@@ -143,13 +175,45 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Review review = reviews.get(position);
-                        btnDislike.setImageResource(R.drawable.ic_dislike_filled); //change color of button after its clicked
-                        review.setDislikes(review.getDislikes() + 1);
+                        StudentAccount user = adapter.currentUser;
+                        Integer currentState = accessReviews.getInteractionState(review, user);
+
+                        if (currentState == null || currentState == 0) {
+                            // User has not interacted or neutral, so this is a dislike action.
+                            accessReviews.addOrUpdateInteraction(review, user, -1); // Update state to dislike
+                            review.setLikes(review.getDislikes() + 1);
+                        } else if (currentState == -1) {
+                            // User is un-disliking the review
+                            accessReviews.addOrUpdateInteraction(review, user, 0); // Reset to neutral
+                            review.setLikes(review.getDislikes() - 1);
+                        } else if (currentState == 1) {
+                            // Switching from like to dislike
+                            accessReviews.addOrUpdateInteraction(review, user, -1); // Update state to dislike
+                            review.setLikes(review.getDislikes() + 1);
+                            review.setDislikes(review.getLikes() - 1); // Adjust like count
+                        }
 
                         adapter.notifyItemChanged(position);
                     }
                 }
             });
+
+
+
+
+//            btnDislike.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int position = getAdapterPosition();
+//                    if (position != RecyclerView.NO_POSITION) {
+//                        Review review = reviews.get(position);
+//                        btnDislike.setImageResource(R.drawable.ic_dislike_filled); //change color of button after its clicked
+//                        review.setDislikes(review.getDislikes() + 1);
+//
+//                        adapter.notifyItemChanged(position);
+//                    }
+//                }
+//            });
         }
     }
 }

@@ -7,24 +7,14 @@ import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 public class Review implements Serializable {
     private ReviewableItem item;
     private int uid;
-import java.util.UUID;
-import java.util.HashMap;
-import java.util.Map;
-public abstract class Review implements Serializable {
-    private UUID uid;
     private StudentAccount author;
     private String comment;
     private int overallRating;
     private int difficultyRating;
-
     private int likes;
     private int dislikes;
 
-    private Map<String, Boolean> userLikesMap;
-    private Map<String, Boolean> userDislikesMap;
     public Review(){}
-    public Review(String comment, int overallRating, int difficultyRating, StudentAccount author) {
-        this.uid = UUID.randomUUID();
     // constructor for new Review creation
     public Review(ReviewableItem item, String comment, int overallRating, int difficultyRating, StudentAccount author) {
         this(-1, item, comment, overallRating, difficultyRating, author);
@@ -39,10 +29,11 @@ public abstract class Review implements Serializable {
         this.comment = comment;
         this.overallRating = overallRating;
         this.difficultyRating = difficultyRating;
-        this.userLikesMap = new HashMap<>();
-        this.userDislikesMap = new HashMap<>();
     }
 
+    public boolean equals(Review r){
+        return  r.getUid()==this.uid;
+    }
     // Getters
     public int getUid() {
         return uid;
@@ -66,14 +57,6 @@ public abstract class Review implements Serializable {
     public int getDislikes() {
         return dislikes;
     }
-    public Map<String,Boolean> getUserLikesMap(){
-        return this.userLikesMap;
-    }
-    public Map<String,Boolean> getUserDislikesMap(){
-        return this.userDislikesMap;
-    }
-
-
 
     // Setters
     public void setUID(int id) {this.uid = id;}
@@ -93,16 +76,16 @@ public abstract class Review implements Serializable {
         this.dislikes = dislikes;
     }
     public void setUserLiked(String userId, Boolean liked){
-        this.userLikesMap.put(userId,liked);
+
     }
     public void removeUserLike(String userId) {
-        userLikesMap.remove(userId);
+
     }
     public void setUserDisliked(String userId, Boolean liked){
-        this.userDislikesMap.put(userId,liked);
+
     }
     public void removeUserDislike(String userId) {
-        userDislikesMap.remove(userId);
+
     }
 }
 

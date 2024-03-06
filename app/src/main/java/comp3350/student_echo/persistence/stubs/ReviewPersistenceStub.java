@@ -92,10 +92,20 @@ public class ReviewPersistenceStub implements ReviewPersistence {
     }
 
     @Override
-    public boolean addLike(Review r, StudentAccount sa) {
+    public boolean addInteraction(Review r, StudentAccount sa, int state) {
         reviewLikedBy.putIfAbsent(r, new HashSet<>());
         Set<StudentAccount> likeSet = reviewLikedBy.get(r);
         return likeSet.add(sa);
+    }
+
+    @Override
+    public boolean addOrUpdateInteraction(Review r, StudentAccount sa, int newState) {
+        return false;
+    }
+
+    @Override
+    public Integer getInteractionState(Review r, StudentAccount sa) {
+        return null;
     }
 
     private int findReviewIndexById(int reviewId) {
