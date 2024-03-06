@@ -72,7 +72,7 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
 
     // TODO
     @Override
-    public void updateAccount(StudentAccount currentStudent) {
+    public boolean updateAccount(StudentAccount currentStudent) {
         try (final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement("UPDATE ACCOUNTS SET username = ?, password = ? WHERE email = ?");
             st.setString(1, currentStudent.getUsername());
@@ -85,6 +85,7 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
             e.printStackTrace();
         }
 
+        return false;
     }
 
 }

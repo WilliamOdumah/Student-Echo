@@ -28,8 +28,9 @@ public class AccountPersistenceStub implements AccountPersistence {
 
     // TODO
     @Override
-    public void updateAccount(StudentAccount currentStudent) {
+    public boolean updateAccount(StudentAccount currentStudent) {
 
+        return false;
     }
 
     public List<StudentAccount> getAccountSequential() {
