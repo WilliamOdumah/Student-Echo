@@ -193,13 +193,17 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     }
 
     public boolean addOrUpdateInteraction(Review r, StudentAccount sa, int newState) {
+        System.out.println("ADDING OR UPDATING INTERACTION");
         try (final Connection c = connection()) {
             Integer currentState = getInteractionState(r, sa);
             String tableName =  getTableName(r, sa);
             String query;
             if (currentState == null) { // New interaction
+                System.out.println("ADDING INTERACTION");
                 query = "INSERT INTO " + tableName + " (USERNAME, REVIEW_ID, STATE) VALUES (?, ?, ?)";
+                System.out.println("INTERACTION ADDED FOR "+sa.getUsername());
             } else { // Update existing interaction
+                System.out.println("UPDATING INTERACTION");
                 query = "UPDATE " + tableName + " SET STATE = ? WHERE USERNAME = ? AND REVIEW_ID = ?";
             }
             final PreparedStatement ps = c.prepareStatement(query);
@@ -214,6 +218,8 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
             }
             // Execute the update or insert
             ps.executeUpdate();
+            System.out.println("INTERACTION ADDED FOR "+sa.getUsername()+" WITH STATE= " +getInteractionState(r,sa));
+
             ps.close();
             return true;
         } catch (final SQLException e) {
@@ -225,6 +231,7 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
 
 
     public Integer getInteractionState(Review r, StudentAccount sa) {
+        System.out.println("GETTING STATE.....");
         Integer state = null;
         try (final Connection c = connection()) {
             String tableName = getTableName(r, sa);
@@ -242,6 +249,7 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }
+        System.out.println("STATE IS = "+state);
         return state;
     }
 

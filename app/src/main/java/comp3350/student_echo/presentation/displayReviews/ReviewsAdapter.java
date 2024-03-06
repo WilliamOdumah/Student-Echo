@@ -126,19 +126,6 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
             this.adapter = adapter;
             this.reviews = reviews; // Set the reviews
 
-//            btnLike.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    int position = getAdapterPosition();
-//                    if (position != RecyclerView.NO_POSITION) {
-//                        Review review = reviews.get(position);
-//                        review.setLikes(review.getLikes() + 1);
-//                        btnLike.setImageResource(R.drawable.ic_like_filled); //change color of button after its clicked
-//                        txtLikeCount.setText(String.valueOf(review.getLikes()));
-//                        adapter.notifyItemChanged(position);
-//                    }
-//                }
-//            });
 
             btnLike.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -148,20 +135,28 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                         Review review = reviews.get(position);
                         StudentAccount user = adapter.currentUser;
                         Integer currentState = accessReviews.getInteractionState(review, user);
+                        System.out.println("THIS IS THE STATE AFTER A LIKE CLICK ="+currentState);
 
                         if (currentState == null || currentState == 0) {
+                            System.out.println("USER HAS NOT INTERACTED");
                             // User has not interacted or neutral, so this is a like action.
                             accessReviews.addOrUpdateInteraction(review, user, 1); // Update state to like
                             review.setLikes(review.getLikes() + 1);
+                            txtLikeCount.setText(String.valueOf(review.getLikes()));
                         } else if (currentState == 1) {
+                            System.out.println("USER HAS LIKED");
                             // User is unliking the review
                             accessReviews.addOrUpdateInteraction(review, user, 0); // Reset to neutral
                             review.setLikes(review.getLikes() - 1);
+                            txtLikeCount.setText(String.valueOf(review.getLikes()));
                         } else if (currentState == -1) {
+                            System.out.println("USER HAS DISLIKED");
                             // Switching from dislike to like
                             accessReviews.addOrUpdateInteraction(review, user, 1); // Update state to like
                             review.setLikes(review.getLikes() + 1);
                             review.setDislikes(review.getDislikes() - 1); // Adjust dislike count
+                            txtLikeCount.setText(String.valueOf(review.getLikes()));
+                            txtDislikeCount.setText(String.valueOf(review.getDislikes()));
                         }
 
                         adapter.notifyItemChanged(position);
@@ -177,43 +172,34 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                         Review review = reviews.get(position);
                         StudentAccount user = adapter.currentUser;
                         Integer currentState = accessReviews.getInteractionState(review, user);
+                        System.out.println("THIS IS THE STATE AFTER A DISLIKE CLICK ="+currentState);
 
                         if (currentState == null || currentState == 0) {
+                            System.out.println("USER HAS NOT INTERACTED");
                             // User has not interacted or neutral, so this is a dislike action.
                             accessReviews.addOrUpdateInteraction(review, user, -1); // Update state to dislike
-                            review.setLikes(review.getDislikes() + 1);
+                            review.setDislikes(review.getDislikes() + 1);
+                            txtDislikeCount.setText(String.valueOf(review.getDislikes()));
                         } else if (currentState == -1) {
+                            System.out.println("USER HAS DISLIKED BEFORE");
                             // User is un-disliking the review
                             accessReviews.addOrUpdateInteraction(review, user, 0); // Reset to neutral
-                            review.setLikes(review.getDislikes() - 1);
+                            review.setDislikes(review.getDislikes() - 1);
+                            txtDislikeCount.setText(String.valueOf(review.getDislikes()));
                         } else if (currentState == 1) {
                             // Switching from like to dislike
+                            System.out.println("USER HAS LIKED");
                             accessReviews.addOrUpdateInteraction(review, user, -1); // Update state to dislike
-                            review.setLikes(review.getDislikes() + 1);
-                            review.setDislikes(review.getLikes() - 1); // Adjust like count
+                            review.setDislikes(review.getDislikes() + 1);
+                            review.setLikes(review.getLikes() - 1); // Adjust like count
+                            txtLikeCount.setText(String.valueOf(review.getLikes()));
+                            txtDislikeCount.setText(String.valueOf(review.getDislikes()));
                         }
 
                         adapter.notifyItemChanged(position);
                     }
                 }
             });
-
-
-
-
-//            btnDislike.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    int position = getAdapterPosition();
-//                    if (position != RecyclerView.NO_POSITION) {
-//                        Review review = reviews.get(position);
-//                        btnDislike.setImageResource(R.drawable.ic_dislike_filled); //change color of button after its clicked
-//                        review.setDislikes(review.getDislikes() + 1);
-//
-//                        adapter.notifyItemChanged(position);
-//                    }
-//                }
-//            });
         }
     }
 }
