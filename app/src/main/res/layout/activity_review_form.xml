@@ -47,6 +47,5 @@
         android:id="@+id/submitReviewButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="buttonSubmitReviewOnClick"
         android:text="Submit Review" />
 </LinearLayout>

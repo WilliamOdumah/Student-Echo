@@ -63,6 +63,33 @@ public class ItemActivity extends AppCompatActivity {
         buttonTV.setText(buttonText);
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        setContentView(R.layout.activity_item);
+        String type = getIntent().getStringExtra("Type");
+        switch(type) {
+            case "Course":
+                accessReviewableItems = new AccessCourses();
+                break;
+            case "Instructor":
+                accessReviewableItems = new AccessInstructors();
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+        itemList = accessReviewableItems.getItems();
+
+        // set interactive functionality
+        setListClickAction();
+        setSearchAction();
+
+        // display type in add button
+        TextView buttonTV = (TextView) findViewById(R.id.addItem);
+        String buttonText = "Add New " + type;
+        buttonTV.setText(buttonText);
+    }
+
     private void setListClickAction() {
         // obtain listView
         final ListView listView = (ListView) findViewById(R.id.listItems);
@@ -108,6 +135,9 @@ public class ItemActivity extends AppCompatActivity {
         // go to new page to add (can do addCourse + addInstructor, or a general addItem page)
         // Note: since entering new page, let that page deal with
         // calling access to update the DB.
+        Intent newCourseIntent = new Intent(ItemActivity.this, AddCourseActivity.class);
+        ItemActivity.this.startActivity(newCourseIntent);
+
     }
 
     private ArrayAdapter<ReviewableItem> buildAdapter(List<ReviewableItem> list) {
@@ -128,6 +158,15 @@ public class ItemActivity extends AppCompatActivity {
                 return view;
             }
         };
+    }
+
+
+    public void onBackPressed(){
+
+        Intent newIntent= new Intent(ItemActivity.this, HomeActivity.class);
+        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ItemActivity.this.startActivity(newIntent);
+        finish();
     }
 
     @Override

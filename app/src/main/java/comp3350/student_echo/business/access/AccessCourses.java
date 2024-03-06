@@ -40,6 +40,7 @@ public class AccessCourses implements AccessReviewableItems {
 		return coursePersistence.getCourse(courseID);
 	}
 
+	public Course getCourseOnName(String courseName) {return  coursePersistence.getCourseOnName(courseName);}
 	@Override
 	public List<ReviewableItem> getItems() {
 		return getCourses().stream().map(course -> (ReviewableItem)course).collect(Collectors.toList());
@@ -50,6 +51,10 @@ public class AccessCourses implements AccessReviewableItems {
 		List<Course> courseItem = items.stream().map(item ->(Course)item).collect(Collectors.toList());
 		List<Course> filteredCourses = filterCourses(input, courseItem);
 		return filteredCourses.stream().map(course -> (ReviewableItem)course).collect(Collectors.toList());
+	}
+
+	public void addCourse(Course newCourse){
+		coursePersistence.addCourse(newCourse);
 	}
 }
 
