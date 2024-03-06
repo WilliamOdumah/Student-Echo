@@ -101,4 +101,21 @@ public class CoursePersistenceHSQLDB implements CoursePersistence {
         }
         return null;
     }
+
+    @Override
+    public void addCourse(Course newCourse) {
+        try (final Connection c = connection()) {
+            final PreparedStatement st = c.prepareStatement("INSERT INTO courses VALUES(?, ?, ?)");
+            st.setString(1, newCourse.getCourseID());
+            st.setString(2, newCourse.getCourseName());
+            st.setString(3, newCourse.getDepartment());
+
+            st.executeUpdate();
+
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+
+    }
 }

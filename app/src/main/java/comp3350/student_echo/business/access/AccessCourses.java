@@ -52,5 +52,9 @@ public class AccessCourses implements AccessReviewableItems {
 		List<Course> filteredCourses = filterCourses(input, courseItem);
 		return filteredCourses.stream().map(course -> (ReviewableItem)course).collect(Collectors.toList());
 	}
+
+	public void addCourse(Course newCourse){
+		coursePersistence.addCourse(newCourse);
+	}
 }
 

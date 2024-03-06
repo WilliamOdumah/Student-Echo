@@ -9,4 +9,6 @@ public interface CoursePersistence {
     Course getCourse(String courseID);
 
     Course getCourseOnName(String courseName);
+
+    void addCourse(Course newCourse);
 }

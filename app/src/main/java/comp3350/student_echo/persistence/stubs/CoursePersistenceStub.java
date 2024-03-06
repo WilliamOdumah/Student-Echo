@@ -49,4 +49,9 @@ public class CoursePersistenceStub implements CoursePersistence {
         }
         return null;
     }
+
+    @Override
+    public void addCourse(Course newCourse) {
+        courses.add(newCourse);
+    }
 }

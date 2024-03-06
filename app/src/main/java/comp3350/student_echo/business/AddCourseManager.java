@@ -29,7 +29,7 @@ public class AddCourseManager {
 
             Course newCourse = new Course(department,courseID,courseName);
 
-//            coursesData.addCourse(newCourse);
+            coursesData.addCourse(newCourse);
             return newCourse;
         }
         return null;
