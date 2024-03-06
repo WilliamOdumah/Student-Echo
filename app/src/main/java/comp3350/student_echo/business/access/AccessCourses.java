@@ -40,6 +40,7 @@ public class AccessCourses implements AccessReviewableItems {
 		return coursePersistence.getCourse(courseID);
 	}
 
+	public Course getCourseOnName(String courseName) {return  coursePersistence.getCourseOnName(courseName);}
 	@Override
 	public List<ReviewableItem> getItems() {
 		return getCourses().stream().map(course -> (ReviewableItem)course).collect(Collectors.toList());

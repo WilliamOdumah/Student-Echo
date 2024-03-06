@@ -10,7 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import comp3350.student_echo.objects.Course;
 import comp3350.student_echo.objects.Department;
 import comp3350.student_echo.persistence.DepartmentPersistence;
 
@@ -29,7 +28,7 @@ public class DepartmentPersistenceHSQLDB implements DepartmentPersistence {
     }
 
     private Department fromResultSet(ResultSet rs) throws SQLException {
-        final String departmentName = rs.getString("departmentName");
+        final String departmentName = rs.getString("DEPARTMENTNAME");
         return new Department(departmentName);
     }
     @Override
@@ -57,15 +56,18 @@ public class DepartmentPersistenceHSQLDB implements DepartmentPersistence {
     public Department getDepartment(String departmentName) {
         try (final Connection c = connection()) {
             // form query
-            final PreparedStatement ps = c.prepareStatement("SELECT * FROM DEPARTMENTS WHERE departments.departmentname=?");
+            final PreparedStatement ps = c.prepareStatement("SELECT * FROM DEPARTMENTS WHERE DEPARTMENTNAME=?");
             ps.setString(1, departmentName);
 
             // execute
             final ResultSet rs = ps.executeQuery();
+
+
             rs.next();  // point to data
 
             // build result
             final Department department = fromResultSet(rs);
+            System.out.println("@@@ " + department.getDepartmentName());
             rs.close();
             ps.close();
             return department;

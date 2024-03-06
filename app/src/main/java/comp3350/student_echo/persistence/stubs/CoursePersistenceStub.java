@@ -39,4 +39,14 @@ public class CoursePersistenceStub implements CoursePersistence {
         }
         return null;
     }
+
+    @Override
+    public Course getCourseOnName(String courseName) {
+        for(Course c : courses) {
+            if(c.getCourseName().equals(courseName)){
+                return c;
+            }
+        }
+        return null;
+    }
 }

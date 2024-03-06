@@ -22,7 +22,7 @@ public class CoursePersistenceHSQLDB implements CoursePersistence {
     }
 
     private Connection connection() throws SQLException {
-        return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
+        return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true;sql.ignore_case=true", "SA", "");
     }
 
     private Course fromResultSet(final ResultSet rs) throws SQLException {
@@ -60,6 +60,30 @@ public class CoursePersistenceHSQLDB implements CoursePersistence {
             // form query
             final PreparedStatement ps = c.prepareStatement("SELECT * FROM courses WHERE courses.courseid=?");
             ps.setString(1, courseID);
+
+            // execute
+            final ResultSet rs = ps.executeQuery();
+            rs.next();  // point to data
+
+            // build result
+            final Course course = fromResultSet(rs);
+            rs.close();
+            ps.close();
+            return course;
+        }
+        catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Course getCourseOnName(String courseName) {
+        try (final Connection c = connection()) {
+            // form query
+            final PreparedStatement ps = c.prepareStatement("SELECT * FROM courses WHERE LOWER(courses.coursename)=LOWER(?)");
+            ps.setString(1, courseName);
 
             // execute
             final ResultSet rs = ps.executeQuery();

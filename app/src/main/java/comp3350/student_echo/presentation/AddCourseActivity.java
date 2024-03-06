@@ -3,12 +3,13 @@ package comp3350.student_echo.presentation;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import comp3350.student_echo.R;
-//import comp3350.student_echo.business.AddCourseManager;
+import comp3350.student_echo.business.AddCourseManager;
 import comp3350.student_echo.objects.reviewableItems.Course;
 
 public class AddCourseActivity extends AppCompatActivity {
@@ -25,6 +26,10 @@ public class AddCourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_course);
     }
 
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
     public void buttonCreateNewCourse(View view) {
 
         Intent addCourse = new Intent(AddCourseActivity.this, ItemActivity.class);
@@ -36,16 +41,17 @@ public class AddCourseActivity extends AppCompatActivity {
         courseName = name.getText().toString();
         department = c_department.getText().toString().toUpperCase();
 
-//        AddCourseManager addCourseManager = new AddCourseManager();
-//        Course newCourse = addCourseManager.createCourse(courseID, courseName, department);
-
-
+        AddCourseManager addCourseManager = new AddCourseManager();
+        Course newCourse = addCourseManager.createCourse(courseID, courseName, department);
+//
+//
         if (newCourse != null) {
             System.out.println("Successfully created the course!");
             AddCourseActivity.this.startActivity(addCourse);
-        } else {
-            Toast.makeText(this, "Uh oh! Looks something went wrong with creating new course. Please try again!", Toast.LENGTH_LONG).show();
         }
+//        else {
+//            Toast.makeText(this, "Uh oh! Looks something went wrong with creating new course. Please try again!", Toast.LENGTH_LONG).show();
+//        }
 
     }
 }
