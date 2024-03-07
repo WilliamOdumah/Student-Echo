@@ -24,7 +24,7 @@ public class StudentAccountManager {
         return null;
     }
 
-    public StudentAccount updateAccount(String email, String username, String password) {
+    public StudentAccount createUpdatedAccount(String email, String username, String password) {
         if (verifyPassword(password, password) && verifyUsername(username)) {
             StudentAccount account = new StudentAccount(username, password, email);
             accountsData.updateAccount(account);
@@ -54,6 +54,10 @@ public class StudentAccountManager {
 
     public boolean verifyUsername(String username) {
         return username != null && !username.equals("");
+    }
+
+    public boolean deleteAccount(StudentAccount studentAccount) {
+        return accountsData.deleteAccount(studentAccount);
     }
 }
 

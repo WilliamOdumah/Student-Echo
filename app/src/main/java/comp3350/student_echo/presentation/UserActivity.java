@@ -16,9 +16,6 @@ import comp3350.student_echo.objects.StudentAccount;
 
 public class UserActivity extends AppCompatActivity {
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +39,7 @@ public class UserActivity extends AppCompatActivity {
         String password =  inputPassword.getText().toString();
 
         StudentAccountManager studentAccountManager = new StudentAccountManager();
-        StudentAccount studentAccount = studentAccountManager.updateAccount(email, username, password);
+        StudentAccount studentAccount = studentAccountManager.createUpdatedAccount(email, username, password);
 
         if(studentAccount != null) {
             System.out.println("Successfully created your account!");
@@ -57,6 +54,18 @@ public class UserActivity extends AppCompatActivity {
         LoginManager.performLogout();
         Intent logoutIntent= new Intent(UserActivity.this, LoginActivity.class);
         UserActivity.this.startActivity(logoutIntent);
+        finish();
+    }
+
+    public void buttonDeleteAccount(View v) {
+        StudentAccount currentUser = LoginManager.getLoggedInUser();
+
+        StudentAccountManager studentAccountManager = new StudentAccountManager();
+        studentAccountManager.deleteAccount(currentUser);
+
+        LoginManager.performLogout();
+        Intent deleteIntent = new Intent(UserActivity.this, LoginActivity.class);
+        UserActivity.this.startActivity(deleteIntent);
         finish();
     }
 }

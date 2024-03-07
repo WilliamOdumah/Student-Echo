@@ -41,4 +41,7 @@ public class AccessAccounts {
         return accountPersistence.updateAccount(studentAccount);
     }
 
+    public boolean deleteAccount(StudentAccount studentAccount) {
+        return accountPersistence.deleteAccount(studentAccount);
+    }
 }

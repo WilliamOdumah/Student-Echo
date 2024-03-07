@@ -36,4 +36,9 @@ public class AccountPersistenceStub implements AccountPersistence {
     public List<StudentAccount> getAccountSequential() {
         return Collections.unmodifiableList(accounts);
     }
+
+    // TODO
+    public boolean deleteAccount(StudentAccount currentStudent) {
+        return false;
+    }
 }

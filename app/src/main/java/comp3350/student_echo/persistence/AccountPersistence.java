@@ -11,4 +11,6 @@ public interface AccountPersistence {
     void addAccount(final StudentAccount currentStudent);
 
     boolean updateAccount (final StudentAccount currentStudent);
+
+    boolean deleteAccount(final StudentAccount currentStudent);
 }
