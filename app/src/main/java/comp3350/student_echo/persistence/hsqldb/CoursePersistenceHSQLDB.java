@@ -6,11 +6,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
 import android.util.Log;
 
+import comp3350.student_echo.business.Exceptions.InvalidCourseException;
 import comp3350.student_echo.objects.reviewableItems.Course;
 import comp3350.student_echo.persistence.CoursePersistence;
 
@@ -79,43 +81,25 @@ public class CoursePersistenceHSQLDB implements CoursePersistence {
     }
 
     @Override
-    public Course getCourseOnName(String courseName) {
-        try (final Connection c = connection()) {
-            // form query
-            final PreparedStatement ps = c.prepareStatement("SELECT * FROM courses WHERE LOWER(courses.coursename)=LOWER(?)");
-            ps.setString(1, courseName);
-
-            // execute
-            final ResultSet rs = ps.executeQuery();
-            rs.next();  // point to data
-
-            // build result
-            final Course course = fromResultSet(rs);
-            rs.close();
-            ps.close();
-            return course;
-        }
-        catch (final SQLException e) {
-            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
     public void addCourse(Course newCourse) {
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO courses VALUES(?, ?, ?)");
-            st.setString(1, newCourse.getCourseID());
-            st.setString(2, newCourse.getCourseName());
-            st.setString(3, newCourse.getDepartment());
+            final PreparedStatement ps = c.prepareStatement("INSERT INTO courses VALUES(?, ?, ?)");
+            ps.setString(1, newCourse.getCourseID());
+            ps.setString(2, newCourse.getCourseName());
+            ps.setString(3, newCourse.getDepartment());
 
-            st.executeUpdate();
-
-        } catch (final SQLException e) {
+            ps.executeUpdate();
+            ps.close();
+        } catch(final SQLIntegrityConstraintViolationException e) {
+            System.out.println("COURSE DB ERROR BUT GOOD");
+            throw new InvalidCourseException(
+                    String.format("courseID of %s already exists",newCourse.getCourseID())
+            );
+        }
+        catch (final SQLException e) {
+            System.out.println("COURSE DB ERROR");
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }
-
     }
 }

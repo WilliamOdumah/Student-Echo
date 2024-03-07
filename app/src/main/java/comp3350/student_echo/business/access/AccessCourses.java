@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import comp3350.student_echo.application.Services;
+import comp3350.student_echo.business.CourseValidator;
+import comp3350.student_echo.business.Exceptions.InvalidCourseException;
 import comp3350.student_echo.objects.reviewableItems.Course;
 import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 import comp3350.student_echo.persistence.CoursePersistence;
@@ -40,7 +42,11 @@ public class AccessCourses implements AccessReviewableItems {
 		return coursePersistence.getCourse(courseID);
 	}
 
-	public Course getCourseOnName(String courseName) {return  coursePersistence.getCourseOnName(courseName);}
+	public void addCourse(Course newCourse) throws InvalidCourseException {
+		CourseValidator.validateCourse(newCourse);	// throws InvalidCourseException (upon invalid fields)
+		coursePersistence.addCourse(newCourse);		// throws InvalidCourseException (upon duplicate)
+	}
+
 	@Override
 	public List<ReviewableItem> getItems() {
 		return getCourses().stream().map(course -> (ReviewableItem)course).collect(Collectors.toList());
@@ -53,8 +59,6 @@ public class AccessCourses implements AccessReviewableItems {
 		return filteredCourses.stream().map(course -> (ReviewableItem)course).collect(Collectors.toList());
 	}
 
-	public void addCourse(Course newCourse){
-		coursePersistence.addCourse(newCourse);
-	}
+
 }
 
