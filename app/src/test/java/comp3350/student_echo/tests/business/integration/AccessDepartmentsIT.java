@@ -21,8 +21,9 @@ public class AccessDepartmentsIT {
     private AccessDepartments dept;
     @Before
     public void setUp() throws IOException {
-        Services.useHsql();
+
         this.tempDB = TestUtils.copyDB();
+        Services.useHsql();
         dept= new AccessDepartments();
     }
 
