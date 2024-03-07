@@ -17,7 +17,7 @@ public class AccessInstructors implements AccessReviewableItems, Serializable {
 	private InstructorPersistence instructorPersistence;
 
 	public AccessInstructors() {
-		instructorPersistence = Services.getInstructorPersistence(true);
+		instructorPersistence = Services.getInstructorPersistence();
 	}
     public AccessInstructors(final InstructorPersistence persistence) {
         instructorPersistence = persistence;

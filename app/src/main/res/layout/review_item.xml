@@ -68,6 +68,8 @@
                 android:id="@+id/btnLike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="40dp"
+                android:minHeight="40dp"
                 android:src="@drawable/ic_like" />
         </LinearLayout>
 
@@ -88,6 +90,8 @@
                 android:id="@+id/btnDislike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="40dp"
+                android:minHeight="40dp"
                 android:src="@drawable/ic_dislike" />
         </LinearLayout>
     </LinearLayout>

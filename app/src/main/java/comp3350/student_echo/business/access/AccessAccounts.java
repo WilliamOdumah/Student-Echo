@@ -14,7 +14,7 @@ public class AccessAccounts {
     private AccountPersistence accountPersistence;
 
     public AccessAccounts() {
-        accountPersistence = Services.getAccountPersistence(true);
+        accountPersistence = Services.getAccountPersistence();
     }
 
     public AccessAccounts(final AccountPersistence persistence) {

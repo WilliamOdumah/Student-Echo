@@ -17,7 +17,7 @@ public class AccessCourses implements AccessReviewableItems {
 	private List<Course> courses;
 
 	public AccessCourses() {
-		coursePersistence = Services.getCoursePersistence(true);
+		coursePersistence = Services.getCoursePersistence();
 		courses = null;
 	}
 	public AccessCourses(final CoursePersistence persistence) {
