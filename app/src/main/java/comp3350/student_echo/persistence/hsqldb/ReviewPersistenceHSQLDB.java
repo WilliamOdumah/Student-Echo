@@ -46,7 +46,7 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
             String tableName = getTableName(r);
             PreparedStatement ps = c.prepareStatement("INSERT INTO "+tableName+" VALUES(DEFAULT,?,?,?,?,?,?,?)");
             ps.setString(1, r.getReviewableItem().getID());
-            ps.setString(2, r.getAuthorUsername());
+            ps.setString(2, r.getAuthorEmail());
             ps.setString(3, r.getComment());
             ps.setInt(4,r.getOverallRating());
             ps.setInt(5,r.getDifficultyRating());
@@ -57,8 +57,8 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
             ps.executeUpdate();
 
             // update uid in memory (use author and comment as identifier)
-            PreparedStatement ps2 = c.prepareStatement("SELECT uid FROM "+tableName+" WHERE username=? AND comment=?");
-            ps2.setString(1,r.getAuthorUsername());
+            PreparedStatement ps2 = c.prepareStatement("SELECT uid FROM "+tableName+" WHERE email=? AND comment=?");
+            ps2.setString(1,r.getAuthorEmail());
             ps2.setString(2,r.getComment());
             ResultSet rs = ps2.executeQuery();
             rs.next();
@@ -92,11 +92,12 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
 
     @Override
     public List<Review> getReviewsFor(Course course) {
+        System.out.println(course.getID());
         List<Review> reviewList = new ArrayList<>();
         try (final Connection c = connection()) {
             // form query
             PreparedStatement ps = c.prepareStatement("SELECT * FROM course_reviews cr "+
-                    "JOIN accounts acc ON acc.username=cr.username "+
+                    "JOIN accounts acc ON acc.email=cr.email "+
                     "where cr.courseID=?");
             ps.setString(1,course.getCourseID());
 
@@ -123,7 +124,7 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         try (final Connection c = connection()) {
             // form query
             final PreparedStatement ps =  c.prepareStatement("SELECT * FROM instructor_reviews ir "+
-                    "JOIN accounts acc ON acc.username=ir.username "+
+                    "JOIN accounts acc ON acc.email=ir.email "+
                     "where ir.instructorID=?");
             ps.setInt(1,inst.getInstructorID());
 
@@ -176,25 +177,25 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
             String query;
             if (currentState == null) { // New interaction
                 System.out.println("ADDING INTERACTION");
-                query = "INSERT INTO " + tableName + " (USERNAME, REVIEW_ID, STATE) VALUES (?, ?, ?)";
-                System.out.println("INTERACTION ADDED FOR "+sa.getUsername());
+                query = "INSERT INTO " + tableName + " (EMAIL, REVIEW_ID, STATE) VALUES (?, ?, ?)";
+                System.out.println("INTERACTION ADDED FOR "+sa.getEmail());
             } else { // Update existing interaction
                 System.out.println("UPDATING INTERACTION");
-                query = "UPDATE " + tableName + " SET STATE = ? WHERE USERNAME = ? AND REVIEW_ID = ?";
+                query = "UPDATE " + tableName + " SET STATE = ? WHERE EMAIL = ? AND REVIEW_ID = ?";
             }
             final PreparedStatement ps = c.prepareStatement(query);
             if (currentState == null) {
-                ps.setString(1, sa.getUsername());
+                ps.setString(1, sa.getEmail());
                 ps.setInt(2, r.getUid());
                 ps.setInt(3, newState);
             } else {
                 ps.setInt(1, newState);
-                ps.setString(2, sa.getUsername());
+                ps.setString(2, sa.getEmail());
                 ps.setInt(3, r.getUid());
             }
             // Execute the update or insert
             ps.executeUpdate();
-            System.out.println("INTERACTION ADDED FOR "+sa.getUsername()+" WITH STATE= " +getInteractionState(r,sa));
+            System.out.println("INTERACTION ADDED FOR "+sa.getEmail()+" WITH STATE= " +getInteractionState(r,sa));
 
             ps.close();
             return true;
@@ -211,8 +212,8 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         Integer state = null;
         try (final Connection c = connection()) {
             String tableName = getTableName(r, sa);
-            final PreparedStatement ps = c.prepareStatement("SELECT state FROM " + tableName + " WHERE USERNAME = ? AND REVIEW_ID = ?");
-            ps.setString(1, sa.getUsername());
+            final PreparedStatement ps = c.prepareStatement("SELECT state FROM " + tableName + " WHERE EMAIL = ? AND REVIEW_ID = ?");
+            ps.setString(1, sa.getEmail());
             ps.setInt(2, r.getUid());
 
             final ResultSet rs = ps.executeQuery();
@@ -263,7 +264,7 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
     private Review buildReviewWithCourse(final ResultSet rs) throws SQLException {
         final int reviewID = rs.getInt("uid");
         final String courseID = rs.getString("courseID");
-        final String username = rs.getString("username");
+        final String email = rs.getString("email");
         final String comment = rs.getString("comment");
         final int overallRating = rs.getInt("overall_rating");
         final int difficultyRating = rs.getInt("difficulty_rating");
@@ -271,13 +272,13 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         final int dislikes = rs.getInt("dislike_count");
 
         Course course = accessCourses.getCourse(courseID);
-        StudentAccount author = accessAccounts.getAccount(username);
+        StudentAccount author = accessAccounts.getAccountUsingEmail(email);
         return new Review(reviewID, course, comment, overallRating, difficultyRating, author,likes,dislikes);
     }
     private Review buildReviewWithInstructor(final ResultSet rs) throws SQLException {
         final int reviewID = rs.getInt("uid");
         final int instructorID = rs.getInt("instructorID");
-        final String username = rs.getString("username");
+        final String email = rs.getString("email");
         final String comment = rs.getString("comment");
         final int overallRating = rs.getInt("overall_rating");
         final int difficultyRating = rs.getInt("difficulty_rating");
@@ -285,7 +286,7 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         final int dislikes = rs.getInt("dislike_count");
 
         Instructor instructor = accessInstructors.getInstructor(instructorID);
-        StudentAccount author = accessAccounts.getAccount(username);
+        StudentAccount author = accessAccounts.getAccountUsingEmail(email);
         return new Review(reviewID, instructor, comment, overallRating, difficultyRating, author,likes,dislikes);
     }
     private String getTableName(Review r) {

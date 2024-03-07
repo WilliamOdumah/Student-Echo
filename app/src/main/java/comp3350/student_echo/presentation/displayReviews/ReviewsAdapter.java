@@ -49,6 +49,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
 
     @Override
     public int getItemCount() {
+        if (reviews==null)
+            return 0;
         return reviews.size();
     }
 
@@ -56,7 +58,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         holder.reviewCommentTextView.setText(review.getComment());
         holder.reviewRatingBar.setRating((float) review.getOverallRating());
         // Show or hide the edit and delete buttons based on the user ID
-        if (review.getAuthorUsername().equals(currentUser.getUsername())) {
+        if (review.getAuthorEmail().equals(currentUser.getEmail())) {
             holder.editIcon.setVisibility(View.VISIBLE);
             holder.deleteIcon.setVisibility(View.VISIBLE);
         } else {
