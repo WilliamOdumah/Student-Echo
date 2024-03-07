@@ -14,7 +14,7 @@ public class AccessReviews {
     private ReviewPersistence reviewPersistence;
 
     public AccessReviews() {
-        reviewPersistence = Services.getReviewPersistence(true);
+        reviewPersistence = Services.getReviewPersistence();
     }
 
     public AccessReviews(final ReviewPersistence persistence) {
