@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.student_echo.business.Exceptions.InvalidInstructorException;
@@ -24,6 +23,8 @@ public class AccessInstructorsIT {
 
     private AccessInstructors accessInstructors;
     private File tempDB;
+    private Instructor i1;
+    private Instructor i2;
 
     @Before
     public void setUp() throws IOException {
@@ -32,6 +33,13 @@ public class AccessInstructorsIT {
 
         // inject real HSQLDB
         accessInstructors = new AccessInstructors(hsqldb);
+
+        // setup
+        i1 = new Instructor("first", "add", "this");
+        i2 = new Instructor("second","yo","wo");
+        accessInstructors.addInstructor(i1);
+        accessInstructors.addInstructor(i2);
+
     }
     @After
     public void tearDown() {
@@ -41,19 +49,20 @@ public class AccessInstructorsIT {
 
     @Test
     public void testGetInstructor() {
-        Instructor i1 = new Instructor("Professor", "John", "Doe");
-        Instructor i2 = new Instructor("Dr.","Suzanne","Walker");
+        int id1 = i1.getInstructorID();
+        int id2 = i2.getInstructorID();
 
-        assertTrue("retrieve first instructor by id", i1.equals(accessInstructors.getInstructor(1)) );
-        assertTrue("retrieve last instructor by id", i2.equals(accessInstructors.getInstructor(4)) );
+        assertTrue("retrieve instructor by id", i1.equals(accessInstructors.getInstructor(id1)) );
+        assertTrue("retrieve last instructor by id", i2.equals(accessInstructors.getInstructor(id2)) );
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testGetInstructors() {
         List<Instructor> instructors = accessInstructors.getInstructors();
-        Instructor i1 = new Instructor("Professor", "John", "Doe");
 
-        assertTrue("ensure instructor present in db", i1.equals(instructors.get(0)));
+        Instructor last = instructors.get(instructors.size()-1);
+
+        assertTrue("ensure we can access instructor in db", last.equals(i2));
 
         // should not be able to directly add to instructors
         instructors.add(new Instructor("Dr.", "Joe", "Doe"));
@@ -67,11 +76,11 @@ public class AccessInstructorsIT {
         Instructor valid = new Instructor("Dr.", "Yo", "WOOOOOO");
         accessInstructors.addInstructor(valid);
 
-        assertTrue("valid instructor should be added", accessInstructors.getInstructor(5).equals(valid));
+        assertTrue("valid instructor should be added", accessInstructors.getInstructor(valid.getInstructorID()).equals(valid));
 
+        // now try adding again (duplicate addition)
         // invalid instructor should throw InvalidInstructorException
-        Instructor duplicate = new Instructor("Professor", "John", "Doe");
-        accessInstructors.addInstructor(duplicate);
+        accessInstructors.addInstructor(valid);
 
         // null course should throw exception
         accessInstructors.addInstructor(null);
@@ -79,46 +88,48 @@ public class AccessInstructorsIT {
 
     @Test
     public void testFilterInstructor() {
-        List<Instructor> instructors = accessInstructors.getInstructors();
-
-        String search = "doe";
-        ArrayList<Instructor> filteredList = accessInstructors.filterInstructor(search, instructors);
-        assertEquals(2, filteredList.size());
-        assertEquals("John", filteredList.get(0).getFirstName());
-        assertEquals("Jane", filteredList.get(1).getFirstName());
-
-        String searchText = "peter";
-        ArrayList<Instructor> filtered = accessInstructors.filterInstructor(searchText, instructors);
-        assertEquals(1, filtered.size());
-        assertEquals("Smith", filtered.get(0).getLastName());
-    }
-
-    // ReviewableItem interface testing
-    @Test
-    public void testGetItems() {
-        List<ReviewableItem> items = accessInstructors.getItems();
-        ReviewableItem item1 = new Instructor("Professor", "John", "Doe");
-        ReviewableItem item2 = new Instructor("Dr.","Suzanne","Walker");
-
-        assertTrue("ensure first item present in DB",((Instructor)item1).equals((Instructor)items.get(0)) );
-        assertTrue("ensure last item present in DB", ((Instructor)item2).equals((Instructor)items.get(3)) );
-    }
-    @Test
-    public void testFilter() {
         List <ReviewableItem> items = accessInstructors.getItems();
 
-        String search = "Doe";
+        String search = "yo";
         List<ReviewableItem> filteredList = accessInstructors.filter(search, items);
-        assertEquals(2,filteredList.size());
-        assertEquals("Doe", ((Instructor)filteredList.get(0)).getLastName());
+        assertEquals(1,filteredList.size());
+        assertEquals("wo", ((Instructor)filteredList.get(0)).getLastName());
 
         String searchText = "lollllll";
         List<ReviewableItem> filtered = accessInstructors.filter(searchText, items);
         assertEquals(0,filtered.size());
 
-        search = "J";
+        search = "add";
         List<ReviewableItem> list= accessInstructors.filter(search.toLowerCase(), items);
-        assertEquals(2,list.size());
+        assertEquals(1,list.size());
+    }
+
+    // ReviewableItem interface testing
+    @Test
+    public void testGetItems() {
+        ReviewableItem item1 = new Instructor("this", "is", "new");
+        accessInstructors.addInstructor((Instructor)item1);
+        List<ReviewableItem> items = accessInstructors.getItems();
+
+        assertTrue("ensure first item present in DB",((Instructor)item1).equals((Instructor)items.get(items.size()-1)) );
+
+    }
+    @Test
+    public void testFilter() {
+        List <ReviewableItem> items = accessInstructors.getItems();
+
+        String search = "yo";
+        List<ReviewableItem> filteredList = accessInstructors.filter(search, items);
+        assertEquals(1,filteredList.size());
+        assertEquals("wo", ((Instructor)filteredList.get(0)).getLastName());
+
+        String searchText = "lollllll";
+        List<ReviewableItem> filtered = accessInstructors.filter(searchText, items);
+        assertEquals(0,filtered.size());
+
+        search = "add";
+        List<ReviewableItem> list= accessInstructors.filter(search.toLowerCase(), items);
+        assertEquals(1,list.size());
     }
 
 }

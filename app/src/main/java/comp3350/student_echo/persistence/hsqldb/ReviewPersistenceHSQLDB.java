@@ -7,7 +7,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +91,6 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
 
     @Override
     public List<Review> getReviewsFor(Course course) {
-        System.out.println(course.getID());
         List<Review> reviewList = new ArrayList<>();
         try (final Connection c = connection()) {
             // form query
@@ -195,7 +193,6 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
             }
             // Execute the update or insert
             ps.executeUpdate();
-            System.out.println("INTERACTION ADDED FOR "+sa.getEmail()+" WITH STATE= " +getInteractionState(r,sa));
 
             ps.close();
             return true;
@@ -208,7 +205,6 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
 
 
     public Integer getInteractionState(Review r, StudentAccount sa) {
-        System.out.println("GETTING STATE.....");
         Integer state = null;
         try (final Connection c = connection()) {
             String tableName = getTableName(r, sa);
@@ -226,7 +222,6 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }
-        System.out.println("STATE IS = "+state);
         return state;
     }
 
@@ -235,10 +230,11 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         try (final Connection c = connection()){
             String tableName = getTableName(r);
             PreparedStatement ps = c.prepareStatement("UPDATE " + tableName + " SET LIKE_COUNT = ? WHERE UID = ?");
-
             ps.setInt(1, r.getLikes());
             ps.setInt(2,r.getUid());
+
             ps.executeUpdate();
+
             ps.close();
         } catch (final SQLException e) {
             e.printStackTrace();
@@ -250,10 +246,11 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         try (final Connection c = connection()){
             String tableName = getTableName(r);
             PreparedStatement ps = c.prepareStatement("UPDATE " + tableName + " SET DISLIKE_COUNT = ? WHERE UID = ?");
-
             ps.setInt(1, r.getDislikes());
             ps.setInt(2,r.getUid());
+
             ps.executeUpdate();
+
             ps.close();
         } catch (final SQLException e) {
             e.printStackTrace();
