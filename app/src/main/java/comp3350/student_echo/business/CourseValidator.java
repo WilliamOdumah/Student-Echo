@@ -19,8 +19,7 @@ public class CourseValidator {
         }
     }
 
-    //verify course ID format, minimum 7 characters, maximum 8 characters
-    //courseID cannot contain space and has to be combination of letters and numbers -- 3 or 4 letters at beginning then 4 numbers
+
     public static boolean validCourseIDFormat(String courseID){
         //valid course length is either 7 or 8 (e.g: ACC1100 or COMP1010)
         if (courseID.length() == 7 || courseID.length() == 8 ) {

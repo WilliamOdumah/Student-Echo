@@ -3,16 +3,24 @@ package comp3350.student_echo.business;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import comp3350.student_echo.application.Services;
 import comp3350.student_echo.business.Exceptions.InvalidInstructorException;
 import comp3350.student_echo.business.access.AccessInstructors;
 import comp3350.student_echo.objects.reviewableItems.Instructor;
+import comp3350.student_echo.persistence.InstructorPersistence;
 
 
 public class InstructorValidator {
-    static AccessInstructors accessInstructors;
+
+    // default call
     public static void validateInstructor(Instructor inst) throws InvalidInstructorException {
-        accessInstructors = new AccessInstructors();
-        if(instructorExists(inst)) {
+        validateInstructor(inst, Services.getInstructorPersistence());
+    }
+
+    // Dependency Injection call
+    public static void validateInstructor(Instructor inst, InstructorPersistence p){
+        AccessInstructors accessInstructors = new AccessInstructors(p);
+        if(instructorExists(inst, accessInstructors)) {
             throw new InvalidInstructorException(
                     String.format("Instructor %s %s %s already exists!", inst.getTitle(),
                             inst.getFirstName(), inst.getLastName())
@@ -27,8 +35,8 @@ public class InstructorValidator {
         }
     }
 
-    private static boolean instructorExists(Instructor inst) {
-        List<Instructor> allInstructors = accessInstructors.getInstructors();
+    public static boolean instructorExists(Instructor inst, AccessInstructors access) {
+        List<Instructor> allInstructors = access.getInstructors();
         for(Instructor cur : allInstructors) {
             if(cur.equals(inst)){
                 return true;
@@ -37,7 +45,7 @@ public class InstructorValidator {
         return false;
     }
 
-    private static boolean validName(String name){
+    public static boolean validName(String name){
         // cannot be null and must contain a character
         if(name == null || name.trim().isEmpty()) return false;
         // Regular expression to match alphabetic characters, spaces, hyphens, and apostrophes
