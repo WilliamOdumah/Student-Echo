@@ -30,11 +30,11 @@ public class StudentAccountManagerTest {
         assertFalse("need @ portion", sam.verifyEmail("testmyumanitoba.ca"));
     }
     @Test
-    public void testVerifyUsername() {
+    public void testVerifyUniqueness() {
         // add hello as username already in DB
         sam.createAccount("email@myumanitoba.ca", "hello", "pass", "pass");
 
-        assertFalse("username already added cannot be added again", sam.verifyUsername("hello"));
+        assertFalse("username already added cannot be added again", sam.verifyUniqueness("hello"));
         assertTrue("a new username can be created", sam.verifyUsername("newUsername"));
         assertFalse("Reject an empty username", sam.verifyUsername(""));
         assertFalse("Reject an null username", sam.verifyUsername(null));

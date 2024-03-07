@@ -21,9 +21,7 @@ public class AccessAccountsTest {
     @Before
     public void setUp() {
         AccountPersistence stub = new AccountPersistenceStub();
-
         accessAccounts = new AccessAccounts(stub);
-
     }
 
     @Test
