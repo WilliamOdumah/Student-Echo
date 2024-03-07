@@ -40,8 +40,8 @@ public class Review implements Serializable {
         return uid;
     }
     public ReviewableItem getReviewableItem(){return item;}
-    public String getAuthorUsername() {
-        return this.author.getUsername();
+    public String getAuthorEmail() {
+        return this.author.getEmail();
     }
     public String getComment() {
         return this.comment;
@@ -78,6 +78,9 @@ public class Review implements Serializable {
     }
     public void setUserLiked(String userId, Boolean liked){
 
+    }
+    public String getAuthorUsername(){
+        return this.author.getUsername();
     }
 }
 

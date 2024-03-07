@@ -10,7 +10,7 @@ public class AverageCalculator {
 
     @SuppressLint("DefaultLocale")
     public static double calcAverageOverallRating(List<? extends Review> reviews) {
-        if(reviews.size() == 0) return 0;
+        if(reviews==null ||reviews.size() == 0) return 0;
 
         double total = 0;
         for(Review r : reviews) {
@@ -21,7 +21,7 @@ public class AverageCalculator {
 
     @SuppressLint("DefaultLocale")
     public static double calcAverageDifficultyRating(List<? extends Review> reviews) {
-        if(reviews.size() == 0) return 0;
+        if(reviews==null || reviews.size() == 0) return 0;
 
         double total = 0;
         for(Review r : reviews) {

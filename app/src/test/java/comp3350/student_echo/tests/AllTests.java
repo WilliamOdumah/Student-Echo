@@ -36,6 +36,8 @@ import comp3350.student_echo.tests.objects.StudentAccountTest;
         InstructorValidatorTest.class,
         ReviewValidatorTest.class,
 
+
+
         //Integration
         AccessAccountsIT.class,
         AccessCoursesIT.class,
