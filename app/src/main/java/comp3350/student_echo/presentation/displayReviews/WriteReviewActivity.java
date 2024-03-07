@@ -75,7 +75,8 @@ public class WriteReviewActivity extends AppCompatActivity {
             return;
         }
 
-        Review newReview = new Review(item, comment, overallRating, difficultyRating, user);
+        // all reviews start with 0 likes
+        Review newReview = new Review(item, comment, overallRating, difficultyRating, user,0,0);
         accessReviews.addReview(newReview);
         // Return to the prev activity
         finish();

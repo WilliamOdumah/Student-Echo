@@ -32,15 +32,15 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         Instructor instructor1 = new Instructor("Dr.", "Gary", "Chalmers");
         Instructor instructor2 = new Instructor("Professor", "Mary", "Bailey");
 
-        reviews.add(new Review(course1, "Great introductory course!", 5, 2,fakeUser));
-        reviews.add(new Review(course1, "Tough but rewarding.", 4, 3,fakeUser));
-        reviews.add(new Review(course2, "BLOCKCHAINS!", 5, 5,fakeUser));
-        reviews.add(new Review(course2, "Blinky blink blink", 3, 5,fakeUser));
+        reviews.add(new Review(course1, "Great introductory course!", 5, 2,fakeUser,0,0));
+        reviews.add(new Review(course1, "Tough but rewarding.", 4, 3,fakeUser,0,0));
+        reviews.add(new Review(course2, "BLOCKCHAINS!", 5, 5,fakeUser,0,0));
+        reviews.add(new Review(course2, "Blinky blink blink", 3, 5,fakeUser,0,0));
 
-        reviews.add(new Review(instructor1, "Very knowledgeable and helpful.", 5, 3,fakeUser));
-        reviews.add(new Review(instructor1, "Challenging exams, but fair.", 4, 4,fakeUser));
-        reviews.add(new Review(instructor2, "She is a great prof", 5, 3,fakeUser));
-        reviews.add(new Review(instructor2, "She gave me a 0 on my the assignment", 1, 5,fakeUser));
+        reviews.add(new Review(instructor1, "Very knowledgeable and helpful.", 5, 3,fakeUser,0,0));
+        reviews.add(new Review(instructor1, "Challenging exams, but fair.", 4, 4,fakeUser,0,0));
+        reviews.add(new Review(instructor2, "She is a great prof", 5, 3,fakeUser,0,0));
+        reviews.add(new Review(instructor2, "She gave me a 0 on my the assignment", 1, 5,fakeUser,0,0));
     }
 
     @Override

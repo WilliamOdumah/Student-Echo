@@ -16,19 +16,21 @@ public class Review implements Serializable {
 
     public Review(){}
     // constructor for new Review creation
-    public Review(ReviewableItem item, String comment, int overallRating, int difficultyRating, StudentAccount author) {
-        this(-1, item, comment, overallRating, difficultyRating, author);
+    public Review(ReviewableItem item, String comment, int overallRating, int difficultyRating, StudentAccount author, int likes, int dislikes) {
+        this(-1, item, comment, overallRating, difficultyRating, author, likes, dislikes);
     }
 
     // constructor for building Review from Persistence
     public Review(int uid, ReviewableItem item, String comment, int overallRating, int difficultyRating,
-                  StudentAccount author) {
+                  StudentAccount author, int likes, int dislikes) {
         this.uid = uid;
         this.item = item;
         this.author = author;
         this.comment = comment;
         this.overallRating = overallRating;
         this.difficultyRating = difficultyRating;
+        this.likes =likes;
+        this.dislikes=dislikes;
     }
 
     public boolean equals(Review r){
@@ -52,10 +54,10 @@ public class Review implements Serializable {
         return this.difficultyRating;
     }
     public int getLikes() {
-        return likes;
+        return this.likes;
     }
     public int getDislikes() {
-        return dislikes;
+        return this.dislikes;
     }
 
     // Setters

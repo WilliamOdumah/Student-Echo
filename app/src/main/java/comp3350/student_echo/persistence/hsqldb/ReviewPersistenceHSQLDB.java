@@ -44,13 +44,14 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
 
             // Form query
             String tableName = getTableName(r);
-            PreparedStatement ps = c.prepareStatement("INSERT INTO "+tableName+" VALUES(DEFAULT,?,?,?,?,?)");
-            int at = 1;
-            ps.setString(at++, r.getReviewableItem().getID());
-            ps.setString(at++, r.getAuthorUsername());
-            ps.setString(at++, r.getComment());
-            ps.setInt(at++,r.getOverallRating());
-            ps.setInt(at++,r.getDifficultyRating());
+            PreparedStatement ps = c.prepareStatement("INSERT INTO "+tableName+" VALUES(DEFAULT,?,?,?,?,?,?,?)");
+            ps.setString(1, r.getReviewableItem().getID());
+            ps.setString(2, r.getAuthorUsername());
+            ps.setString(3, r.getComment());
+            ps.setInt(4,r.getOverallRating());
+            ps.setInt(5,r.getDifficultyRating());
+            ps.setInt(6,r.getLikes());
+            ps.setInt(7,r.getDislikes());
 
             // execute query to create Review in DB
             ps.executeUpdate();
@@ -291,10 +292,12 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         final String comment = rs.getString("comment");
         final int overallRating = rs.getInt("overall_rating");
         final int difficultyRating = rs.getInt("difficulty_rating");
+        final int likes = rs.getInt("like_count");
+        final int dislikes = rs.getInt("dislike_count");
 
         Course course = accessCourses.getCourse(courseID);
         StudentAccount author = accessAccounts.getAccount(username);
-        return new Review(reviewID, course, comment, overallRating, difficultyRating, author);
+        return new Review(reviewID, course, comment, overallRating, difficultyRating, author,likes,dislikes);
     }
     private Review buildReviewWithInstructor(final ResultSet rs) throws SQLException {
         final int reviewID = rs.getInt("uid");
@@ -303,10 +306,12 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         final String comment = rs.getString("comment");
         final int overallRating = rs.getInt("overall_rating");
         final int difficultyRating = rs.getInt("difficulty_rating");
+        final int likes = rs.getInt("like_count");
+        final int dislikes = rs.getInt("dislike_count");
 
         Instructor instructor = accessInstructors.getInstructor(instructorID);
         StudentAccount author = accessAccounts.getAccount(username);
-        return new Review(reviewID, instructor, comment, overallRating, difficultyRating, author);
+        return new Review(reviewID, instructor, comment, overallRating, difficultyRating, author,likes,dislikes);
     }
     private String getTableName(Review r) {
         ReviewableItem item = r.getReviewableItem();
