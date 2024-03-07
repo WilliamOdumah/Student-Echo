@@ -1,11 +1,5 @@
 package comp3350.student_echo.business.access;
 
-import android.util.Log;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import comp3350.student_echo.application.Services;
@@ -14,13 +8,18 @@ import comp3350.student_echo.objects.reviewableItems.Course;
 import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
+import comp3350.student_echo.persistence.CoursePersistence;
 import comp3350.student_echo.persistence.ReviewPersistence;
 
 public class AccessReviews {
-    private final ReviewPersistence reviewPersistence;
+    private ReviewPersistence reviewPersistence;
 
     public AccessReviews() {
         reviewPersistence = Services.getReviewPersistence(true);
+    }
+
+    public AccessReviews(final ReviewPersistence persistence) {
+        reviewPersistence = persistence;
     }
 
     public void addReview(Review r) {

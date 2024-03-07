@@ -1,4 +1,4 @@
-package comp3350.student_echo.tests.business;
+package comp3350.student_echo.tests.business.integration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
