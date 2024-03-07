@@ -87,6 +87,7 @@ public class AddCourseActivity extends AppCompatActivity {
                 AddCourseActivity.this.startActivity(newIntent);
                 return true;
             default:
+
                 return super.onOptionsItemSelected(item);
         }
     }

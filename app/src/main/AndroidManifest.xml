@@ -9,6 +9,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".presentation.AddInstructorActivity"
+            android:exported="false"/>
+        <activity
             android:name=".presentation.UserActivity"
             android:exported="false" />
         <activity
