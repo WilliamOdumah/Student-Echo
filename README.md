@@ -32,11 +32,11 @@ Student Echo is a dedicated service that enables verified students to provide an
 
 ## Coding Standards
 
-Our [coding standards] for Student Echo.
+Our [coding standards](https://code.cs.umanitoba.ca/comp3350-winter2024/KeyValuePairs-a02-8/-/blob/main/docs/Coding_Standards.md?ref_type=heads) for Student Echo.
 
 ## Contribution Strategy 
 
-Our [contribution strategy] for Student Echo.
+Our contribution strategy for Student Echo.
 
 ## Retrospectives
 
