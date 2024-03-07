@@ -46,7 +46,7 @@ public class CourseValidator {
 
     public static boolean validName(String name){
         // cannot be null and must contain a character
-        return name != null && !name.trim().isEmpty();
+        return name != null && !name.trim().isEmpty() ;
     }
 
 }

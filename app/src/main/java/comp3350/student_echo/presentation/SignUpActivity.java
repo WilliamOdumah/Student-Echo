@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import comp3350.student_echo.R;
+import comp3350.student_echo.business.LoginManager;
 import comp3350.student_echo.business.StudentAccountManager;
 import comp3350.student_echo.objects.StudentAccount;
 
@@ -22,11 +23,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
-    }
+
     public void buttonSignUpOnClick(View v){
         Intent signUpIntent = new Intent(SignUpActivity.this, HomeActivity.class);
 
@@ -46,7 +43,9 @@ public class SignUpActivity extends AppCompatActivity {
 
         if(studentAccount != null) {
             System.out.println("Successfully created your account!");
+            LoginManager.performLogin(username,password);
             SignUpActivity.this.startActivity(signUpIntent);
+            finish();
         } else {
             Toast.makeText(this, "Uh oh! Looks something went wrong with creating your account. Please try again!",Toast.LENGTH_LONG).show();
         }
