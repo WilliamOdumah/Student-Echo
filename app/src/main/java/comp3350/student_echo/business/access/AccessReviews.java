@@ -20,7 +20,7 @@ public class AccessReviews {
     private final ReviewPersistence reviewPersistence;
 
     public AccessReviews() {
-        reviewPersistence = Services.getReviewPersistence(false);
+        reviewPersistence = Services.getReviewPersistence(true);
     }
 
     public void addReview(Review r) {
