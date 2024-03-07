@@ -22,6 +22,7 @@ public class InstructorPersistenceStub implements InstructorPersistence {
         addInstructor(new Instructor("Associated Professor", "Emily", "Davis"));
         addInstructor(new Instructor("Associated Professor", "Olivia", "Wilson"));
         addInstructor(new Instructor("Dean", "John", "Brown"));
+        addInstructor(new Instructor("Professor", "Robert", "Guderian"));
     }
 
     @Override

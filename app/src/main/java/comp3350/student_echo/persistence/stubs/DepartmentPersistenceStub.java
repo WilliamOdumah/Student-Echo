@@ -19,7 +19,7 @@ public class DepartmentPersistenceStub implements DepartmentPersistence {
         departments.add(new Department("CS"));
         departments.add(new Department("ECON"));
         departments.add(new Department("HNSC"));
-        departments.add(new Department("HNSC"));
+        departments.add(new Department("MATH"));
     }
 
 
