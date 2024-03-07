@@ -26,19 +26,33 @@ public class AccountPersistenceStub implements AccountPersistence {
         accounts.add(toAdd);
     }
 
-    // TODO
     @Override
-    public boolean updateAccount(StudentAccount currentStudent) {
-
+    public boolean updateAccount(StudentAccount updatedStudent) {
+        // find the account by email(if it exists)
+        for(StudentAccount cur : accounts) {
+            if(cur.equals(updatedStudent)) {
+                cur.setUsername(updatedStudent.getUsername());
+                cur.setPassword(updatedStudent.getPassword());
+                return true;
+            }
+        }
         return false;
     }
 
+    @Override
     public List<StudentAccount> getAccountSequential() {
         return Collections.unmodifiableList(accounts);
     }
 
-    // TODO
-    public boolean deleteAccount(StudentAccount currentStudent) {
+    @Override
+    public boolean deleteAccount(StudentAccount updatedStudent) {
+        // find the account by email (if it exists)
+        for(StudentAccount cur : accounts) {
+            if(cur.equals(updatedStudent)) {
+                accounts.remove(cur);
+                return true;
+            }
+        }
         return false;
     }
 }

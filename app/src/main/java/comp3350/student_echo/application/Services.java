@@ -8,8 +8,6 @@ import comp3350.student_echo.persistence.hsqldb.CoursePersistenceHSQLDB;
 import comp3350.student_echo.persistence.hsqldb.DepartmentPersistenceHSQLDB;
 import comp3350.student_echo.persistence.hsqldb.InstructorPersistenceHSQLDB;
 import comp3350.student_echo.persistence.hsqldb.AccountPersistenceHSQLDB;
-import comp3350.student_echo.persistence.hsqldb.CoursePersistenceHSQLDB;
-import comp3350.student_echo.persistence.hsqldb.InstructorPersistenceHSQLDB;
 import comp3350.student_echo.persistence.hsqldb.ReviewPersistenceHSQLDB;
 import comp3350.student_echo.persistence.stubs.AccountPersistenceStub;
 import comp3350.student_echo.persistence.ReviewPersistence;
@@ -27,7 +25,7 @@ public class Services {
     private static DepartmentPersistence departmentPersistence = null;
 
     //Make this false to use Stub
-    private static boolean hsqlDataBase=true;
+    private static boolean hsqlDataBase=false;
 
 	public static synchronized InstructorPersistence getInstructorPersistence() {
 		if (instructorPersistence == null) {
