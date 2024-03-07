@@ -23,7 +23,9 @@ import comp3350.student_echo.business.LoginManager;
 import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 import comp3350.student_echo.objects.StudentAccount;
+import comp3350.student_echo.presentation.HomeActivity;
 import comp3350.student_echo.presentation.LoginActivity;
+import comp3350.student_echo.presentation.UserActivity;
 
 public class ReviewsForItemActivity extends AppCompatActivity implements ReviewModificationListener {
     private RecyclerView reviewsRecyclerView;
@@ -142,7 +144,8 @@ public class ReviewsForItemActivity extends AppCompatActivity implements ReviewM
                 ReviewsForItemActivity.this.startActivity(logoutIntent);
                 return true;
             case R.id.accountSettings:
-                //to be added
+                Intent newIntent= new Intent(ReviewsForItemActivity.this, UserActivity.class);
+                ReviewsForItemActivity.this.startActivity(newIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

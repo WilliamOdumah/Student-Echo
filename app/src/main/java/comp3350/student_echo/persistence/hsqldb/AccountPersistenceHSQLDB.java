@@ -1,14 +1,15 @@
 package comp3350.student_echo.persistence.hsqldb;
 
+import android.util.Log;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import java.util.ArrayList;
-import android.util.Log;
+import java.util.List;
 
 import comp3350.student_echo.objects.StudentAccount;
 import comp3350.student_echo.persistence.AccountPersistence;
@@ -72,19 +73,32 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
 
     // TODO
     @Override
-    public void updateAccount(StudentAccount currentStudent) {
+    public boolean updateAccount(StudentAccount currentStudent) {
         try (final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement("UPDATE ACCOUNTS SET username = ?, password = ? WHERE email = ?");
             st.setString(1, currentStudent.getUsername());
             st.setString(2, currentStudent.getPassword());
             st.setString(3, currentStudent.getEmail());
             st.executeUpdate();
-
+            return true;
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }
-
+        return false;
     }
 
+    // TODO
+    public boolean deleteAccount(StudentAccount currentStudent) {
+        try (final Connection c = connection()) {
+            final PreparedStatement st = c.prepareStatement("DELETE FROM ACCOUNTS WHERE email = ?");
+            st.setString(1, currentStudent.getEmail());
+            st.executeUpdate();
+            return true;
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

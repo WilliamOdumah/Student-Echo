@@ -83,9 +83,11 @@ public class AddCourseActivity extends AppCompatActivity {
                 AddCourseActivity.this.startActivity(logoutIntent);
                 return true;
             case R.id.accountSettings:
-                //to be added
+                Intent newIntent= new Intent(AddCourseActivity.this, UserActivity.class);
+                AddCourseActivity.this.startActivity(newIntent);
                 return true;
             default:
+
                 return super.onOptionsItemSelected(item);
         }
     }

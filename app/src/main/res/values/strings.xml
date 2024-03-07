@@ -21,5 +21,7 @@
     <string name="overall_rating_label">Overall Rating</string>
     <string name="difficulty_rating_label">Difficulty Rating</string>
     <string name="save_changes">Save Changes</string>
+    <string name="title_activity_klogin">k_login</string>
+    <string name="delete_user">Delete user\n</string>
 
 </resources>

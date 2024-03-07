@@ -16,9 +16,18 @@ public class StudentAccountManager {
     // creates account and adds to persistence
     public StudentAccount createAccount(String email, String username, String password, String confirmPass) {
 
-        if (verifyEmail(email) && verifyUsername(username) && verifyPassword(password, confirmPass)) {
+        if (verifyEmail(email) && verifyUniqueness(email) && verifyPassword(password, confirmPass) && verifyUsername(username)) {
             StudentAccount account = new StudentAccount(username, password, email);
             accountsData.addAccount(account);
+            return account;
+        }
+        return null;
+    }
+
+    public StudentAccount createUpdatedAccount(String email, String username, String password) {
+        if (verifyPassword(password, password) && verifyUsername(username)) {
+            StudentAccount account = new StudentAccount(username, password, email);
+            accountsData.updateAccount(account);
             return account;
         }
         return null;
@@ -34,13 +43,21 @@ public class StudentAccountManager {
         return matcher.matches(); // true if email address matches the established pattern
     }
 
-    // there should be no account with the same username
-    public boolean verifyUsername(String username) {
-        return username != null && !username.equals("") && accountsData.getAccount(username) == null;
+    // there should be no account with the same email
+    public boolean verifyUniqueness(String email) {
+        return email != null && !email.equals("") && accountsData.getAccount(email) == null;
     }
 
     public boolean verifyPassword(String password, String confirmPass) {
         return password != null && !password.equals("") && password.equals(confirmPass);
+    }
+
+    public boolean verifyUsername(String username) {
+        return username != null && !username.equals("");
+    }
+
+    public boolean deleteAccount(StudentAccount studentAccount) {
+        return accountsData.deleteAccount(studentAccount);
     }
 }
 
