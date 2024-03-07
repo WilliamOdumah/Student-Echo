@@ -63,6 +63,7 @@ public class ItemActivity extends AppCompatActivity {
         buttonTV.setText(buttonText);
     }
 
+
     @Override
     protected void onResume(){
         super.onResume();
@@ -187,7 +188,8 @@ public class ItemActivity extends AppCompatActivity {
                 ItemActivity.this.startActivity(logoutIntent);
                 return true;
             case R.id.accountSettings:
-                //to be added
+                Intent newIntent= new Intent(ItemActivity.this, UserActivity.class);
+                ItemActivity.this.startActivity(newIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
