@@ -53,7 +53,8 @@ public class AccessCourses implements AccessReviewableItems {
 
 	@Override
 	public List<ReviewableItem> getItems() {
-		return getCourses().stream().map(course -> (ReviewableItem)course).collect(Collectors.toList());
+		List<ReviewableItem> list = getCourses().stream().map(course -> (ReviewableItem)course).collect(Collectors.toList());
+		return Collections.unmodifiableList(list);
 	}
 
 	@Override

@@ -8,7 +8,7 @@ import java.io.IOException;
 import comp3350.student_echo.application.Main;
 
 public class TestUtils {
-    private static final File DB_SRC = new File("src/main/assets/db/SC.script");
+    private static final File DB_SRC = new File("src/main/assets/db/StudentEchoDB.script");
 
     public static File copyDB() throws IOException {
         final File target = File.createTempFile("temp-db", ".script");
