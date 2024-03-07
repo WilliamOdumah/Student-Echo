@@ -2,7 +2,6 @@ package comp3350.student_echo.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -68,6 +67,15 @@ public class UserActivity extends AppCompatActivity {
         LoginManager.performLogout();
         Intent logoutIntent= new Intent(UserActivity.this, LoginActivity.class);
         UserActivity.this.startActivity(logoutIntent);
+        finish();
+    }
+
+    public void buttonDeleteAccount(View v) {
+        StudentAccountManager studentAccountManager = new StudentAccountManager();
+        studentAccountManager.deleteAccount(LoginManager.getLoggedInUser());
+        LoginManager.performLogout();
+        Intent deleteIntent = new Intent(UserActivity.this, LoginActivity.class);
+        UserActivity.this.startActivity(deleteIntent);
         finish();
     }
 }
