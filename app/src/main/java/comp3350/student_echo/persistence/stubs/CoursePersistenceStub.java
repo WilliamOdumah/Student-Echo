@@ -1,5 +1,6 @@
 package comp3350.student_echo.persistence.stubs;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +30,7 @@ public class CoursePersistenceStub implements CoursePersistence {
 
     @Override
     public List<Course> getCourseSequential() {
-        return Collections.unmodifiableList((List<Course>)courses.values());
+        return Collections.unmodifiableList(new ArrayList<>(courses.values()));
     }
 
     @Override

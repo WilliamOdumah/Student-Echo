@@ -1,9 +1,12 @@
 package comp3350.student_echo.tests.business;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import comp3350.student_echo.business.access.AccessInstructors;
 import comp3350.student_echo.objects.reviewableItems.Instructor;
+import comp3350.student_echo.persistence.InstructorPersistence;
+import comp3350.student_echo.persistence.stubs.InstructorPersistenceStub;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -13,9 +16,16 @@ import java.util.List;
 
 public class AccessInstructorsTest {
 
+    private AccessInstructors accessInstructors;
+
+    @Before
+    public void setup() {
+        InstructorPersistence stub = new InstructorPersistenceStub();
+        accessInstructors = new AccessInstructors(stub);
+    }
+
     @Test(expected = UnsupportedOperationException.class)
     public void testGetInstructors() {
-        AccessInstructors accessInstructors = new AccessInstructors();
         List<Instructor> instructors = accessInstructors.getInstructors();
         Instructor i1 = new Instructor("Dr.", "Gary", "Chalmers");
 
@@ -30,7 +40,6 @@ public class AccessInstructorsTest {
 
     @Test
     public void testFilterInstructor() {
-        AccessInstructors accessInstructors = new AccessInstructors();
         List<Instructor> instructors = accessInstructors.getInstructors();
 
         String search = "ar";
