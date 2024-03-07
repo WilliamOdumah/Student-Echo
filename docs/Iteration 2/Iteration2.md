@@ -21,13 +21,11 @@
 
 ## **Testing Instructions**
 
-### Running the unit tests
+### All test (unit & integration)
+`AllTests.java`
 
-To run the unit tests, which use the stubs from Milestone 1, go to Services and set `hsqlDataBase` to false. Then, run `AllTests.java`
-
-### Running the integration tests
-
-To run the integration tests, which uses HSQL databases, go to Services and set `hsqlDataBase` to true. Then, run `IntegrationTests.java`
+### Integration test
+`IntegrationTests.java`
 
 ## **Architecture Document** 
 
