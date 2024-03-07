@@ -13,12 +13,16 @@ import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 import comp3350.student_echo.persistence.CoursePersistence;
 
 public class AccessCourses implements AccessReviewableItems {
-	private final CoursePersistence coursePersistence;
+	private CoursePersistence coursePersistence;
 	private List<Course> courses;
 
 	public AccessCourses() {
 		coursePersistence = Services.getCoursePersistence(true);
 		courses = null;
+	}
+	public AccessCourses(final CoursePersistence persistence) {
+		this();
+		coursePersistence = persistence;
 	}
 
 	public ArrayList<Course> filterCourses(String searchText ,List<Course> courseList) {
@@ -49,7 +53,8 @@ public class AccessCourses implements AccessReviewableItems {
 
 	@Override
 	public List<ReviewableItem> getItems() {
-		return getCourses().stream().map(course -> (ReviewableItem)course).collect(Collectors.toList());
+		List<ReviewableItem> list = getCourses().stream().map(course -> (ReviewableItem)course).collect(Collectors.toList());
+		return Collections.unmodifiableList(list);
 	}
 
 	@Override
