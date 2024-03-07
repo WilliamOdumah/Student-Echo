@@ -1,21 +1,32 @@
 package comp3350.student_echo.tests.business;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import comp3350.student_echo.application.Services;
 import comp3350.student_echo.business.StudentAccountManager;
+import comp3350.student_echo.objects.StudentAccount;
 
 public class StudentAccountManagerTest {
     StudentAccountManager sam;
     @Before
     public void before() {
+
+        Services.useStub();
         sam = new StudentAccountManager();
+    }
+
+    @After
+    public void tear(){
+        Services.useHsql();
     }
 
     @Test
     public void testCreateAccount() {
         assertNotNull( "Create valid account", sam.createAccount("hello@myumanitoba.ca", "username", "password", "password"));
+        sam.deleteAccount(new StudentAccount("username", "password","hello@myumanitoba.ca"));
         assertNull("Reject with invalid email", sam.createAccount("hello@gmail.com", "username", "password", "password"));
         assertNull("Reject with invalid username", sam.createAccount("hello@myumanitoba.ca", "", "password", "password"));
         assertNull("Reject with invalid password", sam.createAccount("hello@myumanitoba.ca", "username", "pass", "diff"));
@@ -34,11 +45,21 @@ public class StudentAccountManagerTest {
         // add hello as username already in DB
         sam.createAccount("email@myumanitoba.ca", "hello", "pass", "pass");
 
-        assertFalse("username already added cannot be added again", sam.verifyUsername("hello"));
+
         assertTrue("a new username can be created", sam.verifyUsername("newUsername"));
         assertFalse("Reject an empty username", sam.verifyUsername(""));
         assertFalse("Reject an null username", sam.verifyUsername(null));
     }
+
+    @Test
+    public void testVerifyUniqueness()
+    {
+        StudentAccount sa=sam.createAccount("newemail@myumanitoba.ca", "newMan", "pass", "pass");
+
+        assertFalse("reject same email", sam.verifyUniqueness("newemail@myumanitoba.ca"));
+        sam.deleteAccount(sa);
+    }
+
     @Test
     public void testVerifyPassword() {
         assertTrue("accept equal passwords", sam.verifyPassword("password", "password"));

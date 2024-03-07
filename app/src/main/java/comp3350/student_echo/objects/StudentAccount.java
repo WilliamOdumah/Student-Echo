@@ -17,4 +17,8 @@ public class StudentAccount implements Serializable {
     public String getUsername(){ return username; }
     public String getPassword(){ return password; }
     public String getEmail() { return email;}
+
+    public Boolean equals(StudentAccount sa){
+        return (this.username.equals(sa.getUsername()) && this.password.equals(sa.getPassword()) &&this.email.equals(sa.getEmail()));
+    }
 }
