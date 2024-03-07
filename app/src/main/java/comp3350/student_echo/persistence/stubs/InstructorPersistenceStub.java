@@ -1,11 +1,11 @@
 package comp3350.student_echo.persistence.stubs;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import comp3350.student_echo.business.Exceptions.InvalidInstructorException;
 import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.persistence.InstructorPersistence;
 
@@ -26,7 +26,7 @@ public class InstructorPersistenceStub implements InstructorPersistence {
 
     @Override
     public List<Instructor> getInstructorSequential() {
-        return Collections.unmodifiableList((List<Instructor>)instructorMap.values());
+        return Collections.unmodifiableList(new ArrayList<>(instructorMap.values()));
     }
 
     @Override

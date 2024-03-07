@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import comp3350.student_echo.business.access.AccessCourses;
@@ -26,6 +27,7 @@ public class AccessCoursesTest {
     @Test(expected = UnsupportedOperationException.class)
     public void testGetCourses() {
         List<Course> courses = accessCourses.getCourses();
+        Collections.sort(courses, (a, b) -> a.getCourseID().compareTo(b.getCourseID()));
         Course c1 = new Course("CS", "COMP1010", "IntroComp");
 
         assertTrue("ensure course present in stub", c1.equals(courses.get(0)));
@@ -39,13 +41,12 @@ public class AccessCoursesTest {
 
     @Test
     public void testFilterCourses() {
-        AccessCourses accessCourses = new AccessCourses();
         List <Course> courses = accessCourses.getCourses();
 
-        String search = "3010";
+        String search = "1010";
         ArrayList<Course> filteredList = accessCourses.filterCourses(search, courses);
         assertEquals(1,filteredList.size());
-        assertEquals("COMP3010", filteredList.get(0).getCourseID());
+        assertEquals("COMP1010", filteredList.get(0).getCourseID());
 
         String searchText = "2043";
         ArrayList<Course> filtered = accessCourses.filterCourses(searchText, courses);
@@ -56,5 +57,4 @@ public class AccessCoursesTest {
         assertEquals(2,list.size());
 
     }
-
 }

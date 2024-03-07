@@ -7,12 +7,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import comp3350.student_echo.application.Services;
-import comp3350.student_echo.business.CourseValidator;
 import comp3350.student_echo.business.Exceptions.InvalidInstructorException;
 import comp3350.student_echo.business.InstructorValidator;
 import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
-import comp3350.student_echo.persistence.CoursePersistence;
 import comp3350.student_echo.persistence.InstructorPersistence;
 
 public class AccessInstructors implements AccessReviewableItems, Serializable {
