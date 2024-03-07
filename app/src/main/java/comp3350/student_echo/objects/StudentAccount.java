@@ -18,6 +18,13 @@ public class StudentAccount implements Serializable {
     public String getPassword(){ return password; }
     public String getEmail() { return email;}
 
+    public void setUsername(String newUsername) {
+        this.username = newUsername;
+    }
+    public void setPassword(String newPassword) {
+        this.password = newPassword;
+    }
+
     public Boolean equals(StudentAccount sa){
         return (this.email.equals(sa.getEmail()));
     }
