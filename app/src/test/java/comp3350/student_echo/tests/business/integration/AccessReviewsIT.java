@@ -22,6 +22,10 @@ import comp3350.student_echo.tests.utils.TestUtils;
 public class AccessReviewsIT {
     private AccessReviews accessReviews;
     private File tempDB;
+    Course c1;
+    Instructor i1;
+    Review courseRev;
+    Review instRev;
 
     @Before
     public void setUp() throws IOException {
@@ -30,19 +34,22 @@ public class AccessReviewsIT {
 
         // inject real HSQLDB
         accessReviews = new AccessReviews(hsqldb);
-        System.out.println("SETUP");
+
+        // set variables
+        c1 = new Course("CS", "COMP1010", "intro comp");
+        i1 = new Instructor(1, "Dr..", "Gary","Chalmers");
+        courseRev = new Review(c1, "comment", 2,2,null,0,0);
+        instRev = new Review(i1, "comment", 2,2,null, 0,0);
     }
     @After
     public void tearDown() {
         // reset DB
         this.tempDB.delete();
-        System.out.println("TEAR DOWN");
     }
 
     @Test
     public void testGetReviewForCourse() {
-        Course testCourse = new Course("CS", "COMP1010", "Introduction to Computer Science 1");
-        List<Review> reviews = accessReviews.getReviewsFor(testCourse);
+        List<Review> reviews = accessReviews.getReviewsFor(c1);
 
         assertNotNull("Reviews list should not be null", reviews);
         assertTrue("There should be reviews for the course", reviews.size() > 0);
@@ -50,9 +57,7 @@ public class AccessReviewsIT {
 
     @Test
     public void testGetReviewForInstructor() {
-        Instructor testInstructor = new Instructor(1,"Dr.", "Gary", "Chalmers");
-        List<Review> reviews = accessReviews.getReviewsFor(testInstructor);
-
+        List<Review> reviews = accessReviews.getReviewsFor(i1);
 
         assertNotNull("Reviews list should not be null", reviews);
         assertTrue("There should be reviews for the instructor", reviews.size() > 0);

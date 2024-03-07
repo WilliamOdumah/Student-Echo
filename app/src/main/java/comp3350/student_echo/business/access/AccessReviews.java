@@ -14,11 +14,11 @@ public class AccessReviews {
     private ReviewPersistence reviewPersistence;
 
     public AccessReviews() {
-        reviewPersistence = Services.getReviewPersistence();
+        this.reviewPersistence = Services.getReviewPersistence();
     }
 
     public AccessReviews(final ReviewPersistence persistence) {
-        reviewPersistence = persistence;
+        this.reviewPersistence = persistence;
     }
 
     public void addReview(Review r) {

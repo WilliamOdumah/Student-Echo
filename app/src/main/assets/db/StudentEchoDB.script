@@ -77,4 +77,4 @@ INSERT INTO INSTRUCTOR_REVIEWS VALUES (1,1,'fake@myumanitoba.ca','Not very helpf
 INSERT INTO INSTRUCTOR_REVIEWS VALUES (2,1,'fake@myumanitoba.ca','Challenging exams, but fair.',4,4,1,2)
 INSERT INTO INSTRUCTOR_REVIEWS VALUES (3,8,'fake@myumanitoba.ca','He is a great prof',5,3,52,4)
 INSERT INTO INSTRUCTOR_REVIEWS VALUES (4,8,'fake@myumanitoba.ca','He gave me 100% on my 3350 project',5,5,1,2)
-INSERT INTO INTERACTIONS_COURSE_REVIEW('fake@myumanitoba.ca',1,1)
+INSERT INTO INTERACTIONS_COURSE_REVIEW VALUES ('fake@myumanitoba.ca',1,1)
