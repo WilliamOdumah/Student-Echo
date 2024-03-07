@@ -9,7 +9,6 @@ import comp3350.student_echo.objects.reviewableItems.Instructor;
 
 
 public class InstructorValidator {
-
     static AccessInstructors accessInstructors;
     public static void validateInstructor(Instructor inst) throws InvalidInstructorException {
         accessInstructors = new AccessInstructors();

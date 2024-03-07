@@ -13,12 +13,16 @@ import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 import comp3350.student_echo.persistence.CoursePersistence;
 
 public class AccessCourses implements AccessReviewableItems {
-	private final CoursePersistence coursePersistence;
+	private CoursePersistence coursePersistence;
 	private List<Course> courses;
 
 	public AccessCourses() {
 		coursePersistence = Services.getCoursePersistence(true);
 		courses = null;
+	}
+	public AccessCourses(final CoursePersistence persistence) {
+		this();
+		coursePersistence = persistence;
 	}
 
 	public ArrayList<Course> filterCourses(String searchText ,List<Course> courseList) {
