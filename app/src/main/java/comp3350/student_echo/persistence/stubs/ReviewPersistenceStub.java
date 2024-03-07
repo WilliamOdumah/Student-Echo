@@ -108,6 +108,16 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         return null;
     }
 
+    @Override
+    public void updateLikeCount(Review r) {
+
+    }
+
+    @Override
+    public void updateDislikeCount(Review r) {
+
+    }
+
     private int findReviewIndexById(int reviewId) {
         for (int i = 0; i < reviews.size(); i++) {
             if (reviews.get(i).getUid() == reviewId) {

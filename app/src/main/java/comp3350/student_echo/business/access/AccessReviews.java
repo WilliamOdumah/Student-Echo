@@ -60,6 +60,14 @@ public class AccessReviews {
         return reviewPersistence.getInteractionState(r, sa);
     }
 
+    public void updateLikeCount(Review r){
+        reviewPersistence.updateLikeCount(r);
+    }
+
+    public void updateDislikeCount(Review r){
+        reviewPersistence.updateDislikeCount(r);
+    }
+
 
 
 }

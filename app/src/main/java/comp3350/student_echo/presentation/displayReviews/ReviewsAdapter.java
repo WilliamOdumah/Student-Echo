@@ -159,6 +159,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                             txtDislikeCount.setText(String.valueOf(review.getDislikes()));
                         }
 
+                        accessReviews.updateLikeCount(review);
+                        accessReviews.updateDislikeCount(review);
                         adapter.notifyItemChanged(position);
                     }
                 }
@@ -196,6 +198,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
                             txtDislikeCount.setText(String.valueOf(review.getDislikes()));
                         }
 
+                        accessReviews.updateLikeCount(review);
+                        accessReviews.updateDislikeCount(review);
                         adapter.notifyItemChanged(position);
                     }
                 }

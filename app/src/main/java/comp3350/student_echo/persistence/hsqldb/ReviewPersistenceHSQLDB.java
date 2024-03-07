@@ -253,6 +253,36 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         return state;
     }
 
+    @Override
+    public void updateLikeCount(Review r){
+        try (final Connection c = connection()){
+            String tableName = getTableName(r);
+            PreparedStatement ps = c.prepareStatement("UPDATE " + tableName + " SET LIKE_COUNT = ? WHERE UID = ?");
+
+            ps.setInt(1, r.getLikes());
+            ps.setInt(2,r.getUid());
+            ps.executeUpdate();
+            ps.close();
+        } catch (final SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateDislikeCount(Review r) {
+        try (final Connection c = connection()){
+            String tableName = getTableName(r);
+            PreparedStatement ps = c.prepareStatement("UPDATE " + tableName + " SET DISLIKE_COUNT = ? WHERE UID = ?");
+
+            ps.setInt(1, r.getDislikes());
+            ps.setInt(2,r.getUid());
+            ps.executeUpdate();
+            ps.close();
+        } catch (final SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private Review buildReviewWithCourse(final ResultSet rs) throws SQLException {
         final int reviewID = rs.getInt("uid");
