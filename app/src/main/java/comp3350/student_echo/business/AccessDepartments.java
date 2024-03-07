@@ -24,9 +24,6 @@ public class AccessDepartments {
     }
 
 
-    public Department getDepartment(String departmentname) {
-        return departmentPersistence.getDepartment(departmentname);
-    }
 
 
 

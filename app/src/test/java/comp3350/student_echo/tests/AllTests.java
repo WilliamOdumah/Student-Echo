@@ -16,6 +16,8 @@ import comp3350.student_echo.tests.business.ReviewValidatorTest;
 import comp3350.student_echo.tests.business.StudentAccountManagerTest;
 import comp3350.student_echo.tests.business.integration.AccessAccountsIT;
 import comp3350.student_echo.tests.business.integration.AccessCoursesIT;
+import comp3350.student_echo.tests.business.integration.AccessDepartmentsIT;
+import comp3350.student_echo.tests.business.integration.AccessInstructorsIT;
 import comp3350.student_echo.tests.objects.DepartmentTest;
 import comp3350.student_echo.tests.objects.ReviewWithCourseTest;
 import comp3350.student_echo.tests.objects.CourseTest;
@@ -43,8 +45,8 @@ import comp3350.student_echo.tests.objects.StudentAccountTest;
         //Integration
         AccessAccountsIT.class,
         AccessCoursesIT.class,
-        AccessAccountsIT.class,
-
+        AccessInstructorsIT.class,
+        AccessDepartmentsIT.class,
 
         // objects
         ReviewWithCourseTest.class,
