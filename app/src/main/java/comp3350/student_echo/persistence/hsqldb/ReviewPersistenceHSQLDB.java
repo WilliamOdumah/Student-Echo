@@ -28,9 +28,9 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
 
     public ReviewPersistenceHSQLDB(final String dbPath) {
         this.dbPath = dbPath;
-        accessCourses = new AccessCourses();
-        accessInstructors = new AccessInstructors();
-        accessAccounts = new AccessAccounts();
+        accessCourses = new AccessCourses(new CoursePersistenceHSQLDB(dbPath));
+        accessInstructors = new AccessInstructors(new InstructorPersistenceHSQLDB(dbPath));
+        accessAccounts = new AccessAccounts(new AccountPersistenceHSQLDB(dbPath));
     }
 
     private Connection connection() throws SQLException {
