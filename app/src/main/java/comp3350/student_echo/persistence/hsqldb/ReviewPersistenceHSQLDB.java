@@ -167,31 +167,6 @@ public class ReviewPersistenceHSQLDB implements ReviewPersistence {
         return false;
     }
 
-    @Override
-    public boolean addInteraction(Review r, StudentAccount sa, int state) {
-        try (final Connection c = connection()){
-            // Form query
-            String tableName = getTableName(r, sa);
-            final PreparedStatement ps = c.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?)");
-            ps.setString(1, sa.getUsername());    // username
-            ps.setInt(2, r.getUid());             // review id
-            ps.setInt(3, state);                  // state
-
-            // execute query
-            ps.executeUpdate();
-            ps.close();
-
-            // passing means like successfully added
-            return true;
-        } catch(SQLIntegrityConstraintViolationException e) {
-            // this exception means like already added
-            return false;
-        } catch (final SQLException e) {
-            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     public boolean addOrUpdateInteraction(Review r, StudentAccount sa, int newState) {
         System.out.println("ADDING OR UPDATING INTERACTION");

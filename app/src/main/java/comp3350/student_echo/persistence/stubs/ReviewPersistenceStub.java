@@ -16,11 +16,11 @@ import comp3350.student_echo.persistence.ReviewPersistence;
 
 public class ReviewPersistenceStub implements ReviewPersistence {
     private final List<Review> reviews;
-    private final Map<Review, Set<StudentAccount>> reviewLikedBy;
+    private final Map<Review, Map<StudentAccount, Integer>> reviewInteractions;
 
     public ReviewPersistenceStub() {
         reviews = new ArrayList<>();
-        reviewLikedBy = new HashMap<>();
+        reviewInteractions = new HashMap<>();
         populateStub();
     }
 
@@ -34,8 +34,13 @@ public class ReviewPersistenceStub implements ReviewPersistence {
 
         reviews.add(new Review(course1, "Great introductory course!", 5, 2,fakeUser,0,0));
         reviews.add(new Review(course1, "Tough but rewarding.", 4, 3,fakeUser,0,0));
-        reviews.add(new Review(course2, "BLOCKCHAINS!", 5, 5,fakeUser,0,0));
+        Review review1 =new Review(course2, "BLOCKCHAINS!", 5, 5,fakeUser,5,1);
+        reviews.add(review1);
         reviews.add(new Review(course2, "Blinky blink blink", 3, 5,fakeUser,0,0));
+
+        Map<StudentAccount, Integer> interactions = new HashMap<>();
+        interactions.put(fakeUser, 1);
+        reviewInteractions.put(review1,interactions);
 
         reviews.add(new Review(instructor1, "Very knowledgeable and helpful.", 5, 3,fakeUser,0,0));
         reviews.add(new Review(instructor1, "Challenging exams, but fair.", 4, 4,fakeUser,0,0));
@@ -92,20 +97,20 @@ public class ReviewPersistenceStub implements ReviewPersistence {
     }
 
     @Override
-    public boolean addInteraction(Review r, StudentAccount sa, int state) {
-        reviewLikedBy.putIfAbsent(r, new HashSet<>());
-        Set<StudentAccount> likeSet = reviewLikedBy.get(r);
-        return likeSet.add(sa);
-    }
-
-    @Override
     public boolean addOrUpdateInteraction(Review r, StudentAccount sa, int newState) {
-        return false;
+        reviewInteractions.putIfAbsent(r, new HashMap<>());
+        Map<StudentAccount, Integer> interactions = reviewInteractions.get(r);
+        interactions.put(sa, newState); // This will add or update the user's interaction
+        return true; // Stub assumes operation always succeeds
     }
 
     @Override
     public Integer getInteractionState(Review r, StudentAccount sa) {
-        return null;
+        Map<StudentAccount, Integer> interactions = reviewInteractions.get(r);
+        if (interactions != null) {
+            return interactions.getOrDefault(sa, 0); // Defaults to 0 if user has not interacted
+        }
+        return 0; // Return 0 if there are no interactions for this review
     }
 
     @Override
