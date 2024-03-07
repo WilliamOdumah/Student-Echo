@@ -19,7 +19,7 @@ public class ReviewWithCourseTest {
     public void before() {
         course = new Course("Science", "COMP3010", "Distributed Systems");
         author = new StudentAccount("kelly", "villamayor", "villamak@myumanitoba.ca");
-        courseReview = new Review(course,"mid", 3, 4, author);
+        courseReview = new Review(course,"mid", 3, 4, author,0,0);
     }
 
     @Test
