@@ -14,7 +14,7 @@ import comp3350.student_echo.tests.business.integration.AccessReviewsIT;
         AccessAccountsIT.class,
         AccessCoursesIT.class,
         AccessInstructorsIT.class,
-        AccessReviewsIT.class
+        AccessReviewsIT.class,
         AccessDepartmentsIT.class,
 })
 public class IntegrationTests
