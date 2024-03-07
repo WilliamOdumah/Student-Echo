@@ -23,10 +23,10 @@ import comp3350.student_echo.business.LoginManager;
 public class LoginActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {copyDatabaseToDevice();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        copyDatabaseToDevice();
+
     }
     @Override
     protected void onDestroy() {

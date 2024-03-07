@@ -14,7 +14,7 @@ public class AccessReviewsTest {
     public void dummy(){
         assertTrue(true);
     }
-
+//
 //    @Before
 //    public void setUp() {
 //        reviews = new AccessReviews();
@@ -27,11 +27,6 @@ public class AccessReviewsTest {
 //
 //        assertEquals(2, reviewList.size());
 //
-//        Review review=reviewList.get(0);
-//
-//        review=reviews.getCourseReviewById(review.getUid());
-//
-//        assertNotNull(review);
 //    }
 //
 //    @Test
@@ -41,18 +36,15 @@ public class AccessReviewsTest {
 //        List<InstructorReview> reviewList = reviews.getReviewsFor(inst1);
 //
 //        assertEquals(2, reviewList.size());
-//
-//        Review review = reviewList.get(0);
-//        review = reviews.getInstructorReviewById(review.getUid());
-//        assertNotNull(review);
 //    }
+//
 //
 //    @Test
 //    public void testAddInstructorReview() {
 //        reviews = new AccessReviews();
 //        Instructor inst = new Instructor("Abc", "2", "3");
 //        InstructorReview newReview = new InstructorReview(inst,"xyz",1,2,null);
-//        reviews.addInstructorReview(newReview);
+//        reviews.addReview(newReview);
 //        List<InstructorReview> reviewList1 = reviews.getReviewsFor(inst);
 //        assertEquals(newReview.getComment(), reviewList1.get(0).getComment());
 //    }
@@ -62,36 +54,34 @@ public class AccessReviewsTest {
 //        reviews = new AccessReviews();
 //        Instructor inst = new Instructor("Abc", "2", "3");
 //        InstructorReview newReview = new InstructorReview(inst,"xyz",1,2,null);
-//        reviews.addInstructorReview(newReview);
-//        List<InstructorReview> reviewList1 = reviews.getReviewsFor(inst);
-//        assertEquals(newReview.getComment(), reviewList1.get(0).getComment());
+//        int b = reviews.getReviewsFor(inst).size();
+//        reviews.addReview(newReview);
 //
-//        reviews.deleteInstructorReview(newReview.getUid());
-//        reviewList1 = reviews.getReviewsFor(inst);
-//        reviewList1.get(0);
+//
+//        reviews.deleteReview(newReview);
+//        int i = reviews.getReviewsFor(inst).size();
+//        assert (b==i);
 //    }
-//
+
 //    @Test
 //    public void testAddCourseReview() {
 //        Instructor inst = new Instructor("Abc", "2", "3");
 //        Course c = new Course("a","b","c");
 //        CourseReview newReview1 = new CourseReview(c,"xyz",1,2,null);
-//        reviews.addCourseReview(newReview1);
+//        reviews.addReview(newReview1);
 //        List<InstructorReview> reviewList2 = reviews.getReviewsFor(inst);
 //        assertEquals(newReview1.getComment(), reviewList2.get(0).getComment());
 //    }
-//
+
 //    @Test
 //    public void testDeleteCourseReview() {
-//        Instructor inst = new Instructor("Abc", "2", "3");
 //        Course c = new Course("a", "b", "c");
 //        CourseReview newReview1 = new CourseReview(c, "xyz", 1, 2, null);
-//        reviews.addCourseReview(newReview1);
-//        List<InstructorReview> reviewList2 = reviews.getReviewsFor(inst);
+//        reviews.addReview(newReview1);
+//        List<CourseReview> reviewList2 = reviews.getReviewsFor(c);
 //        assertEquals(newReview1.getComment(), reviewList2.get(0).getComment());
 //
-//        reviews.deleteCourseReview(c.getCourseID());
-//        reviewList2 = reviews.getReviewsFor(inst);
-//        reviewList2.get(0);
+//        reviews.deleteReview(newReview1);
+//        assert(reviews.getReviewsFor(c).isEmpty());
 //    }
 }

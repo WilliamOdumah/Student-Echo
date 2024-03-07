@@ -63,7 +63,7 @@ public class ReviewsForItemActivity extends AppCompatActivity implements ReviewM
         // display list of reviews via adapter
         reviewsRecyclerView = findViewById(R.id.reviewsRecyclerView);
         reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        reviewsAdapter = new ReviewsAdapter(reviewList, user, this);
+        reviewsAdapter = new ReviewsAdapter(reviewList, user, this, accessReviews);
         reviewsRecyclerView.setAdapter(reviewsAdapter);
     }
 
@@ -73,7 +73,7 @@ public class ReviewsForItemActivity extends AppCompatActivity implements ReviewM
 
         // build adapter with new data
         reviewList = accessReviews.getReviewsFor(item);
-        reviewsAdapter = new ReviewsAdapter(reviewList, user,this);
+        reviewsAdapter = new ReviewsAdapter(reviewList, user,this, accessReviews);
         reviewsRecyclerView.setAdapter(reviewsAdapter);
 
         // update ratings

@@ -1,5 +1,11 @@
 package comp3350.student_echo.business.access;
 
+import android.util.Log;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import comp3350.student_echo.application.Services;
@@ -42,7 +48,22 @@ public class AccessReviews {
         return reviewPersistence.updateReview(updatedReview);
     }
 
-    public boolean addLike(Review r, StudentAccount sa) {
-        return reviewPersistence.addLike(r, sa);
+    public boolean addOrUpdateInteraction(Review r, StudentAccount sa, int newState) {
+        return reviewPersistence.addOrUpdateInteraction(r, sa, newState);
     }
+
+    public Integer getInteractionState(Review r, StudentAccount sa) {
+        return reviewPersistence.getInteractionState(r, sa);
+    }
+
+    public void updateLikeCount(Review r){
+        reviewPersistence.updateLikeCount(r);
+    }
+
+    public void updateDislikeCount(Review r){
+        reviewPersistence.updateDislikeCount(r);
+    }
+
+
+
 }
