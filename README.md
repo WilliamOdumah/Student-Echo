@@ -32,11 +32,11 @@ Student Echo is a dedicated service that enables verified students to provide an
 
 ## Coding Standards
 
-Our [coding standards]() for Student Echo.
+Our [coding standards] for Student Echo.
 
 ## Contribution Strategy 
 
-Our [contribution strategy]() for Student Echo.
+Our [contribution strategy] for Student Echo.
 
 ## Retrospectives
 
