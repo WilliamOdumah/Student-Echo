@@ -16,6 +16,6 @@ public interface ReviewPersistence {
     boolean updateReview(Review updatedReview);
     boolean addOrUpdateInteraction(Review r, StudentAccount sa, int newState);
     Integer getInteractionState(Review r, StudentAccount sa);
-    void updateLikeCount(Review r);
-    void updateDislikeCount(Review r);
+    default void updateLikeCount(Review r){};
+    default void updateDislikeCount(Review r){};
 }

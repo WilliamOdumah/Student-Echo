@@ -25,7 +25,7 @@ public class Services {
     private static DepartmentPersistence departmentPersistence = null;
 
     //Make this false to use Stub
-    private static boolean hsqlDataBase=false;
+    private static boolean hsqlDataBase=true;
 
 	public static synchronized InstructorPersistence getInstructorPersistence() {
 		if (instructorPersistence == null) {
