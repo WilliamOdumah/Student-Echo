@@ -3,8 +3,6 @@ package comp3350.student_echo.tests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import comp3350.student_echo.business.CourseValidator;
-import comp3350.student_echo.business.InstructorValidator;
 import comp3350.student_echo.tests.business.AccessAccountsTest;
 import comp3350.student_echo.tests.business.AccessCoursesTest;
 import comp3350.student_echo.tests.business.AccessInstructorsTest;
