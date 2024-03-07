@@ -10,7 +10,7 @@ import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.persistence.InstructorPersistence;
 
 public class InstructorPersistenceStub implements InstructorPersistence {
-    private static int nextInstID = 10000;
+    private static int nextInstID = 1;
     private final Map<Integer, Instructor> instructorMap;
 
     public InstructorPersistenceStub() {
@@ -41,4 +41,6 @@ public class InstructorPersistenceStub implements InstructorPersistence {
         instructorMap.put(id, newInst);
         newInst.setID(id);
     }
+
+    public static void resetID() {nextInstID = 1;}
 }
