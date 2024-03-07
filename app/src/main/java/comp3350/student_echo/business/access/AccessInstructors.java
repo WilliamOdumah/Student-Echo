@@ -12,14 +12,18 @@ import comp3350.student_echo.business.Exceptions.InvalidInstructorException;
 import comp3350.student_echo.business.InstructorValidator;
 import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
+import comp3350.student_echo.persistence.CoursePersistence;
 import comp3350.student_echo.persistence.InstructorPersistence;
 
 public class AccessInstructors implements AccessReviewableItems, Serializable {
-	private final InstructorPersistence instructorPersistence;
+	private InstructorPersistence instructorPersistence;
 
 	public AccessInstructors() {
 		instructorPersistence = Services.getInstructorPersistence(true);
 	}
+    public AccessInstructors(final InstructorPersistence persistence) {
+        instructorPersistence = persistence;
+    }
 
     public List<Instructor> getInstructors() {
         List<Instructor> instructors = instructorPersistence.getInstructorSequential();

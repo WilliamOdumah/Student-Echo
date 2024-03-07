@@ -2,10 +2,8 @@ package comp3350.student_echo.persistence.stubs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import comp3350.student_echo.objects.reviewableItems.Course;
 import comp3350.student_echo.objects.reviewableItems.Instructor;
@@ -32,20 +30,20 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         Instructor instructor1 = new Instructor("Dr.", "Gary", "Chalmers");
         Instructor instructor2 = new Instructor("Professor", "Mary", "Bailey");
 
-        reviews.add(new Review(course1, "Great introductory course!", 5, 2,fakeUser,0,0));
-        reviews.add(new Review(course1, "Tough but rewarding.", 4, 3,fakeUser,0,0));
-        Review review1 =new Review(course2, "BLOCKCHAINS!", 5, 5,fakeUser,5,1);
+        reviews.add(new Review(course1, "Great introductory course!", 5, 2,fakeUser));
+        reviews.add(new Review(course1, "Tough but rewarding.", 4, 3,fakeUser));
+        Review review1 =new Review(course2, "BLOCKCHAINS!", 5, 5,fakeUser);
         reviews.add(review1);
-        reviews.add(new Review(course2, "Blinky blink blink", 3, 5,fakeUser,0,0));
+        reviews.add(new Review(course2, "Blinky blink blink", 3, 5,fakeUser));
 
         Map<StudentAccount, Integer> interactions = new HashMap<>();
         interactions.put(fakeUser, 1);
         reviewInteractions.put(review1,interactions);
 
-        reviews.add(new Review(instructor1, "Very knowledgeable and helpful.", 5, 3,fakeUser,0,0));
-        reviews.add(new Review(instructor1, "Challenging exams, but fair.", 4, 4,fakeUser,0,0));
-        reviews.add(new Review(instructor2, "She is a great prof", 5, 3,fakeUser,0,0));
-        reviews.add(new Review(instructor2, "She gave me a 0 on my the assignment", 1, 5,fakeUser,0,0));
+        reviews.add(new Review(instructor1, "Very knowledgeable and helpful.", 5, 3,fakeUser));
+        reviews.add(new Review(instructor1, "Challenging exams, but fair.", 4, 4,fakeUser));
+        reviews.add(new Review(instructor2, "She is a great prof", 5, 3,fakeUser));
+        reviews.add(new Review(instructor2, "She gave me a 0 on my the assignment", 1, 5,fakeUser));
     }
 
     @Override

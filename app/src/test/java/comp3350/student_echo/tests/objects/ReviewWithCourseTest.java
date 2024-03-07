@@ -10,7 +10,7 @@ import comp3350.student_echo.objects.reviewableItems.Course;
 import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.StudentAccount;
 
-public class CourseReviewTest {
+public class ReviewWithCourseTest {
     private Course course;
     private StudentAccount author;
     private Review courseReview;

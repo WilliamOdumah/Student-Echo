@@ -10,9 +10,9 @@ import comp3350.student_echo.tests.business.AccessReviewsTest;
 import comp3350.student_echo.tests.business.LoginManagerTest;
 import comp3350.student_echo.tests.business.AverageCalculatorTest;
 import comp3350.student_echo.tests.business.StudentAccountManagerTest;
-import comp3350.student_echo.tests.objects.CourseReviewTest;
+import comp3350.student_echo.tests.objects.ReviewWithCourseTest;
 import comp3350.student_echo.tests.objects.CourseTest;
-import comp3350.student_echo.tests.objects.InstructorReviewTest;
+import comp3350.student_echo.tests.objects.ReviewWithInstructorTest;
 import comp3350.student_echo.tests.objects.InstructorTest;
 import comp3350.student_echo.tests.objects.ReviewTest;
 import comp3350.student_echo.tests.objects.StudentAccountTest;
@@ -30,9 +30,9 @@ import comp3350.student_echo.tests.objects.StudentAccountTest;
         AccessReviewsTest.class,
 
         // objects
-        CourseReviewTest.class,
+        ReviewWithCourseTest.class,
         CourseTest.class,
-        InstructorReviewTest.class,
+        ReviewWithInstructorTest.class,
         InstructorTest.class,
         ReviewTest.class,
         StudentAccountTest.class
