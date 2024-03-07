@@ -15,8 +15,8 @@ public class Review implements Serializable {
     private int dislikes;
 
     // constructor for new Review creation
-    public Review(ReviewableItem item, String comment, int overallRating, int difficultyRating, StudentAccount author) {
-        this(-1, item, comment, overallRating, difficultyRating, author, 0, 0);
+    public Review(ReviewableItem item, String comment, int overallRating, int difficultyRating, StudentAccount author, int likes, int dislikes) {
+        this(-1, item, comment, overallRating, difficultyRating, author, likes, dislikes);
     }
 
     // constructor for building Review from Persistence

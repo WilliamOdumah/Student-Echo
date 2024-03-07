@@ -36,14 +36,14 @@ public class AccessReviewsTest {
     public void testAddReview() {
         // add review with instructor
         Instructor inst = new Instructor("Abc", "2", "3");
-        Review r1 = new Review(inst,"xyz",1,2,null);
+        Review r1 = new Review(inst,"xyz",1,2,null,0,0);
         accessReviews.addReview(r1);
         List<Review> l1 = accessReviews.getReviewsFor(inst);
         assertEquals(r1.getComment(), l1.get(0).getComment());
 
         // add review with course
         Course course = new Course("dep","cour1234","name");
-        Review r2 = new Review(course, "yooo", 5, 3, null);
+        Review r2 = new Review(course, "yooo", 5, 3, null,0,0);
         accessReviews.addReview(r2);
         List<Review> l2 = accessReviews.getReviewsFor(course);
         assertEquals(r2.getComment(), l2.get(0).getComment());
@@ -53,7 +53,7 @@ public class AccessReviewsTest {
     public void testDeleteReview() {
         // test with Instructor
         Instructor inst = new Instructor("Abc", "2", "3");
-        Review newReview = new Review(inst,"xyz",1,2,null);
+        Review newReview = new Review(inst,"xyz",1,2,null,0,0);
         int sizeBefore = accessReviews.getReviewsFor(inst).size();
 
         accessReviews.addReview(newReview);
@@ -64,7 +64,7 @@ public class AccessReviewsTest {
 
         // test with Course
         Course course = new Course("dept", "comp1111", "courseName");
-        newReview = new Review(course, "yooo", 4,4,null);
+        newReview = new Review(course, "yooo", 4,4,null,0,0);
         sizeBefore = accessReviews.getReviewsFor(course).size();
 
         accessReviews.addReview(newReview);

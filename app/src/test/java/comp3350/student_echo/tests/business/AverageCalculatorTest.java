@@ -19,15 +19,15 @@ public class AverageCalculatorTest {
         courseReviews = new ArrayList<>();
         instructorReviews = new ArrayList<>();
 
-        courseReviews.add(new Review(null, "", 1, 2,null));
-        courseReviews.add(new Review(null, "", 2, 2,null));
-        courseReviews.add(new Review(null, "", 5, 3,null));
-        courseReviews.add(new Review(null, "", 5, 3,null));
+        courseReviews.add(new Review(null, "", 1, 2,null,0,0));
+        courseReviews.add(new Review(null, "", 2, 2,null,0,0));
+        courseReviews.add(new Review(null, "", 5, 3,null,0,0));
+        courseReviews.add(new Review(null, "", 5, 3,null,0,0));
 
-        instructorReviews.add(new Review(null, "", 1, 2,null));
-        instructorReviews.add(new Review(null, "", 2, 2,null));
-        instructorReviews.add(new Review(null, "", 5, 3,null));
-        instructorReviews.add(new Review(null, "", 5, 3,null));
+        instructorReviews.add(new Review(null, "", 1, 2,null,0,0));
+        instructorReviews.add(new Review(null, "", 2, 2,null,0,0));
+        instructorReviews.add(new Review(null, "", 5, 3,null,0,0));
+        instructorReviews.add(new Review(null, "", 5, 3,null,0,0));
     }
 
     @Test

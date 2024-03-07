@@ -23,8 +23,8 @@ public class ReviewTest {
         course = new Course("Science", "COMP3010", "Distributed Systems");
         instructor = new Instructor("Internet Friend", "Rob", "Guderian");
         author = new StudentAccount("kelly", "villamayor", "villamak@myumanitoba.ca");
-        courseReview = new Review(course,"mid", 3, 4, author);
-        instructorReview = new Review(instructor, "a very good farmer", 4, 3, author);
+        courseReview = new Review(course,"mid", 3, 4, author,0,0);
+        instructorReview = new Review(instructor, "a very good farmer", 4, 3, author,0,0);
     }
 
     @Test

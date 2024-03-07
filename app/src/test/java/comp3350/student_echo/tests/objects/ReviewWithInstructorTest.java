@@ -19,7 +19,7 @@ public class ReviewWithInstructorTest {
     public void before() {
         instructor = new Instructor("Internet Friend", "Rob", "Guderian");
         author = new StudentAccount("kelly", "villamayor", "villamak@myumanitoba.ca");
-        instructorReview = new Review(instructor, "a very good farmer", 4, 3, author);
+        instructorReview = new Review(instructor, "a very good farmer", 4, 3, author,0,0);
     }
 
     @Test

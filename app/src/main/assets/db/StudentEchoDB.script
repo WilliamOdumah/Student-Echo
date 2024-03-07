@@ -25,20 +25,56 @@ INSERT INTO DEPARTMENTS VALUES('ECON')
 INSERT INTO DEPARTMENTS VALUES('HNSC')
 INSERT INTO DEPARTMENTS VALUES('MATH')
 INSERT INTO DEPARTMENTS VALUES('STAT')
+INSERT INTO COURSES VALUES ('COMP1010','Introduction to Computer Science 1','CS')
+INSERT INTO COURSES VALUES ('COMP1020','Introduction Computer Science 2','CS')
+INSERT INTO COURSES VALUES ('COMP2080','Analysis of Algorithms','CS')
+INSERT INTO COURSES VALUES ('COMP2140','Data Structures and Algorithms','CS')
+INSERT INTO COURSES VALUES ('COMP2160','Programming Practices','CS')
 INSERT INTO COURSES VALUES ('COMP3010','Distributed Computing','CS')
 INSERT INTO COURSES VALUES ('COMP3020','Human-Computer Interaction','CS')
 INSERT INTO COURSES VALUES ('COMP3350','Software Development','CS')
 INSERT INTO COURSES VALUES ('COMP3380','Databases','CS')
-INSERT INTO INSTRUCTORS VALUES (1,'Professor','John','Doe')
-INSERT INTO INSTRUCTORS VALUES (2,'Dr.','Peter','Smith')
-INSERT INTO INSTRUCTORS VALUES (3,'Professor','Jane','Doe')
-INSERT INTO INSTRUCTORS VALUES (4,'Dr.','Suzanne','Walker')
+INSERT INTO COURSES VALUES ('COMP4620','Professional Practice in Computer Science','CS')
+INSERT INTO COURSES VALUES ('COMP4350','Software Engineering 2','CS')
+INSERT INTO INSTRUCTORS VALUES (1,'Dr.','Gary','Chalmers')
+INSERT INTO INSTRUCTORS VALUES (2,'Sir','Selma','Bouvier')
+INSERT INTO INSTRUCTORS VALUES (3,'Instructor','Arnie','Pye')
+INSERT INTO INSTRUCTORS VALUES (4,'Professor','Mary','Bailey')
+INSERT INTO INSTRUCTORS VALUES (5,'Associated Professor','Emily','Davis')
+INSERT INTO INSTRUCTORS VALUES (6,'Associated Professor','Olivia','Wilson')
+INSERT INTO INSTRUCTORS VALUES (7,'Dean','John','Brown')
+INSERT INTO INSTRUCTORS VALUES (8,'Professor','Robert','Guderian')
 INSERT INTO ACCOUNTS VALUES ('william','odumah','william@myumanitoba.ca')
 INSERT INTO ACCOUNTS VALUES ('kelly','villamayor','kelly@myumanitoba.ca')
 INSERT INTO ACCOUNTS VALUES ('rishamdeep','singh','risham@myumanitoba.ca')
 INSERT INTO ACCOUNTS VALUES ('ning','liu','ning@myumanitoba.ca')
 INSERT INTO ACCOUNTS VALUES ('brett','aseltine','brett@myumanitoba.ca')
 INSERT INTO ACCOUNTS VALUES ('with','sql','12@myumanitoba.ca')
-INSERT INTO COURSE_REVIEWS VALUES (1,'COMP3010','brett@myumanitoba.ca','this course is great',5,4,2,4)
-INSERT INTO INSTRUCTOR_REVIEWS VALUES (1,1,'brett@myumanitoba.ca','this instructor is no good',1,5,1,3)
-INSERT INTO INTERACTIONS_COURSE_REVIEW('brett@myumanitoba.ca',1,1)
+INSERT INTO ACCOUNTS VALUES ('fake','fakepassword','fake@myumanitoba.ca')
+INSERT INTO COURSE_REVIEWS VALUES (1,'COMP1010','fake','Great introductory course!',5,2,2,4)
+INSERT INTO COURSE_REVIEWS VALUES (2,'COMP3010','fake','BLOCKCHAINS!',5,5,2,4)
+INSERT INTO COURSE_REVIEWS VALUES (3,'COMP1010','fake','Tough but rewarding.',4,3,2,4)
+INSERT INTO COURSE_REVIEWS VALUES (4,'COMP3010','fake','Blinky blink blink',3,5,1,3)
+INSERT INTO COURSE_REVIEWS VALUES (5,'COMP1020','fake','Well structured and informative.',4,4,3,1);
+INSERT INTO COURSE_REVIEWS VALUES (6,'COMP1020','fake','Requires lots of practice.',3,5,5,2);
+INSERT INTO COURSE_REVIEWS VALUES (7,'COMP2080','fake','Challenging but extremely rewarding.',5,5,6,0);
+INSERT INTO COURSE_REVIEWS VALUES (8,'COMP2080','fake','Great material, tough exams.',4,4,4,3);
+INSERT INTO COURSE_REVIEWS VALUES (9,'COMP2140','fake','Essential for computer science students.',5,3,7,1);
+INSERT INTO COURSE_REVIEWS VALUES (10,'COMP2140','fake','Very hard to follow.',2,5,1,5);
+INSERT INTO COURSE_REVIEWS VALUES (11,'COMP2160','fake','Good for practical programming skills.',4,3,0,0);
+INSERT INTO COURSE_REVIEWS VALUES (12,'COMP2160','fake','Not as easy as expected.',3,4,2,2);
+INSERT INTO COURSE_REVIEWS VALUES (13,'COMP3020','fake','Fascinating insights into HCI.',5,2,9,0);
+INSERT INTO COURSE_REVIEWS VALUES (14,'COMP3020','fake','More theory than anticipated.',3,3,3,1);
+INSERT INTO COURSE_REVIEWS VALUES (15,'COMP3350','fake','Great introduction to software engineering principles.',4,3,10,2);
+INSERT INTO COURSE_REVIEWS VALUES (16,'COMP3350','fake','Project work was very insightful.',4,3,11,0);
+INSERT INTO COURSE_REVIEWS VALUES (17,'COMP3380','fake','Databases made interesting and accessible.',5,2,5,0);
+INSERT INTO COURSE_REVIEWS VALUES (18,'COMP3380','fake','The workload was a bit much.',3,4,2,3);
+INSERT INTO COURSE_REVIEWS VALUES (19,'COMP4620','fake','Perfect blend of theory and practice.',5,3,4,1);
+INSERT INTO COURSE_REVIEWS VALUES (20,'COMP4620','fake','Valuable for my professional development.',5,2,6,1);
+INSERT INTO COURSE_REVIEWS VALUES (21,'COMP4350','fake','Excellent course for future software developers.',5,3,7,0);
+INSERT INTO COURSE_REVIEWS VALUES (22,'COMP4350','fake','Intense but highly beneficial.',4,5,3,2);
+INSERT INTO INSTRUCTOR_REVIEWS VALUES (1,1,'fake','Not very helpful.',1,3,10,2)
+INSERT INTO INSTRUCTOR_REVIEWS VALUES (2,1,'fake','Challenging exams, but fair.',4,4,1,2)
+INSERT INTO INSTRUCTOR_REVIEWS VALUES (3,8,'fake','He is a great prof',5,3,52,4)
+INSERT INTO INSTRUCTOR_REVIEWS VALUES (4,8,'fake','He gave me 100% on my 3350 project',5,5,1,2)
+INSERT INTO INTERACTIONS_COURSE_REVIEW('fake',1,1)

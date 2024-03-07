@@ -44,8 +44,13 @@ public class AccessInstructors implements AccessReviewableItems, Serializable {
         return instructorPersistence.getInstructor(instructorID);
     }
 
+    // default call
     public void addInstructor(Instructor newInst) throws InvalidInstructorException {
-        InstructorValidator.validateInstructor(newInst);	// throws InvalidInstructorException (upon invalid fields or dup)
+        addInstructor(newInst, instructorPersistence);
+    }
+    // dependency injection call
+    public void addInstructor(Instructor newInst, InstructorPersistence p) throws InvalidInstructorException {
+        InstructorValidator.validateInstructor(newInst, p); // throws InvalidInstructorException (upon invalid fields or dup)
         instructorPersistence.addInstructor(newInst);
     }
 

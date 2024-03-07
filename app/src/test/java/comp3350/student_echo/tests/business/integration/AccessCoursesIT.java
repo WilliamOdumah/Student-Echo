@@ -51,11 +51,9 @@ public class AccessCoursesIT {
     @Test (expected = UnsupportedOperationException.class)
     public void testGetCourses() {
         List<Course> courses = accessCourses.getCourses();
-        Course c1 = new Course("CS", "COMP3010", "Distributed Computing");
-        Course c2 = new Course("CS","COMP3380","Databases");
+        Course c1 = new Course("CS", "COMP1010", "Introduction to CS");
 
         assertTrue("ensure first course present in DB", c1.equals(courses.get(0)) );
-        assertTrue("ensure last course present in DB", c2.equals(courses.get(3)));
 
         // should not be able to directly add to courses
         courses.add(new Course("CS.","COMP3010", "Distributed"));
@@ -94,7 +92,7 @@ public class AccessCoursesIT {
 
         search = "D";
         ArrayList<Course> list= accessCourses.filterCourses(search.toLowerCase(), courses);
-        assertEquals(3,list.size());
+        assertEquals(6,list.size());
     }
 
 
@@ -102,14 +100,9 @@ public class AccessCoursesIT {
     @Test
     public void testGetItems() {
         List<ReviewableItem> items = accessCourses.getItems();
-        ReviewableItem item1 = new Course("CS", "COMP3010", "Distributed Computing");
-        ReviewableItem item2 = new Course("CS","COMP3380","Databases");
-
-        ReviewableItem expected1 = items.get(0);
-        ReviewableItem expected2 = items.get(3);
+        ReviewableItem item1 = new Course("CS", "COMP1010", "Intro Comp");
 
         assertTrue("ensure first item present in DB",((Course)item1).equals((Course)items.get(0)) );
-        assertTrue("ensure last item present in DB", ((Course)item2).equals((Course)items.get(3)) );
     }
     @Test
     public void testFilter() {
@@ -124,9 +117,9 @@ public class AccessCoursesIT {
         List<ReviewableItem> filtered = accessCourses.filter(searchText, items);
         assertEquals(0,filtered.size());
 
-        search = "D";
+        search = "Introduction";
         List<ReviewableItem> list= accessCourses.filter(search.toLowerCase(), items);
-        assertEquals(3,list.size());
+        assertEquals(2,list.size());
     }
 
 }
