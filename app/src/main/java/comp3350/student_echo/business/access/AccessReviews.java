@@ -8,7 +8,6 @@ import comp3350.student_echo.objects.reviewableItems.Course;
 import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.objects.Review;
 import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
-import comp3350.student_echo.persistence.CoursePersistence;
 import comp3350.student_echo.persistence.ReviewPersistence;
 
 public class AccessReviews {
