@@ -166,16 +166,6 @@ public class ReviewPersistenceStub implements ReviewPersistence {
         return 0; // Return 0 if there are no interactions for this review
     }
 
-    @Override
-    public void updateLikeCount(Review r) {
-
-    }
-
-    @Override
-    public void updateDislikeCount(Review r) {
-
-    }
-
     private int findReviewIndexById(int reviewId) {
         for (int i = 0; i < reviews.size(); i++) {
             if (reviews.get(i).getUid() == reviewId) {
