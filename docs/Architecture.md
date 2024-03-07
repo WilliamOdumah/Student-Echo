@@ -70,6 +70,6 @@ ReviewPersistenceStub
 
 ### Iteration 2 Diagram
 
-![Architecture](https://code.cs.umanitoba.ca/comp3350-winter2024/KeyValuePairs-a02-8/-/blob/main/docs/Iteration%202/Architecture2.png?ref_type=heads)
+![Architecture](Iteration%202/Architecture2.png)
 
 ### Iteration 3 Diagram
