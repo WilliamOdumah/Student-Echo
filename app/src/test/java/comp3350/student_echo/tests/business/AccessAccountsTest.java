@@ -10,6 +10,8 @@ import java.util.List;
 
 import comp3350.student_echo.business.access.AccessAccounts;
 import comp3350.student_echo.objects.StudentAccount;
+import comp3350.student_echo.persistence.AccountPersistence;
+import comp3350.student_echo.persistence.stubs.AccountPersistenceStub;
 
 public class AccessAccountsTest {
 
@@ -17,7 +19,8 @@ public class AccessAccountsTest {
 
     public AccessAccountsTest() {
 
-        accessAccounts = new AccessAccounts();
+        AccountPersistence stub = new AccountPersistenceStub();
+        accessAccounts = new AccessAccounts(stub);
 
         getAccountsTest(); // testing on unmodified stub
         getAccountTest();
