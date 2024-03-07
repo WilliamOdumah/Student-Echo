@@ -13,7 +13,7 @@ public class AccessDepartments {
 
 
     public AccessDepartments(){
-        departmentPersistence = Services.getDepartmentPersistence(true);
+        departmentPersistence = Services.getDepartmentPersistence();
         departmentList = null;
     }
 

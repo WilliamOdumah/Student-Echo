@@ -26,10 +26,12 @@ public class Services {
 
     private static DepartmentPersistence departmentPersistence = null;
 
+    //Make this false to use Stub
+    private static boolean hsqlDataBase=true;
 
-	public static synchronized InstructorPersistence getInstructorPersistence(boolean forProduction) {
+	public static synchronized InstructorPersistence getInstructorPersistence() {
 		if (instructorPersistence == null) {
-            if(forProduction) {
+            if(hsqlDataBase) {
                 instructorPersistence = new InstructorPersistenceHSQLDB(Main.getDBPathName());
             } else {
                 instructorPersistence = new InstructorPersistenceStub();
@@ -38,9 +40,9 @@ public class Services {
         return instructorPersistence;
 	}
 
-    public static synchronized CoursePersistence getCoursePersistence(boolean forProduction) {
+    public static synchronized CoursePersistence getCoursePersistence() {
         if (coursePersistence == null) {
-            if(forProduction) {
+            if(hsqlDataBase) {
                 coursePersistence = new CoursePersistenceHSQLDB(Main.getDBPathName());
             }
             else {
@@ -50,9 +52,9 @@ public class Services {
         return coursePersistence;
     }
 
-    public static synchronized ReviewPersistence getReviewPersistence(boolean forProduction) {
+    public static synchronized ReviewPersistence getReviewPersistence() {
         if(reviewPersistence == null){
-            if(forProduction) {
+            if(hsqlDataBase) {
                 reviewPersistence = new ReviewPersistenceHSQLDB(Main.getDBPathName());
             }
             else {
@@ -62,9 +64,9 @@ public class Services {
         return reviewPersistence;
     }
 
-    public static synchronized AccountPersistence getAccountPersistence(boolean forProduction) {
+    public static synchronized AccountPersistence getAccountPersistence() {
         if (accountPersistence == null) {
-            if (forProduction){
+            if (hsqlDataBase){
                 accountPersistence = new AccountPersistenceHSQLDB(Main.getDBPathName());
             }else{
                 accountPersistence = new AccountPersistenceStub();
@@ -72,14 +74,21 @@ public class Services {
         }
         return accountPersistence;
     }
-    public static synchronized DepartmentPersistence getDepartmentPersistence(boolean forProduction) {
+    public static synchronized DepartmentPersistence getDepartmentPersistence() {
         if (departmentPersistence == null) {
-            if (forProduction){
+            if (hsqlDataBase){
                 departmentPersistence = new DepartmentPersistenceHSQLDB(Main.getDBPathName());
             }else{
                 departmentPersistence = new DepartmentPersistenceStub();
             }
         }
         return departmentPersistence;
+    }
+
+    public static synchronized void useHsql(){
+        hsqlDataBase=true;
+    }
+    public static synchronized void useStub(){
+        hsqlDataBase=false;
     }
 }
