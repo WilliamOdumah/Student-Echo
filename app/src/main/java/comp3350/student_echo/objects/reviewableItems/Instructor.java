@@ -25,7 +25,7 @@ public class Instructor implements Serializable,ReviewableItem {
 	public void setID(int id){this.instructorID = id;}
 
 	public boolean equals(Instructor i) {
-		return this.firstName.equals(i.firstName) && this.lastName.equals(i.lastName);
+		return this.title.equals(i.title) && this.firstName.equals(i.firstName) && this.lastName.equals(i.lastName);
 	}
 
 	// IMPLEMENTATION OF REVIEWABLE ITEM

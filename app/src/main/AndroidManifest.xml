@@ -8,11 +8,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".presentation.ItemActivity"
+            android:name=".presentation.AddInstructorActivity"
             android:exported="false" />
-<!--        <activity android:name=".presentation.AddCourseActivity"-->
-<!--            android:exported="false"/>-->
-
+        <activity
+            android:name=".presentation.ItemActivity"
+            android:exported="false" /> <!-- <activity android:name=".presentation.AddCourseActivity" -->
+        <!-- android:exported="false"/> -->
         <activity
             android:name=".presentation.displayReviews.ReviewsForItemActivity"
             android:exported="false" />
@@ -49,12 +50,12 @@
             android:exported="true"
             android:label="StudentEcho: New Course"
             android:parentActivityName=".presentation.ItemActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
 
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
         <activity android:name=".presentation.displayReviews.WriteReviewActivity" />
         <activity android:name=".presentation.displayReviews.EditReviewActivity" />
     </application>
