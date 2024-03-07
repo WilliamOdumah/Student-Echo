@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import comp3350.student_echo.application.Services;
+import comp3350.student_echo.business.CourseValidator;
+import comp3350.student_echo.business.Exceptions.InvalidInstructorException;
+import comp3350.student_echo.business.InstructorValidator;
 import comp3350.student_echo.objects.reviewableItems.Instructor;
 import comp3350.student_echo.objects.reviewableItems.ReviewableItem;
 import comp3350.student_echo.persistence.InstructorPersistence;
@@ -35,9 +38,13 @@ public class AccessInstructors implements AccessReviewableItems, Serializable {
         return filteredInstructor;
     }
 
-    // TODO
     public Instructor getInstructor(int instructorID) {
         return instructorPersistence.getInstructor(instructorID);
+    }
+
+    public void addInstructor(Instructor newInst) throws InvalidInstructorException {
+        InstructorValidator.validateInstructor(newInst);	// throws InvalidInstructorException (upon invalid fields or dup)
+        instructorPersistence.addInstructor(newInst);
     }
 
     @Override

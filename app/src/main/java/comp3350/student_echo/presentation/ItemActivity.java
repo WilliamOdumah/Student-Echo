@@ -31,6 +31,7 @@ public class ItemActivity extends AppCompatActivity {
 
     private AccessReviewableItems accessReviewableItems;
     private List<ReviewableItem> itemList;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class ItemActivity extends AppCompatActivity {
         // obtain type from parent
         // NOTE: we could have used factory design pattern here to make code more extendable,
         //       but because we only have 2 types it was not worth the additional complexity.
-        String type = getIntent().getStringExtra("Type");
+        type = getIntent().getStringExtra("Type");
         switch(type) {
             case "Course":
                 accessReviewableItems = new AccessCourses();
@@ -51,7 +52,30 @@ public class ItemActivity extends AppCompatActivity {
             default:
                 throw new IllegalArgumentException();
         }
+
+        // display items
         itemList = accessReviewableItems.getItems();
+        setAdapter(itemList);
+
+        // set interactive functionality
+        setListClickAction();
+        setSearchAction();
+
+        // display type in add button
+        TextView buttonTV = (TextView) findViewById(R.id.addItem);
+        String buttonText = "Add New " + type;
+        buttonTV.setText(buttonText);
+    }
+
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        setContentView(R.layout.activity_item);
+
+        // update content
+        itemList = accessReviewableItems.getItems();
+        setAdapter(itemList);
 
         // set interactive functionality
         setListClickAction();
@@ -66,10 +90,6 @@ public class ItemActivity extends AppCompatActivity {
     private void setListClickAction() {
         // obtain listView
         final ListView listView = (ListView) findViewById(R.id.listItems);
-
-        // set adapter for listView
-        ArrayAdapter<ReviewableItem> adapter = buildAdapter(itemList);
-        listView.setAdapter(adapter);
 
         // set listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -96,8 +116,7 @@ public class ItemActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String searchText = charSequence.toString().toLowerCase();
                 List<ReviewableItem> filteredList = accessReviewableItems.filter(searchText, itemList);
-                ArrayAdapter<ReviewableItem> filterAdapter = buildAdapter(filteredList);
-                listView.setAdapter(filterAdapter);
+                setAdapter(filteredList);
             }
             @Override
             public void afterTextChanged(Editable editable) {}
@@ -105,9 +124,21 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     public void buttonAddItemOnClick(View v) {
-        // go to new page to add (can do addCourse + addInstructor, or a general addItem page)
         // Note: since entering new page, let that page deal with
         // calling access to update the DB.
+        if(type.equals("Course")) {
+            Intent newCourseIntent = new Intent(ItemActivity.this, AddCourseActivity.class);
+            ItemActivity.this.startActivity(newCourseIntent);
+        } else if(type.equals("Instructor")) {
+            Intent newInstructorIntent = new Intent(ItemActivity.this, AddInstructorActivity.class);
+            ItemActivity.this.startActivity(newInstructorIntent);
+        }
+    }
+
+    private void setAdapter(List<ReviewableItem> list) {
+        final ListView listView = (ListView) findViewById(R.id.listItems);
+        ArrayAdapter<ReviewableItem> adapter = buildAdapter(itemList);
+        listView.setAdapter(adapter);
     }
 
     private ArrayAdapter<ReviewableItem> buildAdapter(List<ReviewableItem> list) {
@@ -130,6 +161,14 @@ public class ItemActivity extends AppCompatActivity {
         };
     }
 
+    public void onBackPressed(){
+
+        Intent newIntent= new Intent(ItemActivity.this, HomeActivity.class);
+        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ItemActivity.this.startActivity(newIntent);
+        finish();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_home, menu);
@@ -148,7 +187,8 @@ public class ItemActivity extends AppCompatActivity {
                 ItemActivity.this.startActivity(logoutIntent);
                 return true;
             case R.id.accountSettings:
-                //to be added
+                Intent newIntent= new Intent(ItemActivity.this, UserActivity.class);
+                ItemActivity.this.startActivity(newIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

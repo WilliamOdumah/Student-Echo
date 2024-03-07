@@ -43,7 +43,8 @@ public class HomeActivity extends AppCompatActivity {
                 HomeActivity.this.startActivity(logoutIntent);
                 return true;
             case R.id.accountSettings:
-                //to be added
+                Intent newIntent= new Intent(HomeActivity.this, UserActivity.class);
+                HomeActivity.this.startActivity(newIntent);
                 return true;
             default:
             return super.onOptionsItemSelected(item);

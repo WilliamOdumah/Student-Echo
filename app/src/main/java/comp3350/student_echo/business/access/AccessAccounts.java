@@ -36,4 +36,12 @@ public class AccessAccounts {
 
         return null;
     }
+
+    public boolean updateAccount(StudentAccount studentAccount) {
+        return accountPersistence.updateAccount(studentAccount);
+    }
+
+    public boolean deleteAccount(StudentAccount studentAccount) {
+        return accountPersistence.deleteAccount(studentAccount);
+    }
 }

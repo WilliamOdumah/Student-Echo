@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import comp3350.student_echo.R;
-import comp3350.student_echo.business.LoginManager;
 import comp3350.student_echo.business.StudentAccountManager;
 import comp3350.student_echo.objects.StudentAccount;
 
@@ -47,7 +46,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         if(studentAccount != null) {
             System.out.println("Successfully created your account!");
-            boolean success = LoginManager.performLogin(username, password);
             SignUpActivity.this.startActivity(signUpIntent);
         } else {
             Toast.makeText(this, "Uh oh! Looks something went wrong with creating your account. Please try again!",Toast.LENGTH_LONG).show();
