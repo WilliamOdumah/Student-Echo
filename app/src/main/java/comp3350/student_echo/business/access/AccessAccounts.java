@@ -41,6 +41,18 @@ public class AccessAccounts {
 
         return null;
     }
+    public StudentAccount getAccountUsingEmail(String email){
+        List<StudentAccount> accounts = accountPersistence.getAccountSequential();
+        StudentAccount currentAccount;
+
+        for (int i=0; i<accounts.size();i++){
+            currentAccount=accounts.get(i);
+            if(currentAccount.getEmail().equals(email))
+                return currentAccount;
+        }
+
+        return null;
+    }
 
     public boolean updateAccount(StudentAccount studentAccount) {
         return accountPersistence.updateAccount(studentAccount);

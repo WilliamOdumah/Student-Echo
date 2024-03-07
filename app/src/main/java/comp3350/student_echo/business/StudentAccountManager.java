@@ -45,7 +45,7 @@ public class StudentAccountManager {
 
     // there should be no account with the same email
     public boolean verifyUniqueness(String email) {
-        return email != null && !email.equals("") && accountsData.getAccount(email) == null;
+        return accountsData.getAccountUsingEmail(email) == null;
     }
 
     public boolean verifyPassword(String password, String confirmPass) {

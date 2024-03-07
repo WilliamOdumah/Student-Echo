@@ -33,10 +33,10 @@ public class LoginManagerTest {
 
     @Test
     public void testGetLoggedInUser() {
-        StudentAccount sa =sam.createAccount("yo@myumanitoba.ca", "new", "pass", "pass");
+        StudentAccount sa =sam.createAccount("yoNew@myumanitoba.ca", "newUser", "pass", "pass");
         assertNull("get null when no one logged in", LoginManager.getLoggedInUser());
 
-        LoginManager.performLogin("new", "pass");
+        LoginManager.performLogin("newUser", "pass");
         String user=LoginManager.getLoggedInUser().getUsername();
         String userSa=sa.getUsername();
         assert( userSa.equals(user));
