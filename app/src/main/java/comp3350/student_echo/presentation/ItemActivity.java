@@ -137,7 +137,7 @@ public class ItemActivity extends AppCompatActivity {
 
     private void setAdapter(List<ReviewableItem> list) {
         final ListView listView = (ListView) findViewById(R.id.listItems);
-        ArrayAdapter<ReviewableItem> adapter = buildAdapter(itemList);
+        ArrayAdapter<ReviewableItem> adapter = buildAdapter(list);
         listView.setAdapter(adapter);
     }
 
