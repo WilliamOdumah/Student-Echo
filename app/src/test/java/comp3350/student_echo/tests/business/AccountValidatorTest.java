@@ -6,16 +6,16 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import comp3350.student_echo.application.Services;
-import comp3350.student_echo.business.StudentAccountManager;
+import comp3350.student_echo.business.AccountValidator;
 import comp3350.student_echo.objects.StudentAccount;
 
-public class StudentAccountManagerTest {
-    StudentAccountManager sam;
+public class AccountValidatorTest {
+    AccountValidator sam;
     @Before
     public void before() {
 
         Services.useStub();
-        sam = new StudentAccountManager();
+        sam = new AccountValidator();
     }
 
     @After
@@ -34,11 +34,11 @@ public class StudentAccountManagerTest {
 
     @Test
     public void testVerifyEmail() {
-        assertTrue("ending with @myumanitoba.ca email is valid", sam.verifyEmail("abcdef@myumanitoba.ca"));
-        assertFalse("not ending with @umanitoba.ca is not valid", sam.verifyEmail("afcdef@ualberta.ca"));
-        assertFalse("need full @umanitoba", sam.verifyEmail("hello@uman.ca"));
-        assertFalse("Need prefix to @myumanitoba.ca", sam.verifyEmail("@myumanitoba.ca"));
-        assertFalse("need @ portion", sam.verifyEmail("testmyumanitoba.ca"));
+        assertTrue("ending with @myumanitoba.ca email is valid", sam.validEmail("abcdef@myumanitoba.ca"));
+        assertFalse("not ending with @umanitoba.ca is not valid", sam.validEmail("afcdef@ualberta.ca"));
+        assertFalse("need full @umanitoba", sam.validEmail("hello@uman.ca"));
+        assertFalse("Need prefix to @myumanitoba.ca", sam.validEmail("@myumanitoba.ca"));
+        assertFalse("need @ portion", sam.validEmail("testmyumanitoba.ca"));
     }
     @Test
     public void testVerifyUsername() {
@@ -46,9 +46,9 @@ public class StudentAccountManagerTest {
         sam.createAccount("email@myumanitoba.ca", "hello", "pass", "pass");
 
 
-        assertTrue("a new username can be created", sam.verifyUsername("newUsername"));
-        assertFalse("Reject an empty username", sam.verifyUsername(""));
-        assertFalse("Reject an null username", sam.verifyUsername(null));
+        assertTrue("a new username can be created", sam.validUsername("newUsername"));
+        assertFalse("Reject an empty username", sam.validUsername(""));
+        assertFalse("Reject an null username", sam.validUsername(null));
     }
 
     @Test
@@ -56,17 +56,17 @@ public class StudentAccountManagerTest {
     {
         StudentAccount sa=sam.createAccount("newemail@myumanitoba.ca", "newMan", "pass", "pass");
 
-        assertFalse("reject same email", sam.verifyUniqueness("newemail@myumanitoba.ca"));
+        assertFalse("reject same email", sam.uniqueEmail("newemail@myumanitoba.ca"));
         sam.deleteAccount(sa);
     }
 
     @Test
     public void testVerifyPassword() {
-        assertTrue("accept equal passwords", sam.verifyPassword("password", "password"));
-        assertFalse("Reject different word", sam.verifyPassword("hello", "there"));
-        assertFalse("Reject different case", sam.verifyPassword("PASSWORD", "password"));
-        assertFalse("Reject different spacing around", sam.verifyPassword(" yo ", "yo"));
-        assertFalse("Reject empty password", sam.verifyPassword("", ""));
-        assertFalse("Reject a null password", sam.verifyPassword(null, null));
+        assertTrue("accept equal passwords", sam.validPassword("password", "password"));
+        assertFalse("Reject different word", sam.validPassword("hello", "there"));
+        assertFalse("Reject different case", sam.validPassword("PASSWORD", "password"));
+        assertFalse("Reject different spacing around", sam.validPassword(" yo ", "yo"));
+        assertFalse("Reject empty password", sam.validPassword("", ""));
+        assertFalse("Reject a null password", sam.validPassword(null, null));
     }
 }

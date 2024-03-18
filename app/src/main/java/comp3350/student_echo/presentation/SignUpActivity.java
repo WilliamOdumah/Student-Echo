@@ -2,7 +2,6 @@ package comp3350.student_echo.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -10,17 +9,23 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import comp3350.student_echo.R;
+import comp3350.student_echo.business.Exceptions.InvalidAccountException;
 import comp3350.student_echo.business.LoginManager;
-import comp3350.student_echo.business.StudentAccountManager;
+import comp3350.student_echo.business.AccountValidator;
+import comp3350.student_echo.business.access.AccessAccounts;
 import comp3350.student_echo.objects.StudentAccount;
 
 public class SignUpActivity extends AppCompatActivity {
+
+    private AccessAccounts accessAccounts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_sign_up);
+
+        accessAccounts = new AccessAccounts();
     }
 
 
@@ -38,16 +43,18 @@ public class SignUpActivity extends AppCompatActivity {
         String password = inputPassword.getText().toString();
         String confirmPassword = inputConfirmPassword.getText().toString();
 
-        StudentAccountManager studentAccountManager = new StudentAccountManager();
-        StudentAccount studentAccount = studentAccountManager.createAccount(email, username, password, confirmPassword);
-
-        if(studentAccount != null) {
-            System.out.println("Successfully created your account!");
-            LoginManager.performLogin(username,password);
-            SignUpActivity.this.startActivity(signUpIntent);
-            finish();
-        } else {
-            Toast.makeText(this, "Uh oh! Looks something went wrong with creating your account. Please try again!",Toast.LENGTH_LONG).show();
+        try {
+            StudentAccount toAdd = new StudentAccount(username, password, confirmPassword, email);
+            accessAccounts.addAccount(toAdd);
+        } catch (InvalidAccountException e) {
+            // show why invalid
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        LoginManager.performLogin(username, password);
+        Toast.makeText(this, "Successfully created account!", Toast.LENGTH_LONG).show();
+        SignUpActivity.this.startActivity(signUpIntent);
+        finish();
     }
 }

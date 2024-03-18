@@ -3,7 +3,6 @@ package comp3350.student_echo.business;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import comp3350.student_echo.application.Services;
 import comp3350.student_echo.business.Exceptions.InvalidInstructorException;
 import comp3350.student_echo.business.access.AccessInstructors;
 import comp3350.student_echo.objects.reviewableItems.Instructor;
@@ -12,13 +11,7 @@ import comp3350.student_echo.persistence.InstructorPersistence;
 
 public class InstructorValidator {
 
-    // default call
-    public static void validateInstructor(Instructor inst) throws InvalidInstructorException {
-        validateInstructor(inst, Services.getInstructorPersistence());
-    }
-
-    // Dependency Injection call
-    public static void validateInstructor(Instructor inst, InstructorPersistence p){
+    public static void validateInstructor(Instructor inst, InstructorPersistence p) throws InvalidInstructorException {
         AccessInstructors accessInstructors = new AccessInstructors(p);
         if(instructorExists(inst, accessInstructors)) {
             throw new InvalidInstructorException(

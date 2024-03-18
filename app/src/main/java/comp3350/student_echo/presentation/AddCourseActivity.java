@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.student_echo.R;
-import comp3350.student_echo.business.AccessDepartments;
+import comp3350.student_echo.business.access.AccessDepartments;
 import comp3350.student_echo.business.Exceptions.InvalidCourseException;
 import comp3350.student_echo.business.LoginManager;
 import comp3350.student_echo.business.access.AccessCourses;

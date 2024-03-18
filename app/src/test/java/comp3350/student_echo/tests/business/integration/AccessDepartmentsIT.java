@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 import comp3350.student_echo.application.Services;
-import comp3350.student_echo.business.AccessDepartments;
+import comp3350.student_echo.business.access.AccessDepartments;
 import comp3350.student_echo.objects.Department;
 import comp3350.student_echo.tests.utils.TestUtils;
 

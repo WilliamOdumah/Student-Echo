@@ -6,19 +6,19 @@ import static org.junit.Assert.*;
 
 import comp3350.student_echo.application.Services;
 import comp3350.student_echo.business.LoginManager;
-import comp3350.student_echo.business.StudentAccountManager;
+import comp3350.student_echo.business.AccountValidator;
 import comp3350.student_echo.business.access.AccessAccounts;
 import comp3350.student_echo.objects.StudentAccount;
 
 public class LoginManagerTest {
 
     private AccessAccounts accounts;
-    private StudentAccountManager sam;
+    private AccountValidator sam;
     @Before
     public void setUp(){
         Services.useStub();
         accounts=new AccessAccounts();
-        sam=new StudentAccountManager();
+        sam=new AccountValidator();
     }
     @Test
     public void testLogin() {
