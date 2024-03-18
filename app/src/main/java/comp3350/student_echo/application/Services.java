@@ -21,7 +21,6 @@ public class Services {
 	private static CoursePersistence coursePersistence = null;
     private static AccountPersistence accountPersistence = null;
     private static ReviewPersistence reviewPersistence = null;
-
     private static DepartmentPersistence departmentPersistence = null;
 
     //Make this false to use Stub

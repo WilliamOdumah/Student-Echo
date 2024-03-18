@@ -79,8 +79,7 @@ public class LoginActivity extends AppCompatActivity {
             Main.setDBPathName(dataDirectory.toString() + "/" + Main.getDBPathName());
 
         } catch (final IOException ioe) {
-            //Messages.warning(this, "Unable to access application data: " + ioe.getMessage());
-            //TODO: UPDATE ERROR MESSAGE
+
             System.out.println("Unable to access application data: " + ioe.getMessage());
         }
     }

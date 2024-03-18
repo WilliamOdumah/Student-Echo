@@ -71,7 +71,7 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
         }
     }
 
-    // TODO
+
     @Override
     public boolean updateAccount(StudentAccount currentStudent) {
         try (final Connection c = connection()) {
@@ -88,7 +88,7 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
         return false;
     }
 
-    // TODO
+
     public boolean deleteAccount(StudentAccount currentStudent) {
         try (final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement("DELETE FROM ACCOUNTS WHERE email = ?");
