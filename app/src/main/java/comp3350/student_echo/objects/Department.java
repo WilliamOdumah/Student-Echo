@@ -1,7 +1,4 @@
 package comp3350.student_echo.objects;
-
-import androidx.annotation.Nullable;
-
 import java.io.Serializable;
 
 public class Department implements Serializable {
