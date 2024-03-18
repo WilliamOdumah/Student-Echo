@@ -18,7 +18,7 @@ import comp3350.student_echo.persistence.stubs.ReviewPersistenceStub;
 
 public class Services {
     private static InstructorPersistence instructorPersistence = null;
-	private static CoursePersistence coursePersistence = null;
+    private static CoursePersistence coursePersistence = null;
     private static AccountPersistence accountPersistence = null;
     private static ReviewPersistence reviewPersistence = null;
     private static DepartmentPersistence departmentPersistence = null;
