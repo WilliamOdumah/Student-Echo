@@ -10,13 +10,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import comp3350.student_echo.R;
+import comp3350.student_echo.business.Exceptions.InvalidAccountException;
+import comp3350.student_echo.business.Exceptions.InvalidCourseException;
 import comp3350.student_echo.business.LoginManager;
-import comp3350.student_echo.business.StudentAccountManager;
+import comp3350.student_echo.business.AccountValidator;
+import comp3350.student_echo.business.access.AccessAccounts;
 import comp3350.student_echo.objects.StudentAccount;
 
 public class UserActivity extends AppCompatActivity {
 
-
+    private AccessAccounts accessAccounts;
     private EditText inputUsername;
     private EditText inputPassword;
 
@@ -25,6 +28,8 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_user);
+
+        accessAccounts = new AccessAccounts();
 
         inputUsername = findViewById(R.id.inputUserUsername);
         inputPassword = findViewById(R.id.inputUserPassword);
@@ -44,23 +49,23 @@ public class UserActivity extends AppCompatActivity {
     public void buttonSaveChanges(View v) {
         Intent saveChangesIntent = new Intent(UserActivity.this, HomeActivity.class);
 
-
         String email = LoginManager.getLoggedInUser().getEmail();
         String username =  inputUsername.getText().toString();
         String password =  inputPassword.getText().toString();
 
-        StudentAccountManager studentAccountManager = new StudentAccountManager();
-        StudentAccount studentAccount = studentAccountManager.createUpdatedAccount(email, username, password);
-
-        if(studentAccount != null) {
-            System.out.println("Successfully created your account!");
-            System.out.println("Successfully saved your changes!");
-            LoginManager.performLogout();
-            LoginManager.performLogin(username,password);
-            UserActivity.this.startActivity(saveChangesIntent);
-        } else {
-            Toast.makeText(this, "Uh oh! Looks something went wrong with saving your changes. Please try again!",Toast.LENGTH_LONG).show();
+        try {
+            StudentAccount toAdd = new StudentAccount(username, password, email);
+            accessAccounts.addAccount(toAdd);
+        } catch (InvalidAccountException e) {
+            // show why invalid
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        LoginManager.performLogout();
+        LoginManager.performLogin(username,password);
+        Toast.makeText(this, "Account has been updated!", Toast.LENGTH_SHORT).show();
+        UserActivity.this.startActivity(saveChangesIntent);
     }
 
     public void buttonLogout(View v) {
@@ -71,8 +76,7 @@ public class UserActivity extends AppCompatActivity {
     }
 
     public void buttonDeleteAccount(View v) {
-        StudentAccountManager studentAccountManager = new StudentAccountManager();
-        studentAccountManager.deleteAccount(LoginManager.getLoggedInUser());
+        accessAccounts.deleteAccount(LoginManager.getLoggedInUser());
         LoginManager.performLogout();
         Intent deleteIntent = new Intent(UserActivity.this, LoginActivity.class);
         UserActivity.this.startActivity(deleteIntent);

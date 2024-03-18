@@ -7,14 +7,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.student_echo.application.Services;
-import comp3350.student_echo.business.AccessDepartments;
+import comp3350.student_echo.business.access.AccessDepartments;
 import comp3350.student_echo.objects.Department;
 import comp3350.student_echo.persistence.DepartmentPersistence;
-import comp3350.student_echo.persistence.stubs.DepartmentPersistenceStub;
 
 public class AccessDepartmentsTest {
     private AccessDepartments accessDepartments;

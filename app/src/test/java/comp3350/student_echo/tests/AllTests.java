@@ -13,7 +13,7 @@ import comp3350.student_echo.tests.business.InstructorValidatorTest;
 import comp3350.student_echo.tests.business.LoginManagerTest;
 import comp3350.student_echo.tests.business.AverageCalculatorTest;
 import comp3350.student_echo.tests.business.ReviewValidatorTest;
-import comp3350.student_echo.tests.business.StudentAccountManagerTest;
+import comp3350.student_echo.tests.business.AccountValidatorTest;
 import comp3350.student_echo.tests.business.integration.AccessAccountsIT;
 import comp3350.student_echo.tests.business.integration.AccessCoursesIT;
 import comp3350.student_echo.tests.business.integration.AccessInstructorsIT;
@@ -35,7 +35,7 @@ import comp3350.student_echo.tests.objects.StudentAccountTest;
         AccessReviewsTest.class,
         LoginManagerTest.class,
         AverageCalculatorTest.class,
-        StudentAccountManagerTest.class,
+        AccountValidatorTest.class,
         CourseValidatorTest.class,
         InstructorValidatorTest.class,
         ReviewValidatorTest.class,

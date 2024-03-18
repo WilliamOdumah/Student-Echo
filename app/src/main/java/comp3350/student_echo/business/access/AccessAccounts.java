@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 import comp3350.student_echo.application.Services;
+import comp3350.student_echo.business.AccountValidator;
+import comp3350.student_echo.business.Exceptions.InvalidAccountException;
 import comp3350.student_echo.objects.StudentAccount;
 import comp3350.student_echo.persistence.AccountPersistence;
 import comp3350.student_echo.persistence.CoursePersistence;
@@ -21,7 +23,13 @@ public class AccessAccounts {
         accountPersistence = persistence;
     }
 
-    public void addAccount(StudentAccount toAdd){
+    // default call
+    public void addAccount(StudentAccount toAdd) {
+        addAccount(toAdd, accountPersistence);
+    }
+    // Dependency Injection Call
+    public void addAccount(StudentAccount toAdd, AccountPersistence p) throws InvalidAccountException {
+        AccountValidator.validateAccount(toAdd, p);
         accountPersistence.addAccount(toAdd);
     }
 
