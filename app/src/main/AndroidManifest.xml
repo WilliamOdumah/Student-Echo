@@ -15,8 +15,7 @@
             android:exported="false" />
         <activity
             android:name=".presentation.ItemActivity"
-            android:exported="false" /> <!-- <activity android:name=".presentation.AddCourseActivity" -->
-        <!-- android:exported="false"/> -->
+            android:exported="false" />
         <activity
             android:name=".presentation.displayReviews.ReviewsForItemActivity"
             android:exported="false" />
@@ -30,10 +29,9 @@
         <activity
             android:name=".presentation.LoginActivity"
             android:exported="true"
-            android:label="@string/title_activity_login">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -42,24 +40,13 @@
             android:exported="true"
             android:label="@string/app_name"
             android:parentActivityName=".presentation.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".presentation.AddCourseActivity"
             android:exported="true"
             android:label="StudentEcho: New Course"
             android:parentActivityName=".presentation.ItemActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
-
         <activity android:name=".presentation.displayReviews.WriteReviewActivity" />
         <activity android:name=".presentation.displayReviews.EditReviewActivity" />
     </application>
