@@ -29,7 +29,9 @@
 
 ## **Architecture Document** 
 
-This is our project's [architecture design](https://code.cs.umanitoba.ca/comp3350-winter2024/KeyValuePairs-a02-8/-/blob/main/docs/Iteration%202/Architecture2.png?ref_type=heads) as of the end of Iteration 2.
+This is our project's architecture as of the end of Iteration 2.
+
+![Architecture2](Architecture2.png)
 
 
 

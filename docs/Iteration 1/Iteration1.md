@@ -37,7 +37,9 @@ NOTE: Due to barriers such as time constraints and complications involving the s
 
 ## **Architecture Document** 
 
-This is our project's [architecture design](https://code.cs.umanitoba.ca/comp3350-winter2024/KeyValuePairs-a02-8/-/blob/main/docs/Architecture.md?ref_type=heads) as of the end of Iteration 1.
+This is our project's architecture as of the end of Iteration 1.
+
+![Architecture1](Architecture1.png)
 
 ## **Iteration 2 Objectives** 
 
