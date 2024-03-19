@@ -1,14 +1,19 @@
 package comp3350.student_echo.presentation;
 
+
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -22,11 +27,12 @@ import comp3350.student_echo.business.LoginManager;
 
 public class LoginActivity extends AppCompatActivity {
 
+    TextView loginFail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {copyDatabaseToDevice();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        loginFail = (TextView) findViewById(R.id.textView2);
     }
     @Override
     protected void onDestroy() {
@@ -48,8 +54,10 @@ public class LoginActivity extends AppCompatActivity {
         if(success) {
             Intent loginIntent = new Intent(LoginActivity.this, HomeActivity.class);
             LoginActivity.this.startActivity(loginIntent);
+            loginFail.setTextColor(ContextCompat.getColor(this,R.color.background));
         } else {
-            Toast.makeText(this, "Check your username and password!",Toast.LENGTH_LONG).show();
+
+            loginFail.setTextColor(Color.RED);
         }
     }
 
